@@ -1,462 +1,811 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Điện Lạnh Phước Đạt</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Dino Run • Aurora</title>
 <style>
 :root{
- --bg:#07111c;--bg2:#0c1b2a;--card:#102335;--card2:#0b1724;
- --text:#f4f9ff;--muted:#9db0c2;--blue:#1597e5;--blue2:#54c4ff;
- --green:#42d392;--red:#ff5968;--border:#244158;--shadow:0 20px 60px rgba(0,0,0,.3)
+  --bg:#07111d;--bg2:#0b1b2c;--panel:rgba(13,30,49,.88);--line:#274765;
+  --text:#f4f8ff;--muted:#91a9c1;--cyan:#42ddff;--yellow:#ffd34d;--green:#63f29a;
+  --pink:#ff69c9;--red:#ff6678;--purple:#b990ff;--orange:#ff8e4d;
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:linear-gradient(135deg,#06101a,#0a1928 55%,#07111c);color:var(--text);font-family:Arial,Helvetica,sans-serif}
-img{max-width:100%;display:block}
-button,input,textarea{font:inherit}
-button{cursor:pointer}
-header{
- position:sticky;top:0;z-index:50;height:72px;padding:0 5%;
- display:flex;align-items:center;justify-content:space-between;
- background:rgba(5,12,20,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)
-}
-.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:20px;letter-spacing:.5px}
-.logoMark{width:35px;height:35px;border-radius:9px;display:grid;place-items:center;background:linear-gradient(135deg,var(--blue),#075a9b);font-weight:900}
-nav{display:flex;gap:24px}
-nav a{color:#b2c1cf;text-decoration:none;font-size:14px;font-weight:700}
-nav a:hover{color:#fff}
-.adminBtn{background:#0d2233;border:1px solid #3476a3;color:#fff;border-radius:9px;padding:9px 14px;font-weight:800}
-.hero{
- min-height:650px;display:flex;align-items:center;padding:70px 6%;
- background:
- linear-gradient(90deg,rgba(4,12,19,.96) 0%,rgba(4,12,19,.78) 43%,rgba(4,12,19,.25) 100%),
- url("https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1800&q=85") center/cover
-}
-.heroInner{max-width:720px}
-.badge{display:inline-block;padding:7px 13px;border-radius:999px;background:#092238;border:1px solid #2a658b;color:#75caff;font-size:12px;font-weight:900;letter-spacing:1.4px}
-.hero h1{font-size:clamp(42px,7vw,78px);line-height:1.03;margin:18px 0 8px}
-.hero h2{font-size:clamp(20px,3vw,30px);color:#b8e3ff;margin:0 0 18px}
-.hero p{color:#d1dde7;font-size:17px;line-height:1.8;max-width:650px}
-.heroActions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-.btn{display:inline-block;text-decoration:none;border-radius:10px;padding:12px 18px;font-weight:900}
-.btnPrimary{background:var(--blue);color:#fff}.btnSecondary{border:1px solid #55758d;color:#fff;background:rgba(8,22,34,.65)}
-section{max-width:1180px;margin:auto;padding:78px 22px}
-.label{font-size:12px;color:var(--blue2);font-weight:900;letter-spacing:2px}
-h2.title{font-size:36px;margin:5px 0 12px}
-.desc{color:var(--muted);max-width:760px}
-.aboutGrid{display:grid;grid-template-columns:1.1fr .9fr;gap:25px;align-items:stretch}
-.infoBox{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:28px;color:#b9c9d6;white-space:pre-line;line-height:1.8}
-.coverImage{height:100%;min-height:330px;border-radius:18px;overflow:hidden;border:1px solid var(--border)}
-.coverImage img{width:100%;height:100%;object-fit:cover}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}
-.card{background:linear-gradient(145deg,var(--card),var(--card2));border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
-.cardImg{height:190px;width:100%;object-fit:cover}
-.cardBody{padding:20px}.card h3{margin:0 0 7px}.card p{margin:0;color:var(--muted);line-height:1.7}
-.serviceIcon{font-size:30px;margin-bottom:10px}
-.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}
-.galleryItem{height:230px;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:#0c1825}
-.galleryItem img{width:100%;height:100%;object-fit:cover;transition:.3s}
-.galleryItem:hover img{transform:scale(1.05)}
-.contactGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.contactCard{padding:22px;border:1px solid var(--border);border-radius:15px;background:var(--card)}
-.contactCard strong{display:block;margin-bottom:5px}.contactCard span{color:var(--muted)}
-footer{border-top:1px solid var(--border);padding:35px 20px;text-align:center;color:var(--muted)}
-
-/* LOGIN */
-.overlay{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.8);backdrop-filter:blur(8px)}
-.loginBox{width:min(390px,100%);padding:28px;border-radius:18px;background:#0b1724;border:1px solid #31536d;box-shadow:0 30px 100px #000}
-.loginBox h2{margin:0 0 5px}.loginBox p{color:var(--muted);font-size:13px}
-input,textarea{width:100%;padding:11px;border-radius:9px;border:1px solid var(--border);background:#07111b;color:#fff;outline:none}
-input:focus,textarea:focus{border-color:var(--blue)}
-textarea{min-height:115px;resize:vertical}
-.primary{width:100%;border:0;border-radius:9px;padding:12px;background:var(--blue);color:#fff;font-weight:900}
-.error{display:none;color:#ff8993;font-size:13px;margin-top:7px}
-.close{float:right;background:none;border:0;color:#9cb0c2;font-size:24px}
-
-/* ADMIN */
-.admin{position:fixed;inset:0;z-index:120;background:#060c13;display:none;overflow:auto}
-.adminHead{position:sticky;top:0;z-index:5;padding:15px 4%;display:flex;justify-content:space-between;align-items:center;background:#0c1723;border-bottom:1px solid var(--border)}
-.adminHead strong{font-size:19px}.adminContent{max-width:1100px;margin:auto;padding:30px 20px 100px}
-.adminSection{padding:22px;margin-bottom:18px;border-radius:15px;background:#0b1724;border:1px solid var(--border)}
-.adminSection h2{font-size:19px;margin-top:0}
-.formGrid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
-.full{grid-column:1/-1}
-label{display:block;color:#bed1e1;font-size:13px;font-weight:800;margin-bottom:6px}
-.item{display:grid;grid-template-columns:180px 1fr 1fr 42px;gap:9px;margin-bottom:10px}
-.imageItem{display:grid;grid-template-columns:1fr 1fr 42px;gap:9px;margin-bottom:10px}
-.del{border:1px solid #65303a;background:#29151a;color:#ffabb4;border-radius:8px}
-.secondary{border:1px solid var(--border);background:#142433;color:#fff;border-radius:9px;padding:10px 14px}
-.actions{position:sticky;bottom:0;z-index:5;padding:15px;background:rgba(6,12,19,.95);border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px}
-.save{background:var(--green);color:#06150d;border:0;border-radius:9px;padding:11px 18px;font-weight:900}
-.reset{background:#29161a;color:#ffadb6;border:1px solid #68323c;border-radius:9px;padding:11px 18px}
-.note{font-size:12px;color:var(--muted);line-height:1.6;margin-top:10px}
-@media(max-width:850px){nav{display:none}.aboutGrid{grid-template-columns:1fr}.grid3,.contactGrid{grid-template-columns:1fr 1fr}.gallery{grid-template-columns:1fr 1fr}.formGrid{grid-template-columns:1fr}.full{grid-column:auto}.item{grid-template-columns:1fr 1fr}.item input:first-child{grid-column:1/-1}}
-@media(max-width:520px){.grid3,.contactGrid,.gallery{grid-template-columns:1fr}.item,.imageItem{grid-template-columns:1fr}.hero{padding:60px 22px}.hero h1{font-size:46px}}
-
-.contactTop{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;padding:10px 18px;background:#0a1723;border-bottom:1px solid var(--border);font-size:13px}
-.contactTop a{color:#fff;text-decoration:none;font-weight:800}
-.contactTop a:hover{text-decoration:underline}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:radial-gradient(circle at 20% 0%,#143f5b 0,transparent 26%),linear-gradient(#06101c,#081524 60%,#050c15);color:var(--text);font-family:Inter,system-ui,Arial,sans-serif}
+body{overflow-x:hidden}button,input{font:inherit}button{cursor:pointer;border:0;color:inherit}.hidden{display:none!important}
+.app{width:min(1200px,calc(100% - 24px));margin:auto;padding:12px 0 28px}
+.topbar{position:sticky;top:10px;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;background:rgba(5,13,23,.78);backdrop-filter:blur(18px);border:1px solid #284765;border-radius:18px;box-shadow:0 18px 50px #0008}
+.brand{display:flex;align-items:center;gap:10px;background:transparent;font-weight:950}.logo{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,#40dcff,#7e66ff);font-size:24px}
+.nav{display:flex;gap:5px}.nav button{padding:9px 12px;border-radius:10px;background:transparent;color:var(--muted);font-weight:850}.nav button.active,.nav button:hover{background:#16334c;color:var(--yellow)}
+.wallet{padding:10px 13px;border-radius:12px;background:#2a2512;border:1px solid #5a4d21;color:#ffe9a3;font-weight:900}
+.view{display:none}.view.active{display:block;animation:in .22s ease}@keyframes in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.hero{margin-top:16px;border:1px solid #294b68;border-radius:28px;overflow:hidden;padding:30px;background:
+radial-gradient(circle at 80% 22%,rgba(66,221,255,.23),transparent 28%),
+radial-gradient(circle at 20% 100%,rgba(185,144,255,.14),transparent 32%),linear-gradient(140deg,#102943,#0b1726)}
+.eyebrow{font-size:11px;letter-spacing:.16em;color:var(--cyan);font-weight:950}.hero h1{font-size:clamp(38px,7vw,76px);line-height:.92;margin:10px 0 15px}.hero p{max-width:670px;color:#b7c8d9;line-height:1.65;font-size:16px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.btn{padding:12px 17px;border-radius:12px;background:#19364f;border:1px solid #31536f;font-weight:900}.btn.primary{background:var(--yellow);color:#121a25;border-color:#ffe27a}.btn.green{background:#123e2a;border-color:#2d8a5c;color:#91ffc0}.btn.danger{background:#3a1720;border-color:#6b2d37;color:#ffabb5}.btn:disabled{opacity:.45;cursor:not-allowed}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 14px 32px #0003}.stat label{font-size:11px;color:var(--muted);font-weight:900}.stat strong{display:block;font-size:28px;margin-top:6px}
+.section-title{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:22px 0 12px}.section-title h2{margin:0;font-size:28px}
+.game-head{margin:22px 0 10px;display:flex;align-items:end;justify-content:space-between;gap:10px}.game-head h2{margin:5px 0 0;font-size:31px}
+.game-frame{position:relative;overflow:hidden;border:1px solid #2a4b66;border-radius:25px;background:#081523;box-shadow:0 30px 70px #0008}
+canvas{display:block;width:100%;height:auto;touch-action:none}.map-badge{position:absolute;top:12px;right:12px;padding:9px 11px;border-radius:10px;background:#07131f99;border:1px solid #ffffff1c;backdrop-filter:blur(8px);font-size:11px;font-weight:900}
+.hud{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px}.hud .card{padding:11px}.hud small{display:block;color:var(--muted);font-size:10px;font-weight:900}.hud strong{display:block;margin-top:4px;font-size:19px}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}.controls .btn{flex:1;min-width:110px}
+.shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.skin-card{position:relative;overflow:hidden}.skin-preview{height:180px;border-radius:15px;display:grid;place-items:center;background:radial-gradient(circle at 50% 30%,rgba(255,255,255,.16),transparent 55%),#102337}
+.dino-svg{width:145px;filter:drop-shadow(0 18px 12px #0006)}.rainbow-preview{position:relative}.rainbow-preview::after{content:"";position:absolute;inset:15px;border-radius:50%;background:conic-gradient(#ff3b3b,#ff9d3d,#ffe43d,#53ff75,#45dbff,#7a71ff,#d35bff,#ff3b3b);filter:blur(20px);opacity:.5}
+.price{color:#ffe38d;font-weight:950}.item-icon{font-size:56px;height:145px;display:grid;place-items:center;border-radius:15px;background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.14),transparent 58%),#102337}.tag{display:inline-block;padding:5px 8px;border-radius:8px;background:#18334a;color:#9cecff;font-size:10px;font-weight:900}
+.quest{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}.quest+.quest{margin-top:8px}.bar{height:7px;background:#172c42;border-radius:99px;overflow:hidden;margin-top:8px}.bar span{display:block;height:100%;background:linear-gradient(90deg,#43ddff,#ffd34d)}
+.modal-wrap{position:fixed;inset:0;display:grid;place-items:center;background:#020811b8;backdrop-filter:blur(8px);z-index:80;padding:18px}.modal{width:min(470px,100%);background:#0d2136;border:1px solid #315676;border-radius:22px;padding:24px;box-shadow:0 30px 90px #000b}.modal h2{margin:0 0 7px}.modal p{color:var(--muted);line-height:1.55}.modal input,.admin-input{width:100%;padding:13px 14px;border-radius:12px;border:1px solid #355673;background:#081724;color:#fff;outline:none}.modal input:focus,.admin-input:focus{border-color:#5adfff}
+.toast{position:fixed;left:50%;bottom:23px;transform:translateX(-50%);padding:12px 16px;border-radius:12px;background:#102a40;border:1px solid #3c6280;font-weight:900;z-index:110;box-shadow:0 15px 50px #0008}
+.admin-panel{margin-top:16px}.admin-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:12px}.admin-table{width:100%;border-collapse:collapse}.admin-table th,.admin-table td{padding:9px 6px;border-bottom:1px solid #1f3b53;text-align:left;font-size:12px}.mini{font-size:11px;color:var(--muted)}
+.rainbow-note{background:linear-gradient(90deg,#ff5656,#ffb74a,#f0e94c,#55f07b,#4ad8ff,#8f78ff,#e96ad8);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:950}
+footer{padding:18px 0 0;color:#60758a;text-align:center;font-size:11px}
+@media(max-width:850px){.nav button{display:none}.grid3,.shop-grid,.admin-grid{grid-template-columns:1fr}.hud{grid-template-columns:repeat(3,1fr)}.hero{padding:24px 18px}}
 </style>
 </head>
 <body>
-<div class="contactTop" id="topContact">
-<a id="topPhoneLink" href="tel:0900000000">📞 <span id="topPhoneText">0900 000 000</span></a>
-<a id="topZaloLink" href="https://zalo.me/0900000000" target="_blank" rel="noopener">💬 Zalo</a>
-<span id="topLocationText">📍 Điện Lạnh Phước Đạt</span>
+<div class="app">
+  <header class="topbar">
+    <button id="brand" class="brand"><span class="logo">🦖</span><span>DINO RUN • AURORA</span></button>
+    <nav class="nav">
+      <button data-view="home" class="active">Trang chủ</button>
+      <button data-view="game">Chơi</button>
+      <button data-view="shop">Shop</button>
+      <button data-view="quests">Nhiệm vụ</button>
+    </nav>
+    <button id="wallet" class="wallet">🪙 <span id="coinsTop">0</span></button>
+  </header>
+
+  <main>
+    <section id="home" class="view active">
+      <div class="hero">
+        <div class="eyebrow">ENDLESS RUN • SOUND • AURA • RAINBOW</div>
+        <h1>CHẠY CÀNG XA.<br><span style="color:var(--yellow)">ĐẸP CÀNG ĐÃ.</span></h1>
+        <p>Phiên bản này tập trung vào cảm giác chơi: âm thanh sống động, map có parallax và chu kỳ ngày/đêm, đăng ký tên trước khi chơi, shop skin và skin Cầu Vồng có aura + tia cầu vồng phía sau Dino.</p>
+        <div class="actions">
+          <button class="btn primary" id="playHero">▶ CHƠI NGAY</button>
+          <button class="btn" id="shopHero">🛒 MỞ SHOP</button>
+          <button class="btn" id="switchPlayer">👤 ĐỔI TÊN</button>
+        </div>
+      </div>
+      <div class="grid3">
+        <div class="card stat"><label>NGƯỜI CHƠI</label><strong id="playerNameHome">—</strong></div>
+        <div class="card stat"><label>TỔNG XU</label><strong id="coinsHome">0</strong></div>
+        <div class="card stat"><label>KỶ LỤC</label><strong id="bestHome">0 m</strong></div>
+      </div>
+    </section>
+
+    <section id="game" class="view">
+      <div class="game-head"><div><div class="eyebrow">LIVE RUN</div><h2>DINO RUSH</h2></div><span class="tag" id="biomeBadge">🌿 ĐỒNG CỎ</span></div>
+      <div class="game-frame">
+        <canvas id="gameCanvas" width="1100" height="470"></canvas>
+        <div id="mapBadge" class="map-badge">🌅 BÌNH MINH</div>
+      </div>
+      <div class="hud">
+        <div class="card"><small>ĐIỂM</small><strong id="hudScore">0</strong></div>
+        <div class="card"><small>XU TRONG LƯỢT</small><strong id="hudCoins">0</strong></div>
+        <div class="card"><small>COMBO</small><strong id="hudCombo">x1</strong></div>
+        <div class="card"><small>POWER</small><strong id="hudPower">—</strong></div>
+        <div class="card"><small>ÂM THANH</small><strong id="hudSound">BẬT</strong></div>
+      </div>
+      <div class="controls">
+        <button class="btn primary" id="jumpBtn">⬆ NHẢY</button>
+        <button class="btn" id="pauseBtn">Ⅱ TẠM DỪNG</button>
+        <button class="btn" id="restartBtn">↻ LẠI</button>
+      </div>
+      <div class="card" style="margin-top:11px"><b id="gameState">Sẵn sàng!</b><span style="color:var(--muted)"> • Space / ↑ / W hoặc chạm màn hình.</span></div>
+    </section>
+
+    <section id="shop" class="view">
+      <div class="section-title">
+        <div><div class="eyebrow">DINO LAB</div><h2>CỬA HÀNG</h2></div>
+        <span class="tag">🪙 <span id="shopCoins">0</span></span>
+      </div>
+      <div class="card" style="margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <div><b>👤 Người chơi: <span id="shopPlayerName">—</span></b>
+            <div class="mini" style="margin-top:4px">Thẻ đổi tên sở hữu: <b id="renameTicketsShop">0</b></div>
+          </div>
+          <button class="btn" id="renameNowBtn">✏️ ĐỔI TÊN</button>
+        </div>
+      </div>
+      <div class="section-title">
+        <div><div class="eyebrow">ITEMS</div><h2>🎒 VẬT PHẨM</h2></div>
+        <span class="mini">Vật phẩm dùng bằng xu</span>
+      </div>
+      <div class="shop-grid" id="itemsGrid"></div>
+      <div class="section-title" style="margin-top:30px">
+        <div><div class="eyebrow">DINO SKINS</div><h2>🦖 SKIN</h2></div>
+        <span class="mini">Trang bị diện mạo Dino</span>
+      </div>
+      <div class="shop-grid" id="shopGrid"></div>
+      <div class="card" style="margin-top:12px">
+        <b>💡 Skin Cầu Vồng</b>
+        <p class="mini">Aura + tia cầu vồng phía sau + âm thanh riêng.</p>
+        <div class="rainbow-note">RAINBOW AURA • RAINBOW TRAIL • RAINBOW SOUND</div>
+      </div>
+    </section>
+
+    <section id="quests" class="view">
+      <div class="section-title"><div><div class="eyebrow">MISSION CONTROL</div><h2>NHIỆM VỤ</h2></div></div>
+      <div class="card" id="questsList"></div>
+    </section>
+  </main>
+  <footer>DINO RUN • AURORA • <button id="adminOpen" style="background:transparent;color:#7890a7;text-decoration:underline">Panel Admin</button></footer>
 </div>
 
-<header>
- <div class="logo"><div class="logoMark">PĐ</div><span id="logoName">Điện Lạnh Phước Đạt</span></div>
- <nav>
-  <a href="#about">Giới thiệu</a><a href="#services">Dịch vụ</a><a href="#products">Sản phẩm</a><a href="#gallery">Hình ảnh</a><a href="#contact">Liên hệ</a>
- </nav>
- <button class="adminBtn" onclick="openLogin()">ADMIN</button>
-</header>
-
-<section class="hero">
- <div class="heroInner">
-  <div class="badge" id="badge">ĐIỆN LẠNH PHƯỚC ĐẠT</div>
-  <h1 id="title">Điện Lạnh Phước Đạt</h1>
-  <h2 id="subtitle">Giải pháp điện lạnh & gia dụng</h2>
-  <p id="heroText">Cung cấp, sửa chữa, lắp đặt và bảo trì thiết bị điện lạnh với thông tin rõ ràng, hình ảnh trực quan và dịch vụ tận tâm.</p>
-  <div class="heroActions">
-   <a class="btn btnPrimary" href="#contact">Liên hệ ngay</a>
-   <a class="btn btnSecondary" href="#services">Xem dịch vụ</a>
+<div id="nameModal" class="modal-wrap">
+  <div class="modal">
+    <div class="eyebrow">PLAYER REGISTRATION</div>
+    <h2>Đăng ký tên để chơi</h2>
+    <p>Nhập tên người chơi. Dữ liệu của từng tên được lưu riêng trên trình duyệt này.</p>
+    <input id="playerNameInput" maxlength="18" placeholder="Ví dụ: HungDino" autocomplete="off">
+    <button id="registerBtn" class="btn primary" style="width:100%;margin-top:10px">🚀 XÁC NHẬN</button>
+    <p id="nameError" style="color:#ff8f9d;margin-bottom:0"></p>
   </div>
- </div>
-</section>
-
-<section id="about">
- <div class="label">01 — GIỚI THIỆU</div>
- <h2 class="title">Về cửa hàng</h2>
- <p class="desc">Thông tin tổng quan về Điện Lạnh Phước Đạt.</p>
- <div class="aboutGrid" style="margin-top:28px">
-  <div class="infoBox" id="aboutText"></div>
-  <div class="coverImage"><img id="aboutImage" src="" alt="Điện Lạnh Phước Đạt"></div>
- </div>
-</section>
-
-<section id="services">
- <div class="label">02 — DỊCH VỤ</div>
- <h2 class="title">Dịch vụ của cửa hàng</h2>
- <p class="desc">Các dịch vụ có thể chỉnh sửa trực tiếp từ Admin Panel.</p>
- <div class="grid3" id="servicesGrid"></div>
-</section>
-
-<section id="products">
- <div class="label">03 — SẢN PHẨM</div>
- <h2 class="title">Sản phẩm & thiết bị</h2>
- <p class="desc">Khu vực giới thiệu các nhóm sản phẩm mà cửa hàng cung cấp.</p>
- <div class="grid3" id="productsGrid"></div>
-</section>
-
-<section id="gallery">
- <div class="label">04 — HÌNH ẢNH</div>
- <h2 class="title">Hình ảnh cửa hàng</h2>
- <p class="desc">Bạn có thể thay toàn bộ ảnh mẫu bằng ảnh thật của cửa hàng.</p>
- <div class="gallery" id="galleryGrid"></div>
-</section>
-
-<section id="contact">
- <div class="label">05 — LIÊN HỆ</div>
- <h2 class="title">Liên hệ với chúng tôi</h2>
- <div class="contactGrid" id="contactGrid" style="margin-top:28px"></div>
-</section>
-
-<footer id="footer"></footer>
-
-<!-- LOGIN -->
-<div class="overlay" id="loginOverlay">
- <div class="loginBox">
-  <button class="close" onclick="closeLogin()">×</button>
-  <h2>Admin Panel</h2>
-  <p>Khu vực quản trị. Vui lòng nhập mật khẩu.</p>
-  <input id="password" type="password" placeholder="Mật khẩu">
-  <div class="error" id="loginError">Mật khẩu không đúng.</div>
-  <button class="primary" style="margin-top:15px" onclick="login()">Đăng nhập</button>
- </div>
 </div>
 
-<!-- ADMIN -->
-<div class="admin" id="admin">
- <div class="adminHead"><strong>⚙ ADMIN PANEL — ĐIỆN LẠNH PHƯỚC ĐẠT</strong><button class="secondary" onclick="logout()">Đăng xuất</button></div>
- <div class="adminContent">
-
-  <div class="adminSection">
-<h2>📞 Liên hệ trên đầu trang</h2>
-<label>Số điện thoại</label>
-<input id="fTopPhone" placeholder="0900 000 000">
-<label style="margin-top:10px;display:block">Link Zalo</label>
-<input id="fTopZalo" placeholder="https://zalo.me/...">
-<label style="margin-top:10px;display:block">Địa điểm / dòng liên hệ</label>
-<input id="fTopLocation" placeholder="📍 Điện Lạnh Phước Đạt">
-</div>
-<div class="adminSection">
-   <h2>🏠 Trang chủ</h2>
-   <div class="formGrid">
-    <div><label>Tên cửa hàng</label><input id="fName"></div>
-    <div><label>Nhãn trên ảnh đầu trang</label><input id="fBadge"></div>
-    <div class="full"><label>Tiêu đề chính</label><input id="fTitle"></div>
-    <div class="full"><label>Tiêu đề phụ</label><input id="fSubtitle"></div>
-    <div class="full"><label>Mô tả</label><textarea id="fHero"></textarea></div>
-   </div>
+<div id="renameModal" class="modal-wrap hidden">
+  <div class="modal">
+    <div class="eyebrow">RENAME TICKET</div>
+    <h2>✏️ Đổi tên người chơi</h2>
+    <p id="renameCostText"></p>
+    <input id="renameInput" maxlength="18" placeholder="Tên mới" autocomplete="off">
+    <button id="renameConfirmBtn" class="btn primary" style="width:100%;margin-top:10px">✅ XÁC NHẬN</button>
+    <button id="renameCloseBtn" class="btn" style="width:100%;margin-top:8px">HỦY</button>
+    <p id="renameError" style="color:#ff8f9d;margin-bottom:0"></p>
   </div>
-
-  <div class="adminSection">
-   <h2>🏪 Giới thiệu cửa hàng</h2>
-   <label>Nội dung giới thiệu</label>
-   <textarea id="fAbout"></textarea>
-   <br><br>
-   <label>Ảnh giới thiệu — URL ảnh</label>
-   <input id="fAboutImage" placeholder="https://...">
-  </div>
-
-  <div class="adminSection">
-   <h2>🔧 Dịch vụ</h2>
-   <div id="serviceInputs"></div>
-   <button class="secondary" onclick="addService()">+ Thêm dịch vụ</button>
-  </div>
-
-  <div class="adminSection">
-   <h2>❄️ Sản phẩm</h2>
-   <div id="productInputs"></div>
-   <button class="secondary" onclick="addProduct()">+ Thêm sản phẩm</button>
-  </div>
-
-  <div class="adminSection">
-   <h2>📸 Thư viện hình ảnh</h2>
-   <div id="galleryInputs"></div>
-   <button class="secondary" onclick="addGallery()">+ Thêm ảnh</button>
-   <div class="note">Bạn có thể dùng link ảnh online. Khi có ảnh thật của cửa hàng, chỉ cần dán link ảnh vào đây.</div>
-  </div>
-
-  <div class="adminSection">
-   <h2>📞 Liên hệ</h2>
-   <div id="contactInputs"></div>
-   <button class="secondary" onclick="addContact()">+ Thêm liên hệ</button>
-  </div>
-
-  <div class="adminSection">
-   <h2>📝 Chân trang</h2>
-   <input id="fFooter">
-  </div>
-
-  <div class="actions">
-   <button class="reset" onclick="resetData()">Khôi phục mặc định</button>
-   <button class="save" onclick="saveData()">💾 Lưu thay đổi</button>
-  </div>
-
-  <div class="note">
-   Admin hiện đăng nhập bằng Supabase Auth với tài khoản <b>admin@phuocdat.local</b> và mật khẩu bạn đã tạo trong Supabase.
-  </div>
- </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<div id="adminModal" class="modal-wrap hidden">
+  <div class="modal" style="width:min(900px,100%)">
+    <div style="display:flex;justify-content:space-between;gap:10px;align-items:start">
+      <div><div class="eyebrow">ADMIN PANEL</div><h2>Quản trị Dino Run</h2><p>Buff xu, xem người chơi và chỉnh giá skin. Mật khẩu: <b>1</b>.</p></div>
+      <button id="adminClose" class="btn">✕</button>
+    </div>
+    <div id="adminLogin">
+      <input id="adminPassword" class="admin-input" type="password" placeholder="Nhập mật khẩu">
+      <button id="adminLoginBtn" class="btn primary" style="width:100%;margin-top:9px">🔐 ĐĂNG NHẬP</button>
+      <p id="adminError" style="color:#ff8f9d"></p>
+    </div>
+    <div id="adminContent" class="hidden admin-panel">
+      <div class="admin-grid">
+        <div class="card">
+          <h3>🪙 Buff coin</h3>
+          <select id="adminPlayer" class="admin-input"></select>
+          <input id="buffAmount" class="admin-input" type="number" min="1" value="1000" style="margin-top:8px">
+          <button id="buffBtn" class="btn green" style="width:100%;margin-top:8px">+ CỘNG XU</button>
+          <button id="setCoinsBtn" class="btn" style="width:100%;margin-top:8px">ĐẶT SỐ XU</button>
+        </div>
+        <div class="card">
+          <h3>🛒 Chỉnh giá skin</h3>
+          <div id="priceEditor"></div>
+          <button id="savePricesBtn" class="btn primary" style="width:100%;margin-top:9px">💾 LƯU GIÁ</button>
+        </div>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <h3>👥 Danh sách người chơi</h3>
+        <div id="adminPlayersTable"></div>
+      </div>
+      <div class="actions"><button id="adminResetData" class="btn danger">XÓA TẤT CẢ DỮ LIỆU LOCAL</button><button id="adminLogout" class="btn">ĐĂNG XUẤT ADMIN</button></div>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
 <script>
-const SUPABASE_URL="https://dbpvlgckhaaidrdintjc.supabase.co";
-const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRicHZsZ2NraGFhaWRyZGludGpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY0MjE1NzEsImV4cCI6MjEwMTk5NzU3MX0.76A-X1PYl3dzEt5JeLm_QnmXjOqBUKnsTYdLOAFKAjg";
-const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-const ADMIN_EMAIL="admin@phuocdat.local";
+(() => {
+  "use strict";
 
-const DEFAULT={
- name:"Điện Lạnh Phước Đạt",
- badge:"ĐIỆN LẠNH PHƯỚC ĐẠT",
- title:"Điện Lạnh Phước Đạt",
- subtitle:"Giải pháp điện lạnh & gia dụng",
- hero:"Cung cấp, sửa chữa, lắp đặt và bảo trì thiết bị điện lạnh với thông tin rõ ràng, hình ảnh trực quan và dịch vụ tận tâm.",
- about:"Điện Lạnh Phước Đạt là cửa hàng chuyên về các sản phẩm và dịch vụ điện lạnh. Khu vực này dùng để giới thiệu lịch sử, thế mạnh, phong cách phục vụ và những thông tin quan trọng của cửa hàng.\n\nBạn có thể chỉnh sửa toàn bộ nội dung bằng Admin Panel mà không cần sửa code.",
- aboutImage:"https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=1000&q=85",
- footer:"© 2026 Điện Lạnh Phước Đạt • Website thông tin cửa hàng",
- services:[
-  ["🔧","Sửa chữa điện lạnh","Kiểm tra, sửa chữa và khắc phục các vấn đề của thiết bị điện lạnh."],
-  ["❄️","Lắp đặt máy lạnh","Tư vấn vị trí, lắp đặt và kiểm tra vận hành thiết bị."],
-  ["🧰","Bảo trì & vệ sinh","Vệ sinh, bảo dưỡng giúp thiết bị hoạt động ổn định hơn."]
- ],
- products:[
-  ["Máy lạnh","https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&w=900&q=85","Giới thiệu các dòng máy lạnh và thiết bị làm mát."],
-  ["Tủ lạnh","https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=900&q=85","Các sản phẩm tủ lạnh và thiết bị gia dụng liên quan."],
-  ["Thiết bị điện lạnh","https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=900&q=85","Nhóm sản phẩm và thiết bị phục vụ nhu cầu điện lạnh."]
- ],
- gallery:[
-  ["Cửa hàng","https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1000&q=85"],
-  ["Kỹ thuật","https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1000&q=85"],
-  ["Thiết bị","https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1000&q=85"],
-  ["Dịch vụ","https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1000&q=85"]
- ],
- contacts:[
-  ["📞","Điện thoại","Chưa cập nhật"],
-  ["📍","Địa chỉ","Chưa cập nhật"],
-  ["✉️","Email","Chưa cập nhật"]
- ]
-};
+  const PLAYER_KEY = "dino-aurora-players-v1";
+  const PRICE_KEY = "dino-aurora-prices-v1";
+  const CURRENT_KEY = "dino-aurora-current-player-v1";
 
-let data=load();
-function load(){
- try{
-  const s=localStorage.getItem("phuocDatData");
-  if(!s)return structuredClone(DEFAULT);
-  const x=JSON.parse(s);
-  return {...structuredClone(DEFAULT),...x,
-   services:Array.isArray(x.services)?x.services:structuredClone(DEFAULT.services),
-   products:Array.isArray(x.products)?x.products:structuredClone(DEFAULT.products),
-   gallery:Array.isArray(x.gallery)?x.gallery:structuredClone(DEFAULT.gallery),
-   contacts:Array.isArray(x.contacts)?x.contacts:structuredClone(DEFAULT.contacts)
+  const skinDefs = {
+    blue:   {name:"Blue", price:1000, body:"#2ad4ff", shade:"#0875bd", belly:"#e6fdff", desc:"Dino cân bằng."},
+    pink:   {name:"Pink", price:1500, body:"#ff62ad", shade:"#ad1457", belly:"#ffe7f2", desc:"+5% xu."},
+    red:    {name:"Red Fury", price:2500, body:"#ff5a48", shade:"#a80f29", belly:"#ffe0da", desc:"+10% xu."},
+    rainbow:{name:"Rainbow", price:5000, body:"#ffffff", shade:"#ffffff", belly:"#ffffff", desc:"Aura + tia cầu vồng + âm thanh riêng.", rainbow:true}
   };
- }catch(e){return structuredClone(DEFAULT)}
-}
-function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
-async function loadOnlineData(){
- try{
-  const {data:row,error}=await sb.from("site_content").select("content").eq("id",1).maybeSingle();
-  if(error) throw error;
-  if(row?.content){
-   const x=row.content;
-   data={...structuredClone(DEFAULT),...x,
-    topContact:x.topContact||{phone:"0900 000 000",zalo:"https://zalo.me/0900000000",location:"📍 Điện Lạnh Phước Đạt"},
-    services:Array.isArray(x.services)?x.services:structuredClone(DEFAULT.services),
-    products:Array.isArray(x.products)?x.products:structuredClone(DEFAULT.products),
-    gallery:Array.isArray(x.gallery)?x.gallery:structuredClone(DEFAULT.gallery),
-    contacts:Array.isArray(x.contacts)?x.contacts:structuredClone(DEFAULT.contacts)
-   };
-   localStorage.setItem("phuocDatData",JSON.stringify(data));
+
+  const defaultPrices = Object.fromEntries(Object.entries(skinDefs).map(([k,v]) => [k,v.price]));
+
+  function freshPlayer(name){
+    return {
+      name, coins:0, best:0, selectedSkin:"blue", ownedSkins:["blue"],
+      renameTickets:0, renameCount:0,
+      stats:{runs:0, distance:0, jumps:0, collected:0},
+      quest:{distance:0, coins:0, runs:0},
+      sound:true, createdAt:Date.now(), updatedAt:Date.now()
+    };
   }
- }catch(e){console.warn("Supabase chưa sẵn sàng, dùng dữ liệu cục bộ.",e);}
-}
-async function saveOnlineData(){
- const {error}=await sb.from("site_content").upsert({id:1,content:data,updated_at:new Date().toISOString()});
- if(error) throw error;
-}
-function render(){
- const tc=data.topContact||{};
- const phone=(tc.phone||"0900 000 000").trim();
- const zalo=(tc.zalo||"").trim();
- const location=tc.location||"📍 Điện Lạnh Phước Đạt";
- const phoneText=document.getElementById("topPhoneText");
- const phoneLink=document.getElementById("topPhoneLink");
- const zaloLink=document.getElementById("topZaloLink");
- const locationText=document.getElementById("topLocationText");
- if(phoneText) phoneText.textContent=phone;
- if(phoneLink) phoneLink.href=phone?"tel:"+phone.replace(/[^0-9+]/g,""):"#";
- if(zaloLink){zaloLink.href=zalo||"#";zaloLink.style.display=zalo?"inline":"none";}
- if(locationText) locationText.textContent=location;
 
- document.title=data.name;
- document.getElementById("logoName").textContent=data.name;
- document.getElementById("badge").textContent=data.badge;
- document.getElementById("title").textContent=data.title;
- document.getElementById("subtitle").textContent=data.subtitle;
- document.getElementById("heroText").textContent=data.hero;
- document.getElementById("aboutText").textContent=data.about;
- document.getElementById("aboutImage").src=data.aboutImage;
- document.getElementById("footer").textContent=data.footer;
+  let players = {};
+  try { players = JSON.parse(localStorage.getItem(PLAYER_KEY) || "{}"); } catch { players = {}; }
+  let prices = {};
+  try { prices = {...defaultPrices, ...(JSON.parse(localStorage.getItem(PRICE_KEY) || "{}"))}; } catch { prices = {...defaultPrices}; }
+  let currentName = localStorage.getItem(CURRENT_KEY) || "";
+  let player = currentName && players[currentName] ? players[currentName] : null;
+  function normalizePlayer(p){
+    if(!p)return p;
+    p.renameTickets=Math.max(0,Number(p.renameTickets)||0);
+    p.renameCount=Math.max(0,Number(p.renameCount)||0);
+    p.completedQuests ||= [];
+    p.ownedSkins ||= ["blue"];
+    p.inventory ||= {};
+    p.quest ||= {distance:0,coins:0,runs:0};
+    p.stats ||= {runs:0,distance:0,jumps:0,collected:0};
+    return p;
+  }
+  Object.keys(players).forEach(k=>players[k]=normalizePlayer(players[k]));
+  if(player) player=normalizePlayer(player);
 
- document.getElementById("servicesGrid").innerHTML=data.services.map(x=>`
-  <div class="card"><div class="cardBody"><div class="serviceIcon">${esc(x[0])}</div><h3>${esc(x[1])}</h3><p>${esc(x[2])}</p></div></div>`).join("");
+  const el = id => document.getElementById(id);
+  const fmt = n => Math.floor(Number(n)||0).toLocaleString("vi-VN");
 
- document.getElementById("productsGrid").innerHTML=data.products.map(x=>`
-  <div class="card"><img class="cardImg" src="${esc(x[1])}" alt="${esc(x[0])}" onerror="this.src='${esc(data.aboutImage)}'"><div class="cardBody"><h3>${esc(x[0])}</h3><p>${esc(x[2])}</p></div></div>`).join("");
+  function savePlayers(){
+    if(player){
+      player.updatedAt = Date.now();
+      players[player.name] = player;
+      localStorage.setItem(PLAYER_KEY, JSON.stringify(players));
+      localStorage.setItem(CURRENT_KEY, player.name);
+    }
+  }
+  function savePrices(){ localStorage.setItem(PRICE_KEY, JSON.stringify(prices)); }
+  function toast(msg){
+    const t = el("toast"); t.textContent = msg; t.classList.remove("hidden");
+    clearTimeout(window.__toast); window.__toast = setTimeout(()=>t.classList.add("hidden"),1800);
+  }
 
- document.getElementById("galleryGrid").innerHTML=data.gallery.map(x=>`
-  <div class="galleryItem"><img src="${esc(x[1])}" alt="${esc(x[0])}" title="${esc(x[0])}" onerror="this.src='${esc(data.aboutImage)}'"></div>`).join("");
+  function showView(name){
+    document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===name));
+    document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===name));
+    if(name==="game") draw();
+  }
+  document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
+  el("brand").onclick=()=>showView("home");
+  el("wallet").onclick=()=>showView("shop");
+  el("shopHero").onclick=()=>showView("shop");
+  el("playHero").onclick=()=>startGame();
+  el("switchPlayer").onclick=()=>openNameModal(true);
 
- document.getElementById("contactGrid").innerHTML=data.contacts.map(x=>`
-  <div class="contactCard"><strong>${esc(x[0])} ${esc(x[1])}</strong><span>${esc(x[2])}</span></div>`).join("");
-}
-function openLogin(){
- document.getElementById("loginOverlay").style.display="flex";
- document.getElementById("password").value="";
- document.getElementById("loginError").style.display="none";
- setTimeout(()=>document.getElementById("password").focus(),50);
-}
-function closeLogin(){document.getElementById("loginOverlay").style.display="none"}
-async function login(){
- const password=document.getElementById("password").value;
- const err=document.getElementById("loginError");
- err.style.display="none";
- const {error}=await sb.auth.signInWithPassword({email:ADMIN_EMAIL,password});
- if(error){err.textContent="Đăng nhập thất bại. Kiểm tra tài khoản Admin.";err.style.display="block";return;}
- await loadOnlineData();
- closeLogin(); openAdmin();
-}
-document.getElementById("password").addEventListener("keydown",e=>{if(e.key==="Enter")login()});
+  function enableNavigation(){
+    document.querySelectorAll(".nav button").forEach(b=>b.disabled=false);
+  }
 
-function openAdmin(){
- document.getElementById("fTopPhone").value=data.topContact?.phone||"";
- document.getElementById("fTopZalo").value=data.topContact?.zalo||"";
- document.getElementById("fTopLocation").value=data.topContact?.location||"";
+  function refreshUI(){
+    if(!player) return;
+    enableNavigation();
+    el("playerNameHome").textContent = player.name;
+    el("coinsTop").textContent = fmt(player.coins);
+    el("coinsHome").textContent = fmt(player.coins);
+    el("bestHome").textContent = fmt(player.best)+" m";
+    el("shopCoins").textContent = fmt(player.coins);
+    el("shopPlayerName").textContent = player.name;
+    el("renameTicketsShop").textContent = fmt(player.renameTickets);
+    renderShop();
+    renderQuests();
+  }
 
- document.getElementById("admin").style.display="block";document.body.style.overflow="hidden";
- const ids={fName:"name",fBadge:"badge",fTitle:"title",fSubtitle:"subtitle",fHero:"hero",fAbout:"about",fAboutImage:"aboutImage",fFooter:"footer"};
- Object.entries(ids).forEach(([id,k])=>document.getElementById(id).value=data[k]);
- renderServiceInputs();renderProductInputs();renderGalleryInputs();renderContactInputs();
-}
-async function logout(){
- await sb.auth.signOut();
- document.getElementById("admin").style.display="none";
- document.body.style.overflow="";
-}
+  function openNameModal(force){
+    el("nameModal").classList.remove("hidden");
+    el("playerNameInput").value = force && player ? player.name : "";
+    setTimeout(()=>el("playerNameInput").focus(),30);
+  }
 
-function renderServiceInputs(){
- document.getElementById("serviceInputs").innerHTML=data.services.map((x,i)=>`
-  <div class="item"><input data-s="${i}" data-k="0" value="${esc(x[0])}" placeholder="Icon"><input data-s="${i}" data-k="1" value="${esc(x[1])}" placeholder="Tên dịch vụ"><input data-s="${i}" data-k="2" value="${esc(x[2])}" placeholder="Mô tả"><button class="del" onclick="removeService(${i})">×</button></div>`).join("");
-}
-function renderProductInputs(){
- document.getElementById("productInputs").innerHTML=data.products.map((x,i)=>`
-  <div class="item"><input data-p="${i}" data-k="0" value="${esc(x[0])}" placeholder="Tên sản phẩm"><input data-p="${i}" data-k="1" value="${esc(x[1])}" placeholder="URL ảnh"><input data-p="${i}" data-k="2" value="${esc(x[2])}" placeholder="Mô tả"><button class="del" onclick="removeProduct(${i})">×</button></div>`).join("");
-}
-function renderGalleryInputs(){
- document.getElementById("galleryInputs").innerHTML=data.gallery.map((x,i)=>`
-  <div class="imageItem"><input data-g="${i}" data-k="0" value="${esc(x[0])}" placeholder="Tên ảnh"><input data-g="${i}" data-k="1" value="${esc(x[1])}" placeholder="URL ảnh"><button class="del" onclick="removeGallery(${i})">×</button></div>`).join("");
-}
-function renderContactInputs(){
- document.getElementById("contactInputs").innerHTML=data.contacts.map((x,i)=>`
-  <div class="item"><input data-c="${i}" data-k="0" value="${esc(x[0])}" placeholder="Icon"><input data-c="${i}" data-k="1" value="${esc(x[1])}" placeholder="Loại"><input data-c="${i}" data-k="2" value="${esc(x[2])}" placeholder="Thông tin"><button class="del" onclick="removeContact(${i})">×</button></div>`).join("");
-}
-function addService(){data.services.push(["🔧","Dịch vụ mới","Mô tả dịch vụ"]);renderServiceInputs()}
-function removeService(i){data.services.splice(i,1);renderServiceInputs()}
-function addProduct(){data.products.push(["Sản phẩm mới",data.aboutImage,"Mô tả sản phẩm"]);renderProductInputs()}
-function removeProduct(i){data.products.splice(i,1);renderProductInputs()}
-function addGallery(){data.gallery.push(["Ảnh mới",data.aboutImage]);renderGalleryInputs()}
-function removeGallery(i){data.gallery.splice(i,1);renderGalleryInputs()}
-function addContact(){data.contacts.push(["📌","Thông tin","Nội dung"]);renderContactInputs()}
-function removeContact(i){data.contacts.splice(i,1);renderContactInputs()}
+  function registerOrLoad(){
+    const name = el("playerNameInput").value.trim().replace(/\s+/g," ");
+    if(name.length<2){el("nameError").textContent="Tên phải có ít nhất 2 ký tự.";return;}
+    if(!/^[\p{L}\p{N}_\- ]+$/u.test(name)){el("nameError").textContent="Tên chỉ được dùng chữ, số, khoảng trắng, _ hoặc -.";return;}
+    if(!players[name]) players[name]=freshPlayer(name);
+    player = normalizePlayer(players[name]);
+    currentName = name;
+    savePlayers();
+    enableNavigation();
+    el("nameError").textContent="";
+    el("nameModal").classList.add("hidden");
+    refreshUI();
+    toast("👤 Xin chào "+name+"!");
+  }
+  el("registerBtn").onclick=registerOrLoad;
+  el("playerNameInput").addEventListener("keydown",e=>{if(e.key==="Enter")registerOrLoad()});
 
-function collect(){
- data.topContact={
-  phone:document.getElementById("fTopPhone")?.value||"0900 000 000",
-  zalo:document.getElementById("fTopZalo")?.value||"",
-  location:document.getElementById("fTopLocation")?.value||"📍 Điện Lạnh Phước Đạt"
- };
+  function renameTicketPrice(){
+    return Math.max(1, 1 + (player?.renameCount || 0));
+  }
 
- const ids={fName:"name",fBadge:"badge",fTitle:"title",fSubtitle:"subtitle",fHero:"hero",fAbout:"about",fAboutImage:"aboutImage",fFooter:"footer"};
- Object.entries(ids).forEach(([id,k])=>data[k]=document.getElementById(id).value);
- document.querySelectorAll("[data-s]").forEach(e=>data.services[+e.dataset.s][+e.dataset.k]=e.value);
- document.querySelectorAll("[data-p]").forEach(e=>data.products[+e.dataset.p][+e.dataset.k]=e.value);
- document.querySelectorAll("[data-g]").forEach(e=>data.gallery[+e.dataset.g][+e.dataset.k]=e.value);
- document.querySelectorAll("[data-c]").forEach(e=>data.contacts[+e.dataset.c][+e.dataset.k]=e.value);
-}
-async function saveData(){
- collect();
- try{
-  await saveOnlineData();
-  localStorage.setItem("phuocDatData",JSON.stringify(data));
-  render(); alert("Đã lưu thay đổi lên website online!"); await logout();
- }catch(e){
-  console.error(e);
-  localStorage.setItem("phuocDatData",JSON.stringify(data));
-  render(); alert("Chưa lưu được online. Kiểm tra bảng site_content và RLS trong Supabase.");
- }
-}
-async function resetData(){
- if(!confirm("Khôi phục toàn bộ nội dung mẫu?"))return;
- data=structuredClone(DEFAULT);
- try{await saveOnlineData();localStorage.setItem("phuocDatData",JSON.stringify(data));render();openAdmin();alert("Đã khôi phục dữ liệu online.");}
- catch(e){console.error(e);alert("Không thể khôi phục online. Kiểm tra Supabase.");}
-}
-render();
-loadOnlineData().then(()=>render());
+  function renderShop(){
+    if(!player)return;
+    const items=el("itemsGrid"),grid=el("shopGrid");
+    items.innerHTML="";grid.innerHTML="";
+    const ticketPrice=400*Math.pow(2,Math.max(0,player.renameCount||0));
+
+    items.insertAdjacentHTML("beforeend",`
+      <div class="card skin-card">
+        <div class="item-icon">🎫</div>
+        <div style="margin-top:12px;display:flex;justify-content:space-between;gap:8px">
+          <h3 style="margin:0">Thẻ Đổi Tên</h3><span class="price">🪙 ${fmt(ticketPrice)}</span>
+        </div>
+        <p class="mini">Mua thẻ để đổi tên. Mỗi lần đổi tên, số thẻ cần cho lần tiếp theo tăng thêm 1.</p>
+        <div class="tag">Có: ${fmt(player.renameTickets)} thẻ</div>
+        <button class="btn primary" style="width:100%;margin-top:10px" onclick="window.buyRenameTicket()">MUA 1 THẺ</button>
+      </div>
+    `);
+
+    const items2=[
+      {icon:"🛡️",name:"Khiên Run",desc:"Vật phẩm hỗ trợ lượt chạy tiếp theo.",price:700,key:"shieldItem"},
+      {icon:"🧲",name:"Nam châm",desc:"Vật phẩm hút xu trong lượt chạy.",price:900,key:"magnetItem"},
+      {icon:"⚡",name:"Turbo Core",desc:"Vật phẩm tăng tốc đặc biệt.",price:1200,key:"turboItem"}
+    ];
+    items2.forEach(item=>{
+      const count=player.inventory?.[item.key]||0;
+      items.insertAdjacentHTML("beforeend",`
+        <div class="card skin-card">
+          <div class="item-icon">${item.icon}</div>
+          <div style="margin-top:12px;display:flex;justify-content:space-between;gap:8px">
+            <h3 style="margin:0">${item.name}</h3><span class="price">🪙 ${fmt(item.price)}</span>
+          </div>
+          <p class="mini">${item.desc}</p>
+          <div class="tag">Số lượng: ${fmt(count)}</div>
+          <button class="btn primary" style="width:100%;margin-top:10px" onclick="window.buyItem('${item.key}',${item.price},'${item.name}')">MUA 1</button>
+        </div>
+      `);
+    });
+
+    for(const [id,s] of Object.entries(skinDefs)){
+      const owned=player.ownedSkins.includes(id),equipped=player.selectedSkin===id,price=prices[id];
+      const extra=id==="rainbow"?`<div class="rainbow-note" style="margin-top:7px;font-size:11px">AURA • RAINBOW TRAIL • RAINBOW SOUND</div>`:"";
+      const bg=id==="rainbow"?"rainbow-preview":"";
+      grid.insertAdjacentHTML("beforeend",`
+        <div class="card skin-card">
+          <div class="skin-preview ${bg}">
+            ${id==="rainbow"?`<div style="font-size:75px;position:relative;z-index:2">🦖</div>`:`
+            <svg class="dino-svg" viewBox="0 0 220 180" aria-hidden="true">
+              <ellipse cx="112" cy="161" rx="70" ry="10" fill="#05070c" opacity=".35"/>
+              <path d="M45 105C15 100 20 75 46 74l32 19zM67 65c5-31 47-43 77-26 18 10 23 27 19 51l-6 36c-4 29-25 43-58 39-32-4-44-25-40-55zM136 62c39-12 59 9 53 37-5 24-24 27-49 19zM81 143l-5 22h28l6-21M128 144l11 21h28l-14-28" fill="${s.body}"/>
+              <path d="M83 60l9-18 9 20m13-7 10-19 7 22" stroke="#ffe18c" stroke-width="8" fill="none" stroke-linecap="round"/>
+              <ellipse cx="155" cy="82" rx="12" ry="14" fill="#fff"/><circle cx="159" cy="85" r="5" fill="#172238"/>
+            </svg>`}
+          </div>
+          <div style="margin-top:12px;display:flex;justify-content:space-between;gap:8px"><h3 style="margin:0">${s.name}</h3><span class="price">🪙 ${fmt(price)}</span></div>
+          <p class="mini">${s.desc}</p>${extra}
+          <button class="btn ${equipped?"green":"primary"}" style="width:100%;margin-top:10px" onclick="window.buySkin('${id}')">${equipped?"✓ ĐANG DÙNG":owned?"ĐEO SKIN":"MỞ KHÓA • 🪙 "+fmt(price)}</button>
+        </div>
+      `);
+    }
+  }
+
+  window.buyRenameTicket=()=>{
+    if(!player)return;
+    const price=400*Math.pow(2,Math.max(0,player.renameCount||0));
+    if(player.coins<price){toast("❌ Không đủ xu để mua thẻ đổi tên");return;}
+    player.coins-=price;player.renameTickets++;
+    savePlayers();refreshUI();toast("🎫 Đã mua 1 Thẻ Đổi Tên");
+  };
+
+  function openRenameModal(){
+    if(!player)return;
+    const cost=renameTicketPrice();
+    el("renameCostText").innerHTML=`Lần đổi tên tiếp theo cần <b>${cost}</b> thẻ. Bạn đang có <b>${player.renameTickets}</b> thẻ.`;
+    el("renameInput").value="";el("renameError").textContent="";
+    el("renameModal").classList.remove("hidden");
+    setTimeout(()=>el("renameInput").focus(),30);
+  }
+  el("renameNowBtn").onclick=openRenameModal;
+
+  function confirmRename(){
+    const name=el("renameInput").value.trim().replace(/\s+/g," ");
+    if(name.length<2){el("renameError").textContent="Tên phải có ít nhất 2 ký tự.";return;}
+    if(!/^[\p{L}\p{N}_\- ]+$/u.test(name)){el("renameError").textContent="Tên chỉ được dùng chữ, số, khoảng trắng, _ hoặc -.";return;}
+    const cost=renameTicketPrice();
+    if(player.renameTickets<cost){el("renameError").textContent=`Bạn cần ${cost} thẻ đổi tên.`;return;}
+    if(players[name]&&name!==player.name){el("renameError").textContent="Tên này đã tồn tại.";return;}
+    const oldName=player.name;
+    player.renameTickets-=cost;player.renameCount+=1;player.name=name;
+    delete players[oldName];players[name]=player;currentName=name;
+    savePlayers();localStorage.setItem(CURRENT_KEY,name);
+    el("renameModal").classList.add("hidden");refreshUI();
+    toast(`✏️ Đã đổi tên thành ${name}. Lần sau cần ${renameTicketPrice()} thẻ.`);
+  }
+  el("renameConfirmBtn").onclick=confirmRename;
+  el("renameCloseBtn").onclick=()=>el("renameModal").classList.add("hidden");
+  el("renameInput").addEventListener("keydown",e=>{if(e.key==="Enter")confirmRename()});
+
+  window.buyItem=(key,price,name)=>{
+    if(!player)return;
+    player.inventory ||= {};
+    if(player.coins<price){toast("❌ Không đủ xu");return;}
+    player.coins-=price;player.inventory[key]=(player.inventory[key]||0)+1;
+    savePlayers();refreshUI();toast("🎒 Đã mua "+name);
+  };
+
+  window.buySkin = id => {
+    if(!player)return;
+    const s=skinDefs[id], price=prices[id];
+    if(player.ownedSkins.includes(id)){
+      player.selectedSkin=id; savePlayers(); refreshUI();
+      playSkinSound(id,"equip"); toast("🦖 Đã trang bị "+s.name); return;
+    }
+    if(player.coins<price){toast("❌ Không đủ xu"); return;}
+    player.coins-=price; player.ownedSkins.push(id); player.selectedSkin=id;
+    savePlayers(); refreshUI();
+    playSkinSound(id,"buy"); toast("🎉 Đã mở "+s.name+"!");
+  };
+
+  const quests=[
+    {id:"q1",name:"Chạy 500m",desc:"Tích lũy tổng quãng đường.",key:"distance",goal:500,reward:250},
+    {id:"q2",name:"Nhặt 100 xu",desc:"Thu thập xu qua gameplay.",key:"coins",goal:100,reward:350},
+    {id:"q3",name:"Chơi 5 lượt",desc:"Hoàn thành 5 lượt chạy.",key:"runs",goal:5,reward:500}
+  ];
+  function renderQuests(){
+    const box=el("questsList"); if(!box||!player)return; box.innerHTML="";
+    const done = player.completedQuests || (player.completedQuests=[]);
+    quests.forEach(q=>{
+      const val=Math.min(q.goal, player.quest[q.key]||0), claimed=done.includes(q.id);
+      box.insertAdjacentHTML("beforeend",`
+        <div class="quest card">
+          <div><b>${q.name}</b><div class="mini">${q.desc} • ${fmt(val)}/${fmt(q.goal)}</div><div class="bar"><span style="width:${val/q.goal*100}%"></span></div></div>
+          <button class="btn ${claimed?"":"primary"}" ${claimed||val<q.goal?"disabled":""} onclick="window.claimQuest('${q.id}')">${claimed?"✓ ĐÃ NHẬN":"+ "+q.reward+" 🪙"}</button>
+        </div>
+      `);
+    });
+  }
+  window.claimQuest=id=>{
+    if(!player)return; const q=quests.find(x=>x.id===id); if(!q)return;
+    player.completedQuests ||= [];
+    if(player.completedQuests.includes(id) || (player.quest[q.key]||0)<q.goal)return;
+    player.completedQuests.push(id); player.coins+=q.reward; savePlayers(); refreshUI(); toast("🎯 Nhiệm vụ hoàn thành +"+q.reward+" xu");
+  };
+
+  // ---------- Audio ----------
+  let audio=null;
+  function initAudio(){
+    if(!player?.sound) return null;
+    try{
+      audio ||= new (window.AudioContext||window.webkitAudioContext)();
+      if(audio.state==="suspended") audio.resume();
+      return audio;
+    }catch{return null}
+  }
+  function tone(f1,f2,d=0.08,type="square",vol=0.04){
+    const a=initAudio(); if(!a)return;
+    const o=a.createOscillator(),g=a.createGain();
+    o.type=type;o.frequency.setValueAtTime(f1,a.currentTime);
+    if(f2) o.frequency.exponentialRampToValueAtTime(Math.max(40,f2),a.currentTime+d);
+    g.gain.setValueAtTime(vol,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+d);
+    o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+d);
+  }
+  function jumpSound(){ tone(240,720,.14,"triangle",.055); }
+  function coinSound(){ tone(660,980,.07,"sine",.035); }
+  function hitSound(){ tone(170,55,.34,"sawtooth",.07); }
+  function powerSound(){ tone(520,1180,.18,"triangle",.05); }
+  function comboSound(level){ tone(500+level*70,900+level*110,.08,"square",.035); }
+  function rainbowSound(kind){
+    if(!player?.sound)return;
+    const a=initAudio(); if(!a)return;
+    const notes = kind==="coin" ? [660,880,1175] : kind==="jump" ? [400,700,1050,1450] : [220,330,440,660];
+    notes.forEach((n,i)=>setTimeout(()=>tone(n,n*1.07,.08,"sine",.028),i*55));
+  }
+  function playSkinSound(id,kind){ if(id==="rainbow") rainbowSound(kind==="buy"?"end":kind==="equip"?"jump":"coin"); else if(kind==="buy") powerSound(); }
+
+  // ---------- Game ----------
+  const canvas=el("gameCanvas"),ctx=canvas.getContext("2d");
+  let active=false,paused=false,lastTime=0,distance=0,runCoins=0,combo=1,comboTimer=0,spawnTimer=0,coinTimer=0,powerTimer=0,speed=350,phase=0;
+  let obstacles=[],coins=[],powers=[],particles=[];
+  let power=null,powerUntil=0,shield=0;
+  const dino={x:130,y:0,w:66,h:72,vy:0,grounded:true};
+  let rainbowTrail=[];
+  const biomes=[
+    {from:0,name:"🌿 ĐỒNG CỎ",sky1:"#143a52",sky2:"#09202f",ground:"#153728"},
+    {from:1200,name:"🏜️ SA MẠC",sky1:"#563a2b",sky2:"#21151b",ground:"#473020"},
+    {from:2800,name:"🌋 NÚI LỬA",sky1:"#551d27",sky2:"#1b0d16",ground:"#32181d"},
+    {from:5000,name:"❄️ BĂNG GIÁ",sky1:"#254c67",sky2:"#101f33",ground:"#193145"},
+    {from:8000,name:"🌌 AURORA",sky1:"#1e2458",sky2:"#0a1026",ground:"#142342"}
+  ];
+
+  function currentBiome(){
+    let out=biomes[0]; for(const b of biomes) if(distance>=b.from)out=b; return out;
+  }
+  function groundY(){return canvas.height-82}
+  function resetDino(){dino.y=groundY()-dino.h;dino.vy=0;dino.grounded=true}
+
+  function startGame(){
+    if(!player){openNameModal(false);return;}
+    initAudio(); showView("game"); active=true;paused=false;
+    cancelAnimationFrame(window.__raf);
+    distance=0;runCoins=0;combo=1;comboTimer=0;spawnTimer=.55;coinTimer=.8;powerTimer=5;speed=350;phase=0;
+    obstacles=[];coins=[];powers=[];particles=[];power=null;powerUntil=0;shield=1+Math.floor((player.selectedSkin==="rainbow")?1:0);rainbowTrail=[];
+    resetDino();el("gameState").textContent="ĐANG CHẠY!";el("pauseBtn").textContent="Ⅱ TẠM DỪNG";lastTime=performance.now();
+    window.__raf=requestAnimationFrame(loop);
+  }
+
+  function jump(){
+    initAudio();
+    if(paused)return;
+    if(!active){startGame();return;}
+    if(dino.grounded){
+      dino.vy=-(735+(player.selectedSkin==="rainbow"?18:0));dino.grounded=false;
+      player.stats.jumps++;jumpSound();
+      if(player.selectedSkin==="rainbow")rainbowSound("jump");
+    }
+  }
+
+  function togglePause(){
+    if(!active)return; paused=!paused;
+    el("gameState").textContent=paused?"TẠM DỪNG":"ĐANG CHẠY!";
+    el("pauseBtn").textContent=paused?"▶ TIẾP TỤC":"Ⅱ TẠM DỪNG";
+    if(!paused){lastTime=performance.now();window.__raf=requestAnimationFrame(loop);}
+  }
+
+  function makeObstacle(){
+    const tall=Math.random()>.52,h=tall?95:58,w=tall?38:31;
+    obstacles.push({x:canvas.width+30,w,h,type:tall?"tall":"normal"});
+  }
+  function makeCoin(){
+    coins.push({x:canvas.width+20,y:180+Math.random()*150,r:Math.random()<.08?12:9,spin:Math.random()*6.2});
+  }
+  function makePower(){
+    const type=["shield","magnet","boost"][Math.floor(Math.random()*3)];
+    powers.push({x:canvas.width+20,y:170+Math.random()*120,type});
+  }
+  function addParticle(x,y,color){
+    particles.push({x,y,vx:(Math.random()-.5)*190,vy:(Math.random()-.5)*170,life:.5+Math.random()*.3,max:.8,c:color,s:2+Math.random()*4});
+  }
+  function rainbowColor(t){
+    const a=["#ff4d5d","#ff9d3d","#ffe45a","#62ef7b","#42ddff","#7c71ff","#dd68ff"];
+    return a[Math.floor((t*7)%a.length)];
+  }
+  function hit(a,b){return a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y}
+
+  function collectCoin(i,c){
+    const multi=combo;
+    const value=(c.r===12?5:1)*(player.selectedSkin==="pink"?1.05:player.selectedSkin==="red"?1.10:player.selectedSkin==="rainbow"?1.25:1);
+    runCoins+=Math.floor(value*multi);
+    player.stats.collected+=c.r===12?5:1;
+    player.quest.coins+=c.r===12?5:1;
+    combo=Math.min(5,combo+0.35);comboTimer=2.4;
+    addParticle(c.x,c.y,player.selectedSkin==="rainbow"?rainbowColor(performance.now()/400):"#ffd34d");
+    if(player.selectedSkin==="rainbow")rainbowSound("coin"); else coinSound();
+    if(combo>=2.5)comboSound(Math.floor(combo));
+    coins.splice(i,1);
+  }
+
+  function update(dt){
+    dino.vy+=1880*dt; dino.y+=dino.vy*dt;
+    if(dino.y>=groundY()-dino.h){dino.y=groundY()-dino.h;dino.vy=0;dino.grounded=true;}
+    distance+=dt*(10+(player.selectedSkin==="red"?0.45:0));
+    phase+=dt*12;
+    speed=Math.min(760,350+distance*.075);
+    spawnTimer+=dt;coinTimer+=dt;powerTimer-=dt;
+    if(spawnTimer>Math.max(.58,1.16-distance/6000)){spawnTimer=0;makeObstacle();}
+    if(coinTimer>.48){coinTimer=0;if(Math.random()<.9)makeCoin();}
+    if(powerTimer<=0){powerTimer=7+Math.random()*5;makePower();}
+    if(comboTimer>0){comboTimer-=dt;if(comboTimer<=0)combo=1;}
+    if(power && performance.now()>powerUntil)power=null;
+
+    obstacles.forEach(o=>o.x-=speed*dt);coins.forEach(c=>{c.x-=speed*dt;c.spin+=dt*8});powers.forEach(p=>p.x-=speed*dt);
+    obstacles=obstacles.filter(o=>o.x+o.w>-50);coins=coins.filter(c=>c.x>-50);powers=powers.filter(p=>p.x>-50);
+
+    const mag=100;
+    for(let i=coins.length-1;i>=0;i--){
+      const c=coins[i],dx=dino.x+32-c.x,dy=dino.y+35-c.y,dd=Math.hypot(dx,dy);
+      if(player.selectedSkin==="rainbow" && dd<mag){c.x+=dx*dt*3;c.y+=dy*dt*3;}
+      if(dd<36)collectCoin(i,c);
+    }
+    for(let i=powers.length-1;i>=0;i--){
+      const p=powers[i],box={x:p.x-13,y:p.y-13,w:26,h:26},db={x:dino.x+8,y:dino.y+7,w:dino.w-14,h:dino.h-10};
+      if(hit(db,box)){
+        power=p.type;powerUntil=performance.now()+(p.type==="shield"?8000:5500);powers.splice(i,1);addParticle(p.x,p.y,"#42ddff");powerSound();
+      }
+    }
+
+    if(power==="shield")shield=Math.max(shield,1);
+    if(power==="magnet"){
+      for(const c of coins){const dx=dino.x+32-c.x,dy=dino.y+35-c.y,dd=Math.max(1,Math.hypot(dx,dy)); if(dd<300){c.x+=dx*dt*6;c.y+=dy*dt*6;}}
+    }
+
+    const db={x:dino.x+10,y:dino.y+8,w:dino.w-18,h:dino.h-10};
+    for(let i=obstacles.length-1;i>=0;i--){
+      const o=obstacles[i],ob={x:o.x+4,y:groundY()-o.h,w:o.w-8,h:o.h};
+      if(hit(db,ob)){
+        if(shield>0 || power==="shield"){
+          if(power==="shield")power=null; else shield--;
+          obstacles.splice(i,1); for(let n=0;n<18;n++)addParticle(dino.x+30,dino.y+30,"#42ddff");powerSound();continue;
+        }
+        endGame();return;
+      }
+    }
+
+    player.stats.distance+=dt*10;
+    player.quest.distance=Math.floor(player.stats.distance);
+    player.quest.runs=player.stats.runs;
+    if(player.selectedSkin==="rainbow"){
+      rainbowTrail.push({x:dino.x+5,y:dino.y+40,life:1});
+      if(rainbowTrail.length>30)rainbowTrail.shift();
+    } else rainbowTrail.length=0;
+
+    particles.forEach(p=>{p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=180*dt;p.life-=dt});
+    particles=particles.filter(p=>p.life>0);
+
+    el("hudScore").textContent=fmt(distance);
+    el("hudCoins").textContent=fmt(runCoins);
+    el("hudCombo").textContent="x"+combo.toFixed(1);
+    el("hudPower").textContent=power==="shield"?"🛡️ KHIÊN":power==="magnet"?"🧲 NAM CHÂM":power==="boost"?"⚡ TURBO":shield?"🛡️ "+shield:"—";
+    const b=currentBiome();el("biomeBadge").textContent=b.name;
+    const cyc=(performance.now()/1000)%48,stage=Math.floor(cyc/12),ph=["🌅 BÌNH MINH","☀️ BAN NGÀY","🌇 HOÀNG HÔN","🌙 BAN ĐÊM"][stage];
+    el("mapBadge").textContent=ph;
+  }
+
+  function drawMountains(offset,color,base,height,width){
+    ctx.fillStyle=color;
+    for(let x=-width-(offset%width);x<canvas.width+width;x+=width){
+      ctx.beginPath();ctx.moveTo(x,base);ctx.lineTo(x+width*.48,base-height);ctx.lineTo(x+width,base);ctx.closePath();ctx.fill();
+    }
+  }
+
+  function draw(){
+    const b=currentBiome(),W=canvas.width,H=canvas.height,horizon=groundY();
+    const day=(Math.sin((performance.now()/1000%48)/48*Math.PI*2-Math.PI/2)+1)/2;
+    const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,b.sky1);g.addColorStop(.75,b.sky2);g.addColorStop(1,b.ground);
+    ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+
+    // sky details
+    if(b.name.includes("AURORA")){
+      const grd=ctx.createLinearGradient(0,0,W*.9,0);grd.addColorStop(0,"#6d47ff28");grd.addColorStop(.5,"#31efff38");grd.addColorStop(1,"#ff56d62b");
+      ctx.fillStyle=grd;ctx.fillRect(0,0,W,150);
+      for(let i=0;i<42;i++){ctx.fillStyle="#fff";ctx.globalAlpha=.35+((i*7)%10)/20;ctx.fillRect((i*83)%W,25+((i*47)%120),2,2);}ctx.globalAlpha=1;
+    }else if(day<.35){
+      for(let i=0;i<24;i++){ctx.fillStyle="#ffffff66";ctx.fillRect((i*93)%W,24+((i*39)%125),2,2);}
+    }
+
+    const sunX=W-115,sunY=72+Math.cos((performance.now()/1000%48)/48*Math.PI*2)*24;
+    ctx.fillStyle=day>.48?"#ffd75cbb":"#d6e8ff99";ctx.beginPath();ctx.arc(sunX,sunY,day>.48?31:23,0,Math.PI*2);ctx.fill();
+
+    // parallax mountains / fog
+    drawMountains(distance*.06,"rgba(5,15,28,.55)",horizon-5,125,260);
+    drawMountains(distance*.12,"rgba(16,50,61,.78)",horizon+7,88,195);
+    ctx.fillStyle="rgba(57,153,171,.16)";ctx.fillRect(0,horizon-14,W,30);
+
+    // ground
+    ctx.fillStyle=b.ground;ctx.fillRect(0,horizon,W,H-horizon);
+    ctx.strokeStyle="#ffd34d";ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(0,horizon+1);ctx.lineTo(W,horizon+1);ctx.stroke();
+    ctx.strokeStyle="#ffffff2e";ctx.lineWidth=2;const off=(distance*10)%45;for(let x=-off;x<W;x+=45){ctx.beginPath();ctx.moveTo(x,horizon+18);ctx.lineTo(x+23,horizon+18);ctx.stroke();}
+
+    // rainbow trail
+    if(player?.selectedSkin==="rainbow" && rainbowTrail.length){
+      rainbowTrail.forEach((t,i)=>{ctx.globalAlpha=Math.max(0,t.life*(i/rainbowTrail.length));ctx.fillStyle=rainbowColor(i/rainbowTrail.length);ctx.beginPath();ctx.arc(t.x-i*.9,t.y+i*.05,4+(i%4),0,Math.PI*2);ctx.fill();});
+      ctx.globalAlpha=1;
+      for(let k=0;k<7;k++){ctx.strokeStyle=["#ff4d5d","#ff9d3d","#ffe45a","#62ef7b","#42ddff","#7c71ff","#dd68ff"][k]+"aa";ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(dino.x+4,dino.y+20+k*5);ctx.lineTo(dino.x-90,dino.y+10+k*7);ctx.stroke();}
+    }
+
+    // obstacles
+    obstacles.forEach(o=>{const y=horizon-o.h;ctx.fillStyle="#6f2a21";ctx.fillRect(o.x+9,y,o.w-17,o.h);ctx.fillStyle="#be4631";ctx.fillRect(o.x,y+o.h*.32,o.w,10);ctx.fillStyle="#ff8d61";ctx.fillRect(o.x+11,y+7,4,o.h-16);});
+
+    // coins
+    coins.forEach(c=>{const sc=.7+Math.abs(Math.sin(c.spin))*.3;ctx.save();ctx.translate(c.x,c.y);ctx.scale(sc,1);ctx.fillStyle=c.r===12?"#fff0a0":"#ffd34d";ctx.beginPath();ctx.arc(0,0,c.r,0,Math.PI*2);ctx.fill();ctx.fillStyle="#fff7cf";ctx.beginPath();ctx.arc(-3,-3,3,0,Math.PI*2);ctx.fill();ctx.restore();});
+
+    // powers
+    powers.forEach(p=>{ctx.fillStyle=p.type==="shield"?"#42ddff":p.type==="magnet"?"#ff62d2":"#ffd34d";ctx.beginPath();ctx.arc(p.x,p.y,15,0,Math.PI*2);ctx.fill();ctx.fillStyle="#07111d";ctx.font="900 14px Arial";ctx.textAlign="center";ctx.fillText(p.type==="shield"?"S":p.type==="magnet"?"M":"⚡",p.x,p.y+5);});
+
+    drawDino();
+    particles.forEach(p=>{ctx.globalAlpha=Math.max(0,p.life/p.max);ctx.fillStyle=p.c;ctx.fillRect(p.x,p.y,p.s,p.s);});ctx.globalAlpha=1;
+
+    if(!active){
+      ctx.fillStyle="#ffffffdd";ctx.font="900 20px Arial";ctx.textAlign="center";ctx.fillText("NHẤN SPACE HOẶC CHẠM ĐỂ CHẠY",W/2,190);
+      ctx.font="600 13px Arial";ctx.fillStyle="#9cb1c7";ctx.fillText(player?("Người chơi: "+player.name):"Đăng ký tên để bắt đầu",W/2,216);
+    }
+  }
+
+  function drawDino(){
+    const s=skinDefs[player?.selectedSkin||"blue"],x=dino.x,y=dino.y,bob=dino.grounded&&active?Math.sin(phase)*3:0;
+    ctx.save();
+    if(s.rainbow){
+      const aura=ctx.createRadialGradient(x+34,y+30,10,x+34,y+30,75);aura.addColorStop(0,"#ffffff66");aura.addColorStop(.3,"#ff4d5d33");aura.addColorStop(.55,"#45dbff28");aura.addColorStop(1,"transparent");
+      ctx.fillStyle=aura;ctx.beginPath();ctx.arc(x+34,y+30,75,0,Math.PI*2);ctx.fill();
+    }else{ctx.shadowColor=s.body;ctx.shadowBlur=18;}
+    ctx.fillStyle=s.body;ctx.roundRect(x+12,y+20+bob,43,42,17);ctx.fill();ctx.roundRect(x+39,y+3+bob,31,35,13);ctx.fill();
+    ctx.fillStyle=s.belly;ctx.beginPath();ctx.ellipse(x+40,y+39+bob,17,19,-.35,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=s.shade;ctx.beginPath();ctx.moveTo(x+18,y+40+bob);ctx.lineTo(x-13,y+27+bob);ctx.lineTo(x-17,y+42+bob);ctx.lineTo(x+18,y+55+bob);ctx.closePath();ctx.fill();
+    ctx.fillStyle=s.body;ctx.fillRect(x+22,y+58+bob,12,15);ctx.fillRect(x+47,y+58-bob,12,15);
+    ctx.fillStyle="#ffd34d";[[x+22,y+20],[x+33,y+14],[x+44,y+12],[x+53,y+15]].forEach(p=>{ctx.beginPath();ctx.moveTo(p[0],p[1]+bob);ctx.lineTo(p[0]+5,p[1]-11+bob);ctx.lineTo(p[0]+10,p[1]+1+bob);ctx.closePath();ctx.fill();});
+    ctx.fillStyle="#f8ffff";ctx.beginPath();ctx.ellipse(x+59,y+14+bob,9,11,0,0,Math.PI*2);ctx.fill();ctx.fillStyle="#101521";ctx.beginPath();ctx.arc(x+62,y+17+bob,4,0,Math.PI*2);ctx.fill();
+    if(s.rainbow){
+      for(let i=0;i<7;i++){ctx.fillStyle=["#ff4d5d","#ff9d3d","#ffe45a","#62ef7b","#42ddff","#7c71ff","#dd68ff"][i];ctx.fillRect(x+11+i*7,y+4+bob,5,3);}
+      ctx.strokeStyle="#ffffffaa";ctx.lineWidth=2;ctx.beginPath();ctx.arc(x+34,y+31,48+Math.sin(phase)*3,0,Math.PI*2);ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function loop(t){
+    if(!active||paused)return;
+    const dt=Math.min(.033,(t-lastTime)/1000);lastTime=t;update(dt);draw();window.__raf=requestAnimationFrame(loop);
+  }
+
+  function endGame(){
+    if(!active)return;active=false;cancelAnimationFrame(window.__raf);hitSound();
+    const final=Math.floor(distance);
+    let multiplier=1;
+    if(player.selectedSkin==="pink")multiplier=1.05;
+    if(player.selectedSkin==="red")multiplier=1.10;
+    if(player.selectedSkin==="rainbow")multiplier=1.25;
+    const reward=Math.floor(runCoins*multiplier + final/10);
+    player.coins+=reward;player.best=Math.max(player.best,final);
+    player.stats.runs++;player.quest.runs=player.stats.runs;player.quest.distance=Math.floor(player.stats.distance);
+    savePlayers();refreshUI();
+    el("gameState").textContent=`GAME OVER • ${fmt(final)}m • +${fmt(reward)} xu`;
+    if(player.selectedSkin==="rainbow")rainbowSound("end");
+    for(let i=0;i<28;i++)addParticle(dino.x+25,dino.y+25,player.selectedSkin==="rainbow"?rainbowColor(i/28):"#ff6678");
+    draw();
+  }
+
+  canvas.addEventListener("pointerdown",e=>{e.preventDefault();jump()});
+  el("jumpBtn").onclick=jump;el("pauseBtn").onclick=togglePause;el("restartBtn").onclick=startGame;
+  window.addEventListener("keydown",e=>{
+    if(["Space","ArrowUp","KeyW"].includes(e.code)){e.preventDefault();jump();}
+    if(e.code==="KeyP"){e.preventDefault();togglePause();}
+    if(e.code==="KeyR"){e.preventDefault();startGame();}
+  });
+  document.addEventListener("visibilitychange",()=>{if(document.hidden&&active&&!paused)togglePause();});
+  document.addEventListener("keydown",e=>{
+    if(e.key==="Escape"){
+      el("renameModal").classList.add("hidden");
+      el("adminModal").classList.add("hidden");
+    }
+  });
+
+  // ---------- Admin ----------
+  function populateAdminPlayers(){
+    const select=el("adminPlayer");select.innerHTML="";
+    Object.keys(players).sort().forEach(name=>{
+      const o=document.createElement("option");o.value=name;o.textContent=name+" • "+fmt(players[name].coins)+" xu";select.appendChild(o);
+    });
+    if(player && players[player.name]) select.value=player.name;
+    const table=el("adminPlayersTable");
+    const names=Object.keys(players).sort();
+    table.innerHTML=names.length?`<table class="admin-table"><thead><tr><th>Tên</th><th>Xu</th><th>Kỷ lục</th><th>Skin</th></tr></thead><tbody>${names.map(n=>{const p=players[n];return `<tr><td>${n}</td><td>${fmt(p.coins)}</td><td>${fmt(p.best)}m</td><td>${p.selectedSkin}</td></tr>`}).join("")}</tbody></table>`:`<div class="mini">Chưa có người chơi.</div>`;
+  }
+  function renderPriceEditor(){
+    const box=el("priceEditor");box.innerHTML="";
+    Object.entries(skinDefs).forEach(([id,s])=>{
+      box.insertAdjacentHTML("beforeend",`<div style="margin-bottom:8px"><div class="mini">${s.name}</div><input class="admin-input price-input" data-skin="${id}" type="number" min="0" value="${prices[id]}"></div>`);
+    });
+  }
+  function openAdmin(){
+    el("adminModal").classList.remove("hidden");el("adminLogin").classList.remove("hidden");el("adminContent").classList.add("hidden");el("adminPassword").value="";el("adminError").textContent="";
+  }
+  el("adminOpen").onclick=openAdmin;el("adminClose").onclick=()=>el("adminModal").classList.add("hidden");
+  el("adminLoginBtn").onclick=()=>{
+    if(el("adminPassword").value!=="1"){el("adminError").textContent="Sai mật khẩu.";return;}
+    el("adminError").textContent="";el("adminLogin").classList.add("hidden");el("adminContent").classList.remove("hidden");populateAdminPlayers();renderPriceEditor();
+  };
+  el("buffBtn").onclick=()=>{
+    const n=el("adminPlayer").value,amount=Math.max(0,Math.floor(Number(el("buffAmount").value)||0));
+    if(!n||!players[n])return;players[n].coins+=amount;localStorage.setItem(PLAYER_KEY,JSON.stringify(players));
+    if(player?.name===n){player=players[n];refreshUI();}populateAdminPlayers();toast("✅ Đã buff +"+fmt(amount)+" xu cho "+n);
+  };
+  el("setCoinsBtn").onclick=()=>{
+    const n=el("adminPlayer").value,amount=Math.max(0,Math.floor(Number(el("buffAmount").value)||0));
+    if(!n||!players[n])return;players[n].coins=amount;localStorage.setItem(PLAYER_KEY,JSON.stringify(players));
+    if(player?.name===n){player=players[n];refreshUI();}populateAdminPlayers();toast("✅ Đã đặt "+fmt(amount)+" xu cho "+n);
+  };
+  el("savePricesBtn").onclick=()=>{
+    document.querySelectorAll(".price-input").forEach(i=>prices[i.dataset.skin]=Math.max(0,Math.floor(Number(i.value)||0)));
+    savePrices();renderShop();toast("🛒 Đã lưu giá skin.");
+  };
+  el("adminLogout").onclick=()=>{el("adminContent").classList.add("hidden");el("adminLogin").classList.remove("hidden");el("adminPassword").value="";};
+  el("adminResetData").onclick=()=>{
+    if(!confirm("Xóa toàn bộ người chơi và giá skin local?"))return;
+    localStorage.removeItem(PLAYER_KEY);localStorage.removeItem(CURRENT_KEY);localStorage.removeItem(PRICE_KEY);
+    location.reload();
+  };
+
+  // start
+  if(!player) openNameModal(false); else refreshUI();
+  if(!player) {
+    document.querySelectorAll(".nav button").forEach(b=>b.disabled=false);
+  }
+  resetDino();draw();
+})();
 </script>
 </body>
 </html>
