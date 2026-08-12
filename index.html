@@ -16,11 +16,13 @@ body{min-height:100vh;overflow-x:hidden}button,input,select{font:inherit}button{
 .top-log-btn{padding:10px 13px;border-radius:11px;background:#10283b;border:1px solid #315472;color:#bfefff;font-weight:950}.top-log-btn:hover{background:#183a53;color:var(--yellow)}
 .update-log-card{display:none}
 .log-modal-card{width:min(620px,100%)}
-@media(max-width:850px){.top{gap:6px;padding:8px}.top-log-btn{padding:8px 10px;font-size:11px}.wallet{padding:8px 10px}.top .brand .brand-title{display:inline}.top .brand .header-profile-mini{display:inline-flex}}
+@media(max-width:850px){.hero-dino-card{position:relative;right:auto;bottom:auto;width:100%;height:140px;margin-top:8px}.hero-dino{font-size:76px}.hero-dino-ring{width:120px;height:120px}.hero-dino-caption{right:0}.hero-orbit{display:none}.top{gap:6px;padding:8px}.top-log-btn{padding:8px 10px;font-size:11px}.wallet{padding:8px 10px}.top .brand .brand-title{display:inline}.top .brand .header-profile-mini{display:inline-flex}}
 .game:fullscreen{width:100vw;height:100vh;background:#02070d;display:flex;flex-direction:column;justify-content:center}.game:fullscreen .game-head,.game:fullscreen .hud,.game:fullscreen .controls,.game:fullscreen .card[style*="margin-top:10px"]{display:none}.game:fullscreen .game-frame{width:100vw;height:100vh;border:0;border-radius:0;box-shadow:none;display:flex;align-items:center;justify-content:center}.game:fullscreen .game-frame canvas{width:100vw;height:100vh;object-fit:contain}.game:fullscreen #fullscreenBtn{left:14px;top:14px}.game.landscape-lock .game-frame canvas{width:100vw;height:100vh;object-fit:contain}
 
 .view{display:none}.view.active{display:block;animation:appear .22s ease}@keyframes appear{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
 .hero{margin-top:14px;border:1px solid #2b4d68;border-radius:28px;padding:30px;background:radial-gradient(circle at 80% 20%,rgba(66,221,255,.24),transparent 30%),radial-gradient(circle at 15% 100%,rgba(185,144,255,.14),transparent 35%),linear-gradient(145deg,#10283e,#0a1726)}
+ .hero-showcase{position:relative;overflow:hidden;min-height:430px;isolation:isolate}.hero-showcase:before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 0 42%,#42ddff0b 43%,transparent 54%),linear-gradient(180deg,transparent 0 65%,#ffd34d07 100%);pointer-events:none}.hero-showcase:after{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,#42ddff00,#42ddff14,#b990ff12,#ffd34d10,#42ddff00);animation:heroSpin 18s linear infinite;z-index:-1}.hero-word{display:inline-block;animation:heroFloat 3.8s ease-in-out infinite}.hero-word-gold{color:var(--yellow);text-shadow:0 0 25px #ffd34d25}.hero-word-cyan{color:#9ff5ff;text-shadow:0 0 25px #42ddff25}.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border-radius:999px;background:#0d2739aa;border:1px solid #2b536e}.hero-subtitle{font-size:15px;max-width:760px}.hero-pills{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px}.hero-pills span{padding:7px 10px;border:1px solid #2b4d68;border-radius:999px;background:#0a1d2caa;color:#ccefff;font-size:10px;font-weight:900}.hero-actions{margin-top:18px}.hero-main-btn{padding:14px 20px;box-shadow:0 8px 25px #ffd34d22}.hero-side-btn{background:#102b42}.hero-dino-card{position:absolute;right:34px;bottom:28px;width:245px;height:215px;display:grid;place-items:center;pointer-events:none}.hero-dino-glow{position:absolute;width:170px;height:170px;border-radius:50%;background:conic-gradient(#ff4b5f,#ffcc4d,#58f37c,#42ddff,#896dff,#ff4b5f);filter:blur(24px);opacity:.28;animation:heroDinoPulse 3s ease-in-out infinite}.hero-dino{position:relative;z-index:2;font-size:105px;filter:drop-shadow(0 18px 18px #0008);animation:heroDinoFloat 3.2s ease-in-out infinite}.hero-dino-ring{position:absolute;width:175px;height:175px;border:2px solid #42ddff35;border-radius:50%;animation:heroRing 8s linear infinite}.hero-dino-caption{position:absolute;bottom:0;right:0;display:flex;flex-direction:column;gap:4px;padding:9px 11px;border-radius:13px;border:1px solid #2b536e;background:#071624d9;backdrop-filter:blur(8px);text-align:right;font-size:9px}.hero-dino-caption b{color:#fff0a5;font-size:11px}.hero-dino-caption span{color:#b8d4e8}@keyframes heroDinoFloat{50%{transform:translateY(-8px) rotate(-2deg)}}@keyframes heroDinoPulse{50%{transform:scale(1.08);opacity:.38}}@keyframes heroRing{to{transform:rotate(360deg)}}
+.hero-live{display:flex;align-items:center;gap:7px;margin-top:15px;font-size:10px;color:#8fa8c0}.live-dot{width:7px;height:7px;border-radius:50%;background:#68ee91;box-shadow:0 0 10px #68ee91;animation:livePulse 1.4s infinite}.hero-orbit{position:absolute;border:1px solid #42ddff22;border-radius:50%;pointer-events:none}.orbit-one{width:320px;height:320px;right:-90px;top:30px;animation:orbit 14s linear infinite}.orbit-two{width:210px;height:210px;right:-35px;top:84px;border-color:#ffd34d1d;animation:orbit 10s linear reverse infinite}.hero-spark{position:absolute;color:#dff8ff;opacity:.75;animation:sparkFloat 2.6s ease-in-out infinite}.spark-one{right:210px;top:52px}.spark-two{right:105px;top:180px;animation-delay:.8s}@keyframes heroSpin{to{transform:rotate(360deg)}}@keyframes heroFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}@keyframes livePulse{50%{opacity:.45;transform:scale(.65)}}@keyframes orbit{to{transform:rotate(360deg)}}@keyframes sparkFloat{50%{transform:translateY(-8px) rotate(12deg);opacity:1}}
 .eyebrow{font-size:11px;font-weight:950;letter-spacing:.16em;color:var(--cyan)}h1{font-size:clamp(38px,7vw,74px);line-height:.92;margin:9px 0 14px}.hero p{max-width:720px;color:#b9cadb;line-height:1.65}
 .actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:21px}.btn{padding:12px 16px;border-radius:12px;border:1px solid #315472;background:#17354e;font-weight:900}.btn.primary{background:var(--yellow);color:#121a23;border-color:#ffe783}.btn.green{background:#123c2a;border-color:#2d8b5d;color:#9dffc1}.btn.danger{background:#3b1920;border-color:#6b313d;color:#ffb3bb}.btn:disabled{opacity:.45;cursor:not-allowed}
 .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}.card{background:rgba(12,28,45,.91);border:1px solid var(--line);border-radius:17px;padding:16px;box-shadow:0 12px 30px #0003}.stat small{color:var(--muted);font-size:10px;font-weight:900}.stat strong{display:block;margin-top:5px;font-size:27px}
@@ -65,16 +67,20 @@ body{min-height:100vh;overflow-x:hidden}button,input,select{font:inherit}button{
 
 <main>
 <section id="home" class="view active">
-<div class="hero">
-<div class="eyebrow">DINO AURORA • ENDLESS RUN</div>
-<h1>CHẠY.<br><span style="color:var(--yellow)">THU THẬP.</span><br>TIẾN HÓA.</h1>
-<p>Game chạy vô tận với âm thanh, map nhiều biome, skin Cầu Vồng, thành tựu, avatar, VIP và bảng xếp hạng.</p>
-<div class="actions">
-<button id="homePlay" class="btn primary">▶ CHƠI NGAY</button>
-<button id="homeShop" class="btn">🛒 SHOP</button>
-<button id="renameHome" class="btn">✏️ ĐỔI TÊN</button>
-<button id="fullscreenHome" class="btn">⛶ TOÀN MÀN HÌNH</button>
+<div class="hero hero-showcase">
+<div class="hero-orbit orbit-one"></div><div class="hero-orbit orbit-two"></div><div class="hero-spark spark-one">✦</div><div class="hero-spark spark-two">✦</div>
+<div class="eyebrow hero-eyebrow">🦖 DINO AURORA • ENDLESS RUN</div>
+<h1><span class="hero-word">CHẠY.</span><br><span class="hero-word hero-word-gold">THU THẬP.</span><br><span class="hero-word hero-word-cyan">TIẾN HÓA.</span></h1>
+<p class="hero-subtitle">Lướt qua các biome, săn xu, mở skin hiếm, leo BXH và xây dựng tên tuổi của bạn trong thế giới DINO AURORA.</p>
+<div class="hero-pills"><span>🌈 Skin hiếm</span><span>🏆 BXH mỗi 24h</span><span>🛡️ Clan & Chat</span><span>⚡ Map sống động</span></div>
+<div class="actions hero-actions">
+<button id="homePlay" class="btn primary hero-main-btn">▶ CHƠI NGAY</button>
+<button id="homeShop" class="btn hero-side-btn">🛒 SHOP</button>
+<button id="renameHome" class="btn hero-side-btn">✏️ ĐỔI TÊN</button>
+<button id="fullscreenHome" class="btn hero-side-btn">⛶ TOÀN MÀN HÌNH</button>
 </div>
+<div class="hero-live"><span class="live-dot"></span><b>LIVE</b><span>Cloud Save</span><span>•</span><span>Playlist 2+ bài</span><span>•</span><span>Quà BXH mỗi 24h</span></div>
+<div class="hero-dino-card"><div class="hero-dino-glow"></div><div class="hero-dino">🦖</div><div class="hero-dino-ring"></div><div class="hero-dino-caption"><b>PRISM RUNNER</b><span>🌈 Rainbow • ⚡ Turbo • 🏆 Daily Top</span></div></div>
 </div>
 <div class="cards3">
 <div class="card stat"><small>NGƯỜI CHƠI</small><strong id="homeName">—</strong></div>
@@ -349,6 +355,7 @@ const DEFAULT_CONFIG={
 coinPerMeter:1,runBonus:25,baseSpeed:350,maxSpeed:760,obstacleRate:1.15,coinRate:.46,powerRate:7.5,skinMultiplier:.25,jumpBufferMs:120
 };
 let rankingRewards={1:1000,2:600,3:300,...loadJSON("dino_aurora_rank_rewards_v1",{})};
+let rankingPayoutBusy=false;
 const SKINS={
 blue:{name:"Azure Knight",price:800,body:"#2ad4ff",shade:"#0875bd",belly:"#e6fdff",accent:"#9ff5ff",bonus:0,kind:"ice"},
 pink:{name:"Sakura Spirit",price:1500,body:"#ff62ad",shade:"#ad1457",belly:"#ffe7f2",accent:"#ffd1e8",bonus:.05,kind:"sakura"},
@@ -363,10 +370,10 @@ magnet:{name:"Nam Châm",icon:"🧲",base:800},
 turbo:{name:"Turbo",icon:"⚡",base:1000}
 };
 const UPGRADES={
-jump:{name:"Siêu Nhảy",icon:"🦘",base:250,max:20,desc:"Tăng lực nhảy.",detail:"Lv.1: +700 lực nhảy • mỗi Lv sau: +16 lực • giúp vượt chướng ngại cao hơn."},
-magnet:{name:"Magnet",icon:"🧲",base:300,max:20,desc:"Tăng bán kính hút xu.",detail:"Lv.1: +18 bán kính hút • mỗi Lv: +18 • hút xu ở khoảng cách xa hơn."},
-coin:{name:"Coin Master",icon:"🪙",base:500,max:20,desc:"Tăng phần thưởng xu.",detail:"Mỗi Lv: +3% giá trị xu nhận được trong lượt chơi."},
-speed:{name:"Turbo Engine",icon:"🚀",base:550,max:20,desc:"Tăng tốc độ cơ bản.",detail:"Lv.1: +6 tốc độ nền • mỗi Lv: +6 • tăng tốc độ chạy theo thời gian."}
+jump:{name:"Siêu Nhảy",icon:"🦘",base:250,max:20,desc:"Tăng lực nhảy.",detail:""},
+magnet:{name:"Magnet",icon:"🧲",base:300,max:20,desc:"Tăng bán kính hút xu.",detail:""},
+coin:{name:"Coin Master",icon:"🪙",base:500,max:20,desc:"Tăng phần thưởng xu.",detail:""},
+speed:{name:"Turbo Engine",icon:"🚀",base:550,max:20,desc:"Tăng tốc độ cơ bản.",detail:""}
 };
 const AVATARS=[
 {id:"dino",icon:"🦖",name:"Dino",cost:0},
@@ -405,7 +412,9 @@ let prices={...Object.fromEntries(Object.entries(SKINS).map(([k,v])=>[k,v.price]
 let adminPassword=localStorage.getItem(KEY_ADMIN)||"1";
 let adminPasswordHash=localStorage.getItem("dino_aurora_admin_hash")||"";
 let musicConfig=loadJSON(KEY_MUSIC,{urls:["dino_background.mp3","dino_background_2.mp3"],url:"dino_background.mp3",volume:.35,enabled:true,loopPlaylist:true});if(!Array.isArray(musicConfig.urls)||!musicConfig.urls.length)musicConfig.urls=[musicConfig.url||"dino_background.mp3","dino_background_2.mp3"];else if(musicConfig.urls.length===1)musicConfig.urls.push("dino_background_2.mp3");
-let appInfo=loadJSON("dino_aurora_app_info_v1",{version:"1.5",build:"LIVE",log:"• Cải thiện hiển thị Shop và Thành tựu\n• Playlist 2 bài lặp liên tục\n• Bộ đệm nhảy 120ms giúp thao tác mượt hơn\n• Chat thế giới, Clan và 3 BXH Clan\n• Profile chuyển lên thanh đầu\n• Map thêm chiều sâu và chi tiết"});
+const CURRENT_APP_VERSION="1.7";
+let appInfo=loadJSON("dino_aurora_app_info_v1",{version:CURRENT_APP_VERSION,build:"social-clan-live",log:"• Sửa Chat/Clan + đồng bộ Supabase\n• Quà Top BXH tự trao mỗi 24 giờ\n• Tên đã từng đạt Top được giữ chỗ vĩnh viễn\n• Mô tả nâng cấp chỉ hiển thị hiệu ứng Lv hiện tại\n• Trang chủ sinh động hơn\n• Tối ưu phản hồi nhảy và đồng bộ cloud"});
+if(appInfo.version!==CURRENT_APP_VERSION){appInfo={...appInfo,version:CURRENT_APP_VERSION,build:"social-clan-live",log:"• Sửa Chat/Clan + đồng bộ Supabase\n• Quà Top BXH tự trao mỗi 24 giờ\n• Tên đã từng đạt Top được giữ chỗ vĩnh viễn\n• Mô tả nâng cấp chỉ hiển thị hiệu ứng Lv hiện tại\n• Trang chủ sinh động hơn\n• Tối ưu phản hồi nhảy và đồng bộ cloud"};localStorage.setItem("dino_aurora_app_info_v1",JSON.stringify(appInfo));}
 let cloudConfig=loadJSON(KEY_SUPABASE,{url:DEFAULT_SUPABASE_URL,key:DEFAULT_SUPABASE_ANON_KEY,enabled:true});cloudConfig.url=cloudConfig.url||DEFAULT_SUPABASE_URL;cloudConfig.key=cloudConfig.key||DEFAULT_SUPABASE_ANON_KEY;if(cloudConfig.key===DEFAULT_SUPABASE_ANON_KEY)cloudConfig.enabled=true;
 let currentName=localStorage.getItem(KEY_CURRENT)||"";
 let player=players[currentName]||null;
@@ -434,6 +443,21 @@ async function cloudUpsertPlayer(p){if(!cloudReady()||!p)return;try{await cloudF
 async function cloudUpsertState(){if(!cloudReady())return;try{await cloudFetch('/rest/v1/dino_app_state?on_conflict=id',{method:'POST',headers:{'Content-Type':'application/json',Prefer:'resolution=merge-duplicates,return=minimal'},body:JSON.stringify({id:'main',data:{config,prices,musicConfig,appInfo,adminPasswordHash,rankingRewards},updated_at:new Date().toISOString()})});}catch(e){setCloudStatus('⚠️ '+e.message);}}
 async function cloudLoadAll(){if(!cloudReady())return;try{const a=await (await cloudFetch('/rest/v1/dino_players?select=name,data')).json();const remote={};for(const row of a){if(row&&row.name)remote[row.name]=normPlayer(row.data,row.name);}if(Object.keys(remote).length){players={...players,...remote};if(!active&&player&&players[player.name])player=players[player.name];localStorage.setItem(KEY_PLAYERS,JSON.stringify(players));}const b=await (await cloudFetch('/rest/v1/dino_app_state?select=data&limit=1')).json();const st=b&&b[0]&&b[0].data;if(st){if(st.config)config={...DEFAULT_CONFIG,...st.config,jumpBufferMs:Math.min(300,Math.max(0,Number(st.config.jumpBufferMs??120)||0))};if(st.prices)prices={...prices,...st.prices};if(st.musicConfig)musicConfig={...musicConfig,...st.musicConfig};if(!Array.isArray(musicConfig.urls)||!musicConfig.urls.length)musicConfig.urls=[musicConfig.url||"dino_background.mp3","dino_background_2.mp3"];else if(musicConfig.urls.length===1)musicConfig.urls.push("dino_background_2.mp3");if(st.appInfo)appInfo={...appInfo,...st.appInfo};if(st.rankingRewards)rankingRewards={...rankingRewards,...st.rankingRewards};if(st.adminPasswordHash){adminPasswordHash=st.adminPasswordHash;localStorage.setItem("dino_aurora_admin_hash",adminPasswordHash);}}localStorage.setItem(KEY_CONFIG,JSON.stringify(config));localStorage.setItem(KEY_PRICES,JSON.stringify(prices));localStorage.setItem(KEY_MUSIC,JSON.stringify(musicConfig));localStorage.setItem("dino_aurora_rank_rewards_v1",JSON.stringify(rankingRewards));localStorage.setItem("dino_aurora_app_info_v1",JSON.stringify(appInfo));setupMusic();refreshUI();renderRanking();setCloudStatus('✅ Đã tải dữ liệu cloud');}catch(e){setCloudStatus('⚠️ Không tải được cloud: '+e.message);}}
 async function cloudSyncNow(){if(!cloudReady()){setCloudStatus('⚠️ Hãy nhập URL và Anon Key');return;}if(player)await cloudUpsertPlayer(player);await cloudUpsertState();await cloudLoadAll();toast('☁️ Đồng bộ xong');}
+async function awardDailyRankRewards(){
+ if(rankingPayoutBusy||!cloudReady())return;rankingPayoutBusy=true;
+ try{
+  const cycle=Math.floor(Date.now()/86400000);const rows=await (await cloudFetch('/rest/v1/dino_players?select=name,data')).json();
+  const cloudPlayers={};for(const row of rows){if(row?.name)cloudPlayers[row.name]=normPlayer(row.data,row.name);}if(Object.keys(cloudPlayers).length)players={...players,...cloudPlayers};
+  for(const board of ['coins','best','distance']){
+   const arr=Object.values(players).map(p=>normPlayer(p,p.name)).sort((a,b)=>board==='coins'?b.coins-a.coins:board==='best'?b.best-a.best:b.totalDistance-a.totalDistance).slice(0,3);
+   for(let i=0;i<arr.length;i++){const p=arr[i],rank=i+1,amount=Number(rankingRewards[rank])||0;if(!amount)continue;try{
+    const res=await fetch(cloudConfig.url.replace(/\/$/,"")+'/rest/v1/dino_rank_payouts',{method:'POST',headers:{apikey:cloudConfig.key,Authorization:`Bearer ${cloudConfig.key}`,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({cycle_id:cycle,board,rank,player_name:p.name,amount})});
+    if(!res.ok)continue;p.coins+=amount;players[p.name]=p;await cloudUpsertPlayer(p);await reserveName(p.name,`top_${board}_${rank}`);if(player?.name===p.name)player=p;
+   }catch{}}
+  }
+  localStorage.setItem(KEY_PLAYERS,JSON.stringify(players));refreshUI();
+ }finally{rankingPayoutBusy=false;}
+}
 function toast(t){const e=$("toast");e.textContent=t;e.classList.remove("hidden");clearTimeout(window.__toast);window.__toast=setTimeout(()=>e.classList.add("hidden"),1900);}
 function showView(id){document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===id));document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===id));if(id==="ranking")renderRanking();if(id==="achievements")renderAchievements();if(id==="game")draw();if(id==="social"){loadSocial();}}
 
@@ -463,15 +487,30 @@ if($("appVersionLabel"))$("appVersionLabel").textContent=appInfo.version;if($("a
 function getFrame(){return player?.frame||"bronze";}
 function toggleProfile(){openProfileSettings();}
 
+function nameKey(n){return String(n||"").trim().replace(/\s+/g," ").toLocaleLowerCase("vi-VN");}
+async function nameAlreadyTaken(n,ignoreName=""){
+ const key=nameKey(n),ignoreKey=nameKey(ignoreName);
+ if(Object.keys(players).some(k=>nameKey(k)===key&&nameKey(k)!==ignoreKey))return true;
+ if(!cloudReady())return false;
+ try{
+  const rows=await (await cloudFetch('/rest/v1/dino_players?select=name')).json();
+  if(rows.some(r=>nameKey(r.name)===key&&nameKey(r.name)!==ignoreKey))return true;
+  const reserved=await (await cloudFetch(`/rest/v1/dino_reserved_names?select=name_key&name_key=eq.${encodeURIComponent(key)}&limit=1`)).json();
+  return reserved.length>0&&key!==ignoreKey;
+ }catch{return false;}
+}
+async function reserveName(n,reason="registration"){
+ if(!cloudReady())return true;
+ try{const res=await cloudFetch('/rest/v1/dino_reserved_names',{method:'POST',headers:{'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name:String(n).trim(),name_key:nameKey(n),reason})});return res.ok||res.status===409;}catch{return false;}
+}
 function openName(){
 $("nameModal").classList.remove("hidden");$("nameInput").value=player?.name||"";$("nameError").textContent="";setTimeout(()=>$("nameInput").focus(),20);
 }
-$("registerBtn").onclick=()=>{
+$("registerBtn").onclick=async()=>{
 const n=$("nameInput").value.trim();if(n.length<2){$("nameError").textContent="Tên tối thiểu 2 ký tự.";return}
 if(!/^[\p{L}\p{N}_ -]+$/u.test(n)){$("nameError").textContent="Tên có ký tự không hợp lệ.";return}
-if(players[n]&&(!player||n!==player.name)){$("nameError").textContent="Tên này đã tồn tại.";return}
-if(!player)player=players[n]?normPlayer(players[n],n):freshPlayer(n);else player.name=n;
-currentName=n;save();$("nameModal").classList.add("hidden");refreshUI();toast("👤 Xin chào "+n+"!");
+if(!player||n!==player.name){if(await nameAlreadyTaken(n,player?.name||"")){$("nameError").textContent="Tên này đã được sử dụng hoặc từng đạt Top BXH. Hãy chọn tên khác.";return}if(!(await reserveName(n,"registration"))){$("nameError").textContent="Không thể giữ tên lúc này. Hãy thử lại.";return}}
+if(!player)player=freshPlayer(n);else player.name=n;currentName=n;save();$("nameModal").classList.add("hidden");refreshUI();toast("👤 Xin chào "+n+"!");
 };
 $("nameInput").addEventListener("keydown",e=>{if(e.key==="Enter")$("registerBtn").click();});
 
@@ -483,10 +522,12 @@ $("renameInfo").innerHTML=`Lần đổi tên này cần <b>${renameCost()} Thẻ
 $("newNameInput").value="";$("renameError").textContent="";$("renameModal").classList.remove("hidden");setTimeout(()=>$("newNameInput").focus(),20);
 }
 $("renameCancel").onclick=()=>$("renameModal").classList.add("hidden");
-$("renameBtn").onclick=()=>{
+$("renameBtn").onclick=async()=>{
 const n=$("newNameInput").value.trim();if(n.length<2){$("renameError").textContent="Tên tối thiểu 2 ký tự.";return}
-if(players[n]){$("renameError").textContent="Tên đã tồn tại.";return}
+if(!/^[\p{L}\p{N}_ -]+$/u.test(n)){$("renameError").textContent="Tên có ký tự không hợp lệ.";return}
+if(await nameAlreadyTaken(n,player.name)){$("renameError").textContent="Tên này đã được sử dụng hoặc từng đạt Top BXH.";return}
 const need=renameCost();if(player.inventory.renameTickets<need){$("renameError").textContent="Không đủ Thẻ Đổi Tên.";return}
+if(!(await reserveName(n,"rename"))){$("renameError").textContent="Không thể giữ tên lúc này. Hãy thử lại.";return}
 const old=player.name;player.inventory.renameTickets-=need;player.renameCount++;delete players[old];player.name=n;players[n]=player;currentName=n;save();$("renameModal").classList.add("hidden");refreshUI();toast("✏️ Đổi tên thành công.");
 };
 
@@ -511,7 +552,8 @@ $("upgradesPanel").innerHTML=`<div class="shop-grid">${Object.entries(UPGRADES).
 }
 function itemCard(id,price,desc,count){const i=ITEMS[id];return `<div class="card"><div class="item-icon">${i.icon}</div><div style="display:flex;justify-content:space-between;margin-top:10px"><h3 style="margin:0">${i.name}</h3><span class="price">🪙 ${fmt(price)}</span></div><p class="mini">${desc}</p><span class="badge">${count}</span><button class="btn primary" style="width:100%;margin-top:9px" onclick="buyItem('${id}')">MUA</button></div>`}
 function skinCard(id,s){const own=player.ownedSkins.includes(id),eq=player.selectedSkin===id;const desc=s.kind==="fire"?"Khủng long lửa, gai nhiệt + trail đỏ.":s.kind==="galaxy"?"Khủng long thiên hà, thân sao + trail tím.":s.kind==="sakura"?"Khủng long hoa anh đào + trail hồng.":s.rainbow?"Khủng long cầu vồng nhiều lớp + trail vải liền.":"Khủng long băng giáp xanh + trail lạnh.";return `<div class="card"><div class="skin-preview ${s.rainbow?"rainbow-preview":""}"><div class="dino-mini">${s.rainbow?"🦖":s.kind==="fire"?"🐲":s.kind==="galaxy"?"👾":s.kind==="sakura"?"🦖":"🦕"}</div></div><div style="display:flex;justify-content:space-between;gap:8px;margin-top:10px"><h3 style="margin:0">${s.name}</h3><span class="price">🪙 ${fmt(prices[id])}</span></div><p class="mini">${desc} • Bonus xu +${Math.round(s.bonus*100)}%.</p><button class="btn ${eq?"green":"primary"}" style="width:100%;margin-top:8px" onclick="buySkin('${id}')">${eq?"✓ ĐANG DÙNG":own?"TRANG BỊ":"MUA"}</button></div>`}
-function upgradeCard(id,u){const lv=Number(player.upgrades[id])||0,max=lv>=u.max,p=upgradePrice(id);return `<div class="card"><div style="font-size:42px">${u.icon}</div><h3>${u.name}</h3><p class="mini">${u.desc}</p><div class="upgrade-detail">${u.detail||u.desc}</div><div class="progress"><span style="width:${lv/u.max*100}%"></span></div><div class="mini" style="margin-top:7px">Lv.${lv}/${u.max}</div><button class="btn ${max?"":"primary"}" ${max?"disabled":""} style="width:100%;margin-top:8px" onclick="buyUpgrade('${id}')">${max?"ĐÃ TỐI ĐA":"NÂNG CẤP • 🪙 "+fmt(p)}</button></div>`}
+function upgradeDetail(id,lv){const n=Math.max(0,Number(lv)||0),shown=n||1;if(id==="jump")return `Lv.${shown}: +${700+(shown-1)*16} lực nhảy`;if(id==="magnet")return `Lv.${shown}: +${shown*18} bán kính hút`;if(id==="coin")return `Lv.${shown}: +${shown*3}% giá trị xu`;if(id==="speed")return `Lv.${shown}: +${shown*6} tốc độ nền`;return "";}
+function upgradeCard(id,u){const lv=Number(player.upgrades[id])||0,max=lv>=u.max,p=upgradePrice(id);return `<div class="card"><div style="font-size:42px">${u.icon}</div><h3>${u.name}</h3><p class="mini">${u.desc}</p><div class="upgrade-detail">${upgradeDetail(id,lv)}</div><div class="progress"><span style="width:${lv/u.max*100}%"></span></div><div class="mini" style="margin-top:7px">Lv.${lv}/${u.max}</div><button class="btn ${max?"":"primary"}" ${max?"disabled":""} style="width:100%;margin-top:8px" onclick="buyUpgrade('${id}')">${max?"ĐÃ TỐI ĐA":"NÂNG CẤP • 🪙 "+fmt(p)}</button></div>`}
 
 window.buyItem=id=>{
 if(!player)return;const p=itemPrice(id);if(player.coins<p){toast("❌ Không đủ xu");return}player.coins-=p;
@@ -547,7 +589,7 @@ return `<div class="leader-row"><div class="rank">#${i+1}</div><div style="displ
 }).join("")||`<div class="mini">Chưa có dữ liệu.</div>`;
 }
 
-setInterval(()=>{if(cloudReady()){cloudLoadAll();syncClanStats();}else{players=loadJSON(KEY_PLAYERS,{});Object.keys(players).forEach(n=>players[n]=normPlayer(players[n],n));if(player&&players[player.name])player=players[player.name];renderRanking();refreshUI();}},300000);
+setInterval(()=>{if(cloudReady()){cloudLoadAll();syncClanStats();awardDailyRankRewards();}else{players=loadJSON(KEY_PLAYERS,{});Object.keys(players).forEach(n=>players[n]=normPlayer(players[n],n));if(player&&players[player.name])player=players[player.name];renderRanking();refreshUI();}},300000);
 
 function showModalAdmin(){ $("adminModal").classList.remove("hidden");$("adminLoginBox").classList.remove("hidden");$("adminBody").classList.add("hidden");$("adminPassword").value="";$("adminError").textContent="";}
 function adminFill(){
@@ -564,13 +606,13 @@ $("adminPlayersToggle").onclick=()=>{const wrap=$("adminPlayersWrap");const open
 $("adminLogin").onclick=async()=>{const entered=$("adminPassword").value;const ok=cloudReady()&&adminPasswordHash?await hashText(entered)===adminPasswordHash:entered===adminPassword;if(!ok){$("adminError").textContent="Sai mật khẩu.";return}$("adminLoginBox").classList.add("hidden");$("adminBody").classList.remove("hidden");adminFill();};
 $("buffCoins").onclick=()=>{const n=$("adminPlayer").value,a=Math.max(0,Number($("adminCoins").value)||0);if(!players[n])return;players[n].coins+=a;saveData();if(player?.name===n)player=players[n];adminFill();refreshUI();toast("🪙 Buff +"+fmt(a));};
 $("setCoins").onclick=()=>{const n=$("adminPlayer").value,a=Math.max(0,Number($("adminCoins").value)||0);if(!players[n])return;players[n].coins=a;saveData();if(player?.name===n)player=players[n];adminFill();refreshUI();toast("🪙 Đã đặt coin");};
-$("adminRename").onclick=()=>{const old=$("adminPlayer").value,n=$("adminNewName").value.trim();if(!players[old]||!n||players[n]){toast("Tên mới không hợp lệ hoặc đã tồn tại.");return}const p=players[old];delete players[old];p.name=n;players[n]=p;if(player?.name===old){player=p;currentName=n;localStorage.setItem(KEY_CURRENT,n)}saveData();adminFill();refreshUI();toast("✏️ Admin đã đổi tên");};
+$("adminRename").onclick=async()=>{const old=$("adminPlayer").value,n=$("adminNewName").value.trim();if(!players[old]||!n){toast("Tên mới không hợp lệ.");return}if(await nameAlreadyTaken(n,players[old].name)){toast("Tên mới đã được sử dụng hoặc từng đạt Top BXH.");return}if(!(await reserveName(n,"admin_rename"))){toast("Không thể giữ tên mới lúc này.");return}const p=players[old];delete players[old];p.name=n;players[n]=p;if(player?.name===old){player=p;currentName=n;localStorage.setItem(KEY_CURRENT,n)}saveData();adminFill();refreshUI();toast("✏️ Admin đã đổi tên");};
 $("saveAdminPrices").onclick=()=>{document.querySelectorAll(".priceInput").forEach(i=>prices[i.dataset.price]=Math.max(0,Number(i.value)||0));localStorage.setItem(KEY_PRICES,JSON.stringify(prices));renderShop();toast("💸 Đã lưu giá shop");};
 $("saveGameConfig").onclick=()=>{config={coinPerMeter:Math.max(0,Number($("cfgCoinPerMeter").value)||0),runBonus:Math.max(0,Number($("cfgRunBonus").value)||0),baseSpeed:Math.max(100,Number($("cfgBaseSpeed").value)||350),maxSpeed:Math.max(200,Number($("cfgMaxSpeed").value)||760),obstacleRate:Math.max(.3,Number($("cfgObstacleRate").value)||1),coinRate:Math.max(.15,Number($("cfgCoinRate").value)||.5),powerRate:Math.max(1,Number($("cfgPowerRate").value)||7),skinMultiplier:Math.max(0,Number($("cfgSkinMultiplier").value)||.25),jumpBufferMs:Math.min(300,Math.max(0,Number($("cfgJumpBuffer").value)||0))};localStorage.setItem(KEY_CONFIG,JSON.stringify(config));cloudUpsertState();toast("⚙️ Đã lưu cơ chế game");};
-$("saveRankRewards").onclick=async()=>{rankingRewards={1:Math.max(0,Number($("rankReward1").value)||0),2:Math.max(0,Number($("rankReward2").value)||0),3:Math.max(0,Number($("rankReward3").value)||0)};localStorage.setItem("dino_aurora_rank_rewards_v1",JSON.stringify(rankingRewards));refreshUI();await cloudUpsertState();toast("🏆 Đã lưu quà Top BXH");};
+$("saveRankRewards").onclick=async()=>{rankingRewards={1:Math.max(0,Number($("rankReward1").value)||0),2:Math.max(0,Number($("rankReward2").value)||0),3:Math.max(0,Number($("rankReward3").value)||0)};localStorage.setItem("dino_aurora_rank_rewards_v1",JSON.stringify(rankingRewards));refreshUI();await cloudUpsertState();toast("🏆 Đã lưu quà Top BXH • trao mỗi 24h");};
 $("saveMusic").onclick=async()=>{const raw=$("musicUrls").value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);if($("musicUrl").value.trim()&&!raw.includes($("musicUrl").value.trim()))raw.unshift($("musicUrl").value.trim());musicConfig={urls:raw.length?raw:["dino_background.mp3","dino_background_2.mp3"],url:raw[0]||"dino_background.mp3",volume:Math.min(1,Math.max(0,Number($("musicVolume").value)||0)),enabled:true,loopPlaylist:true};localStorage.setItem(KEY_MUSIC,JSON.stringify(musicConfig));musicIndex=0;setupMusic();$("musicStatus").textContent="Đã lưu playlist "+musicConfig.urls.length+" bài.";await cloudUpsertState();toast("🎵 Đã lưu playlist");};
 $("testMusic").onclick=()=>{setupMusic();playMusic();};
-$("saveUpdateLog").onclick=async()=>{appInfo={version:$("appVersionInput").value.trim()||"1.2",build:$("appBuildInput").value.trim()||"LIVE",log:$("updateLogInput").value.trim()||"• Chưa có nội dung cập nhật"};localStorage.setItem("dino_aurora_app_info_v1",JSON.stringify(appInfo));refreshUI();await cloudUpsertState();toast("📜 Đã lưu Update Log");};
+$("saveUpdateLog").onclick=async()=>{appInfo={version:$("appVersionInput").value.trim()||CURRENT_APP_VERSION,build:$("appBuildInput").value.trim()||"LIVE",log:$("updateLogInput").value.trim()||"• Chưa có nội dung cập nhật"};localStorage.setItem("dino_aurora_app_info_v1",JSON.stringify(appInfo));refreshUI();await cloudUpsertState();toast("📜 Đã lưu Update Log");};
 $("stopMusic").onclick=()=>stopMusic();
 $("saveAdminPassword").onclick=async()=>{const a=$("newAdminPassword").value,b=$("newAdminPassword2").value;if(!a||a!==b){toast("❌ Mật khẩu xác nhận không khớp");return}adminPassword=a;adminPasswordHash=await hashText(a);localStorage.setItem(KEY_ADMIN,adminPassword);localStorage.setItem("dino_aurora_admin_hash",adminPasswordHash);$("newAdminPassword").value="";$("newAdminPassword2").value="";await cloudUpsertState();toast("🔐 Đã đổi mật khẩu Panel");};
 $("refreshAdminAll").onclick=()=>{players=loadJSON(KEY_PLAYERS,{});Object.keys(players).forEach(n=>players[n]=normPlayer(players[n],n));if(player&&players[player.name])player=players[player.name];config={...DEFAULT_CONFIG,...loadJSON(KEY_CONFIG,DEFAULT_CONFIG)};prices={...Object.fromEntries(Object.entries(SKINS).map(([k,v])=>[k,v.price])),...loadJSON(KEY_PRICES,{})};musicConfig=loadJSON(KEY_MUSIC,{urls:["dino_background.mp3","dino_background_2.mp3"],url:"dino_background.mp3",volume:.35,enabled:true,loopPlaylist:true});appInfo=loadJSON("dino_aurora_app_info_v1",appInfo);adminFill();refreshUI();toast("↻ Panel đã tải lại dữ liệu");};
@@ -731,7 +773,7 @@ async function sendWorldChat(){
  if(!player||!socialReady())return toast("⚠️ Cần kết nối Supabase và đăng nhập");
  const input=$("worldChatInput"),msg=input.value.trim();if(!msg)return;
  if(msg.length>180)return toast("Tin nhắn quá dài");
- try{await cloudFetch('/rest/v1/dino_chat_messages',{method:'POST',headers:socialHeaders(),body:JSON.stringify({scope:"world",sender_name:player.name,message:msg})});input.value="";await loadWorldChat();}catch(e){toast("❌ Không gửi được chat");}
+ try{await cloudFetch('/rest/v1/dino_chat_messages',{method:'POST',headers:socialHeaders(),body:JSON.stringify({scope:"world",sender_name:player.name,message:msg})});input.value="";await loadWorldChat();}catch(e){toast("❌ Không gửi được chat • Hãy chạy SQL Social Clan + Cloud v1.7");}
 }
 async function loadMyClan(){
  if(!player||!socialReady()){currentClan=null;$("myClanName").textContent="Chưa có Clan";$("myClanTag").textContent="—";$("clanChatInput").disabled=true;$("clanChatSend").disabled=true;return;}
@@ -775,7 +817,7 @@ async function loadClanChat(){
 async function sendClanChat(){
  if(!currentClan||!player||!socialReady())return toast("⚠️ Bạn chưa vào Clan");
  const input=$("clanChatInput"),msg=input.value.trim();if(!msg)return;
- try{await cloudFetch('/rest/v1/dino_clan_messages',{method:'POST',headers:socialHeaders(),body:JSON.stringify({clan_id:currentClan.id,sender_name:player.name,message:msg})});input.value="";await loadClanChat();}catch(e){toast("❌ Không gửi được chat Clan");}
+ try{await cloudFetch('/rest/v1/dino_clan_messages',{method:'POST',headers:socialHeaders(),body:JSON.stringify({clan_id:currentClan.id,sender_name:player.name,message:msg})});input.value="";await loadClanChat();}catch(e){toast("❌ Không gửi được chat Clan • Thiếu bảng Clan hoặc quyền Supabase");}
 }
 async function loadClanRanks(){
  if(!socialReady())return;
@@ -811,7 +853,7 @@ document.querySelectorAll(".rank-tabs .tab").forEach(b=>b.onclick=()=>{document.
 document.querySelectorAll(".clan-rank-tabs .tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".clan-rank-tabs .tab").forEach(x=>x.classList.remove("active"));b.classList.add("active");["Coins","Best","Distance"].forEach(k=>$("clanRank"+k)?.classList.add("hidden"));$("clanRank"+b.dataset.clanRank.charAt(0).toUpperCase()+b.dataset.clanRank.slice(1))?.classList.remove("hidden");});
 
 if(!player){$("gameState").textContent="Đăng ký tên để bắt đầu.";}else{refreshUI();$("nameModal").classList.add("hidden");}
-resetDino();draw();bindMusicInteraction();if(cloudReady()){setCloudStatus("☁️ Đang kết nối Supabase...");cloudLoadAll();}
+resetDino();draw();bindMusicInteraction();if(cloudReady()){setCloudStatus("☁️ Đang kết nối Supabase...");cloudLoadAll().then(()=>awardDailyRankRewards()).catch(()=>{});}
 })();
 </script>
 </body>
