@@ -2,809 +2,569 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Dino Run • Aurora</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Dino Aurora Ultimate</title>
 <style>
-:root{
-  --bg:#07111d;--bg2:#0b1b2c;--panel:rgba(13,30,49,.88);--line:#274765;
-  --text:#f4f8ff;--muted:#91a9c1;--cyan:#42ddff;--yellow:#ffd34d;--green:#63f29a;
-  --pink:#ff69c9;--red:#ff6678;--purple:#b990ff;--orange:#ff8e4d;
-}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:radial-gradient(circle at 20% 0%,#143f5b 0,transparent 26%),linear-gradient(#06101c,#081524 60%,#050c15);color:var(--text);font-family:Inter,system-ui,Arial,sans-serif}
-body{overflow-x:hidden}button,input{font:inherit}button{cursor:pointer;border:0;color:inherit}.hidden{display:none!important}
-.app{width:min(1200px,calc(100% - 24px));margin:auto;padding:12px 0 28px}
-.topbar{position:sticky;top:10px;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;background:rgba(5,13,23,.78);backdrop-filter:blur(18px);border:1px solid #284765;border-radius:18px;box-shadow:0 18px 50px #0008}
-.brand{display:flex;align-items:center;gap:10px;background:transparent;font-weight:950}.logo{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,#40dcff,#7e66ff);font-size:24px}
-.nav{display:flex;gap:5px}.nav button{padding:9px 12px;border-radius:10px;background:transparent;color:var(--muted);font-weight:850}.nav button.active,.nav button:hover{background:#16334c;color:var(--yellow)}
-.wallet{padding:10px 13px;border-radius:12px;background:#2a2512;border:1px solid #5a4d21;color:#ffe9a3;font-weight:900}
-.view{display:none}.view.active{display:block;animation:in .22s ease}@keyframes in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
-.hero{margin-top:16px;border:1px solid #294b68;border-radius:28px;overflow:hidden;padding:30px;background:
-radial-gradient(circle at 80% 22%,rgba(66,221,255,.23),transparent 28%),
-radial-gradient(circle at 20% 100%,rgba(185,144,255,.14),transparent 32%),linear-gradient(140deg,#102943,#0b1726)}
-.eyebrow{font-size:11px;letter-spacing:.16em;color:var(--cyan);font-weight:950}.hero h1{font-size:clamp(38px,7vw,76px);line-height:.92;margin:10px 0 15px}.hero p{max-width:670px;color:#b7c8d9;line-height:1.65;font-size:16px}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.btn{padding:12px 17px;border-radius:12px;background:#19364f;border:1px solid #31536f;font-weight:900}.btn.primary{background:var(--yellow);color:#121a25;border-color:#ffe27a}.btn.green{background:#123e2a;border-color:#2d8a5c;color:#91ffc0}.btn.danger{background:#3a1720;border-color:#6b2d37;color:#ffabb5}.btn:disabled{opacity:.45;cursor:not-allowed}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 14px 32px #0003}.stat label{font-size:11px;color:var(--muted);font-weight:900}.stat strong{display:block;font-size:28px;margin-top:6px}
-.section-title{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:22px 0 12px}.section-title h2{margin:0;font-size:28px}
-.game-head{margin:22px 0 10px;display:flex;align-items:end;justify-content:space-between;gap:10px}.game-head h2{margin:5px 0 0;font-size:31px}
-.game-frame{position:relative;overflow:hidden;border:1px solid #2a4b66;border-radius:25px;background:#081523;box-shadow:0 30px 70px #0008}
-canvas{display:block;width:100%;height:auto;touch-action:none}.map-badge{position:absolute;top:12px;right:12px;padding:9px 11px;border-radius:10px;background:#07131f99;border:1px solid #ffffff1c;backdrop-filter:blur(8px);font-size:11px;font-weight:900}
-.hud{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px}.hud .card{padding:11px}.hud small{display:block;color:var(--muted);font-size:10px;font-weight:900}.hud strong{display:block;margin-top:4px;font-size:19px}
-.controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}.controls .btn{flex:1;min-width:110px}
-.shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.skin-card{position:relative;overflow:hidden}.skin-preview{height:180px;border-radius:15px;display:grid;place-items:center;background:radial-gradient(circle at 50% 30%,rgba(255,255,255,.16),transparent 55%),#102337}
-.dino-svg{width:145px;filter:drop-shadow(0 18px 12px #0006)}.rainbow-preview{position:relative}.rainbow-preview::after{content:"";position:absolute;inset:15px;border-radius:50%;background:conic-gradient(#ff3b3b,#ff9d3d,#ffe43d,#53ff75,#45dbff,#7a71ff,#d35bff,#ff3b3b);filter:blur(20px);opacity:.5}
-.price{color:#ffe38d;font-weight:950}.item-icon{font-size:56px;height:145px;display:grid;place-items:center;border-radius:15px;background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.14),transparent 58%),#102337}.tag{display:inline-block;padding:5px 8px;border-radius:8px;background:#18334a;color:#9cecff;font-size:10px;font-weight:900}
-.quest{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}.quest+.quest{margin-top:8px}.bar{height:7px;background:#172c42;border-radius:99px;overflow:hidden;margin-top:8px}.bar span{display:block;height:100%;background:linear-gradient(90deg,#43ddff,#ffd34d)}
-.modal-wrap{position:fixed;inset:0;display:grid;place-items:center;background:#020811b8;backdrop-filter:blur(8px);z-index:80;padding:18px}.modal{width:min(470px,100%);background:#0d2136;border:1px solid #315676;border-radius:22px;padding:24px;box-shadow:0 30px 90px #000b}.modal h2{margin:0 0 7px}.modal p{color:var(--muted);line-height:1.55}.modal input,.admin-input{width:100%;padding:13px 14px;border-radius:12px;border:1px solid #355673;background:#081724;color:#fff;outline:none}.modal input:focus,.admin-input:focus{border-color:#5adfff}
-.toast{position:fixed;left:50%;bottom:23px;transform:translateX(-50%);padding:12px 16px;border-radius:12px;background:#102a40;border:1px solid #3c6280;font-weight:900;z-index:110;box-shadow:0 15px 50px #0008}
-.admin-panel{margin-top:16px}.admin-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:12px}.admin-table{width:100%;border-collapse:collapse}.admin-table th,.admin-table td{padding:9px 6px;border-bottom:1px solid #1f3b53;text-align:left;font-size:12px}.mini{font-size:11px;color:var(--muted)}
-.rainbow-note{background:linear-gradient(90deg,#ff5656,#ffb74a,#f0e94c,#55f07b,#4ad8ff,#8f78ff,#e96ad8);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:950}
-footer{padding:18px 0 0;color:#60758a;text-align:center;font-size:11px}
-@media(max-width:850px){.nav button{display:none}.grid3,.shop-grid,.admin-grid{grid-template-columns:1fr}.hud{grid-template-columns:repeat(3,1fr)}.hero{padding:24px 18px}}
+:root{--bg:#06101b;--panel:#0c1c2d;--panel2:#10253a;--line:#244761;--text:#eff7ff;--muted:#8fa8c0;--cyan:#42ddff;--yellow:#ffd34d;--green:#68ee91;--red:#ff6274;--purple:#b990ff}
+*{box-sizing:border-box}html,body{margin:0;background:radial-gradient(circle at 15% 0%,#14405e 0,transparent 30%),linear-gradient(180deg,#06101b,#071322 65%,#040a11);color:var(--text);font-family:Inter,system-ui,Arial,sans-serif}
+body{min-height:100vh;overflow-x:hidden}button,input,select{font:inherit}button{cursor:pointer;border:0;color:inherit}.hidden{display:none!important}
+.app{width:min(1220px,calc(100% - 20px));margin:auto;padding:10px 0 25px}
+.top{position:sticky;top:8px;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border:1px solid #2a4b66;border-radius:18px;background:#05111ddd;backdrop-filter:blur(16px);box-shadow:0 18px 50px #0008}
+.brand{display:flex;align-items:center;gap:10px;background:transparent;font-weight:950}.logo{width:42px;height:42px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(135deg,#39ddff,#7669ff);font-size:23px}
+.nav{display:flex;gap:4px}.nav button{padding:9px 12px;border-radius:10px;background:transparent;color:var(--muted);font-weight:900}.nav button:hover,.nav button.active{background:#17344b;color:var(--yellow)}
+.wallet{padding:10px 13px;border-radius:11px;background:#292411;border:1px solid #5b4e21;color:#ffe8a0;font-weight:950}
+.view{display:none}.view.active{display:block;animation:appear .22s ease}@keyframes appear{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.hero{margin-top:14px;border:1px solid #2b4d68;border-radius:28px;padding:30px;background:radial-gradient(circle at 80% 20%,rgba(66,221,255,.24),transparent 30%),radial-gradient(circle at 15% 100%,rgba(185,144,255,.14),transparent 35%),linear-gradient(145deg,#10283e,#0a1726)}
+.eyebrow{font-size:11px;font-weight:950;letter-spacing:.16em;color:var(--cyan)}h1{font-size:clamp(38px,7vw,74px);line-height:.92;margin:9px 0 14px}.hero p{max-width:720px;color:#b9cadb;line-height:1.65}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:21px}.btn{padding:12px 16px;border-radius:12px;border:1px solid #315472;background:#17354e;font-weight:900}.btn.primary{background:var(--yellow);color:#121a23;border-color:#ffe783}.btn.green{background:#123c2a;border-color:#2d8b5d;color:#9dffc1}.btn.danger{background:#3b1920;border-color:#6b313d;color:#ffb3bb}.btn:disabled{opacity:.45;cursor:not-allowed}
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}.card{background:rgba(12,28,45,.91);border:1px solid var(--line);border-radius:17px;padding:16px;box-shadow:0 12px 30px #0003}.stat small{color:var(--muted);font-size:10px;font-weight:900}.stat strong{display:block;margin-top:5px;font-size:27px}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:10px;margin:22px 0 10px}.section-head h2{margin:0;font-size:28px}.mini{font-size:12px;color:var(--muted);line-height:1.45}
+.game-head{display:flex;justify-content:space-between;align-items:end;gap:10px;margin:20px 0 10px}.game-head h2{margin:4px 0 0;font-size:31px}
+.game-frame{position:relative;border:1px solid #2a4c68;border-radius:24px;overflow:hidden;background:#071422;box-shadow:0 28px 75px #0009}.game-frame canvas{display:block;width:100%;height:auto;touch-action:none}.badge{padding:6px 9px;border-radius:8px;background:#17344b;color:#9deaff;font-size:10px;font-weight:950}
+.hud{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px}.hud .card{padding:11px}.hud small{display:block;color:var(--muted);font-size:10px;font-weight:900}.hud strong{display:block;margin-top:4px;font-size:18px}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.controls .btn{flex:1;min-width:115px}
+.tabs{display:flex;gap:7px;margin-bottom:12px;overflow:auto}.tab{white-space:nowrap;padding:10px 14px;border-radius:11px;border:1px solid var(--line);background:#0b1a29;color:var(--muted);font-weight:900}.tab.active{background:#183a53;color:var(--yellow);border-color:#3b6484}
+ .shop-panel .card{min-height:0;aspect-ratio:1/1;display:flex;flex-direction:column;overflow:hidden}.shop-panel .item-icon{height:82px;font-size:42px}.shop-panel .skin-preview{height:100px}.shop-panel .dino-mini{width:90px}.shop-panel .card h3{font-size:14px}.shop-panel .card .mini{font-size:10px}.shop-panel .card>button{margin-top:auto}.achievement{min-height:0;padding:10px;border-radius:14px}.ach-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:9px}.ach-icon{height:74px!important;width:74px;margin:0 auto;border-radius:16px!important;font-size:31px}.achievement h3{font-size:14px;margin:8px 0 4px}.achievement .mini{font-size:10px;min-height:30px}.achievement .btn{padding:8px 9px;font-size:10px}.choice-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.choice-btn{border:1px solid #244761;background:#0a1826;border-radius:11px;padding:7px;font-size:10px;text-align:left;color:#dff3ff;min-height:56px}.choice-btn.active{border-color:#ffd34d;background:#18354a;box-shadow:inset 0 0 0 1px #ffd34d44}.profile-main{display:grid;grid-template-columns:190px 1fr;gap:16px}.profile-identity{text-align:center}.profile-identity .avatar-box{width:128px;height:128px;margin:0 auto;font-size:60px}.profile-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.profile-stat{background:#0a1826;border:1px solid #1b344a;border-radius:12px;padding:10px}.profile-stat small{font-size:9px;color:var(--muted);font-weight:900}.profile-stat strong{display:block;font-size:19px;margin-top:4px}.admin-audio{display:grid;grid-template-columns:1.7fr .8fr auto;gap:8px;align-items:end}.admin-audio .btn{height:44px}.music-status{margin-top:7px;font-size:10px;color:var(--muted)}.frame-neon{border:2px solid #55f0ff;box-shadow:inset 0 0 0 2px #0b1b2a,0 0 12px #42ddff88}.frame-rainbow{border:3px solid transparent;background:linear-gradient(#0a1724,#0a1724) padding-box,conic-gradient(#ff495e,#ffaf3d,#ffe65e,#55f37a,#42ddff,#806fff,#df66ff,#ff495e) border-box;box-shadow:0 0 18px #42ddff55}.frame-vip1{border:3px solid transparent;background:linear-gradient(#1c120b,#0a1724) padding-box,linear-gradient(135deg,#7a4b22,#ffd17a,#8a5425) border-box;box-shadow:0 0 14px #d9964a77}.frame-vip2{border:3px solid transparent;background:linear-gradient(#111821,#0a1724) padding-box,linear-gradient(135deg,#778899,#ffffff,#6f7e91) border-box;box-shadow:0 0 16px #cbd6e455}.frame-vip3{border:3px solid transparent;background:linear-gradient(#191308,#0a1724) padding-box,linear-gradient(135deg,#8e6500,#fff2a2,#ff9f00,#fff0a0) border-box;box-shadow:0 0 20px #ffd34d77}
+.shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.item-icon{height:155px;display:grid;place-items:center;border-radius:15px;font-size:58px;background:radial-gradient(circle at 50% 35%,#ffffff20,transparent 58%),#102337}.skin-preview{height:180px;display:grid;place-items:center;border-radius:15px;background:radial-gradient(circle at 50% 30%,#ffffff18,transparent 56%),#102337}.rainbow-preview{position:relative;overflow:hidden}
+.dino-mini{width:145px;position:relative;z-index:2}.price{color:#ffe693;font-weight:950}
+.progress{height:7px;background:#162d43;border-radius:99px;overflow:hidden;margin-top:8px}.progress span{display:block;height:100%;background:linear-gradient(90deg,#42ddff,#ffd34d)}
+.ach-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.achievement{min-height:0;padding:11px;border-radius:14px}.achievement .ach-icon{width:72px;height:72px;margin:0 auto 9px;border-radius:15px}.achievement h3{font-size:14px;margin:8px 0 5px;text-align:center}.achievement .mini{text-align:center;font-size:10px;min-height:30px}.achievement .btn{padding:8px 9px;font-size:10px}.avatar-box{height:115px;display:grid;place-items:center;font-size:55px;border-radius:16px;background:#0a1724;border:2px solid #34516a;position:relative;overflow:hidden}.frame-bronze{border-color:#b77b42}.frame-silver{border-color:#d0d5dc;box-shadow:0 0 15px #fff4}.frame-gold{border-color:#ffd34d;box-shadow:0 0 20px #ffd34d66}.frame-neon{border-color:#42ddff;box-shadow:0 0 20px #42ddff99, inset 0 0 18px #42ddff22}.frame-rainbow{border:3px solid transparent;background:linear-gradient(#0a1724,#0a1724) padding-box,conic-gradient(#ff495e,#ffaf3d,#ffe65e,#55f37a,#42ddff,#806fff,#df66ff,#ff495e) border-box;box-shadow:0 0 24px #42ddff44}.vip-badge{position:absolute;right:7px;top:7px;padding:5px 7px;border-radius:8px;font-size:9px;font-weight:950}.vip1{background:#6e4425}.vip2{background:#727a87}.vip3{background:#b88b13;color:#fff4ad}.profile-main{display:grid;grid-template-columns:220px 1fr;gap:14px;align-items:stretch}.profile-identity{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px;background:#081725;border:1px solid #213f58;border-radius:15px}.profile-identity .avatar-box{width:112px!important;height:112px!important;font-size:66px}.profile-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.profile-stat{padding:11px;border-radius:12px;background:#0a1928;border:1px solid #1d3a52}.profile-stat small{display:block;color:var(--muted);font-size:9px;font-weight:900}.profile-stat strong{display:block;margin-top:4px;font-size:20px}.profile-custom{margin-top:10px;padding:12px;border-radius:14px;background:#091a29;border:1px solid #23445e}.profile-custom-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.choice-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.choice-btn{padding:7px 5px;border-radius:10px;background:#0b1a29;border:1px solid #21415a;color:#b9cadb;font-size:10px;font-weight:900}.choice-btn.active{border-color:#ffd34d;background:#17344b;color:#ffe78a}.choice-btn:disabled{opacity:.45}.avatar-choice{display:flex;align-items:center;gap:6px}.skin-mini-preview{height:64px;display:grid;place-items:center;font-size:28px;border-radius:12px;background:radial-gradient(circle at 50% 35%,#ffffff18,transparent 58%),#0d2134}.rainbow-skin-chip{position:relative;overflow:hidden}.rainbow-skin-chip:before{content:"";position:absolute;inset:5px;border-radius:10px;background:linear-gradient(120deg,#ff4b5f,#ff9f3d,#ffe45b,#60ef79,#42ddff,#7d70ff,#db67ff);opacity:.16}.profile-skin-label{font-size:10px;color:#bfefff;font-weight:900;margin-top:5px}
+.leader-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.leader-list{display:flex;flex-direction:column;gap:7px}.leader-row{display:grid;grid-template-columns:34px 1fr auto;gap:8px;align-items:center;padding:9px;border-radius:10px;background:#0a1826;border:1px solid #1b344a}.rank{font-weight:950;color:var(--yellow);text-align:center}.player-avatar{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:#13263a;font-size:20px}.rank-name{font-weight:850}.rank-value{font-weight:950;color:#bfefff}
+.modal-bg{position:fixed;inset:0;z-index:80;background:#010711c9;backdrop-filter:blur(8px);display:grid;place-items:center;padding:15px}.modal{width:min(560px,100%);max-height:92vh;overflow:auto;background:#0d2136;border:1px solid #355a7a;border-radius:22px;padding:22px;box-shadow:0 30px 100px #000b}.modal::-webkit-scrollbar{width:8px}.modal::-webkit-scrollbar-thumb{background:#31526c;border-radius:99px}.modal input,.modal select{width:100%;padding:12px 13px;border-radius:11px;border:1px solid #345773;background:#071624;color:#fff;outline:none;margin-top:8px}.admin-modal{width:min(980px,100%);max-height:94vh;overflow:auto}.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.form-row{margin-top:9px}.form-row label{font-size:11px;color:var(--muted);font-weight:850;display:block}.admin-table{width:100%;border-collapse:collapse;margin-top:10px}.admin-table th,.admin-table td{font-size:11px;text-align:left;padding:8px 6px;border-bottom:1px solid #20394e}.toast{position:fixed;left:50%;bottom:20px;z-index:100;transform:translateX(-50%);padding:12px 16px;border-radius:11px;background:#12314a;border:1px solid #3f6785;font-weight:900;box-shadow:0 15px 50px #0009}
+#fullscreenBtn{position:absolute;left:10px;top:10px;z-index:3;background:#071421bb;border:1px solid #ffffff24;border-radius:10px;padding:8px 10px;color:#d8efff;font-weight:900}
+@media(max-width:850px){.nav button{display:none}.profile-main{grid-template-columns:1fr}.profile-stats{grid-template-columns:repeat(2,1fr)}.choice-grid{grid-template-columns:repeat(2,1fr)}.admin-audio{grid-template-columns:1fr}.shop-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cards3,.shop-grid,.ach-grid,.leader-grid,.admin-grid,.profile-main,.profile-custom-grid{grid-template-columns:1fr}.profile-stats{grid-template-columns:repeat(2,1fr)}.choice-grid{grid-template-columns:repeat(3,1fr)}.hud{grid-template-columns:repeat(3,1fr)}.hero{padding:22px 17px}.app{width:min(100% - 10px,1220px)}.modal{max-height:88vh}}
 </style>
 </head>
 <body>
+<audio id="bgMusic" loop preload="none"></audio>
 <div class="app">
-  <header class="topbar">
-    <button id="brand" class="brand"><span class="logo">🦖</span><span>DINO RUN • AURORA</span></button>
-    <nav class="nav">
-      <button data-view="home" class="active">Trang chủ</button>
-      <button data-view="game">Chơi</button>
-      <button data-view="shop">Shop</button>
-      <button data-view="quests">Nhiệm vụ</button>
-    </nav>
-    <button id="wallet" class="wallet">🪙 <span id="coinsTop">0</span></button>
-  </header>
+<header class="top">
+<button class="brand" id="brandBtn"><span class="logo">🦖</span><span>DINO AURORA</span></button>
+<nav class="nav">
+<button data-view="home" class="active">Trang chủ</button>
+<button data-view="game">Chơi</button>
+<button data-view="shop">Shop</button>
+<button data-view="achievements">Thành tựu</button>
+<button data-view="ranking">Xếp hạng</button>
+</nav>
+<button class="wallet" id="walletBtn">🪙 <span id="coinsTop">0</span></button>
+</header>
 
-  <main>
-    <section id="home" class="view active">
-      <div class="hero">
-        <div class="eyebrow">ENDLESS RUN • SOUND • AURA • RAINBOW</div>
-        <h1>CHẠY CÀNG XA.<br><span style="color:var(--yellow)">ĐẸP CÀNG ĐÃ.</span></h1>
-        <p>Phiên bản này tập trung vào cảm giác chơi: âm thanh sống động, map có parallax và chu kỳ ngày/đêm, đăng ký tên trước khi chơi, shop skin và skin Cầu Vồng có aura + tia cầu vồng phía sau Dino.</p>
-        <div class="actions">
-          <button class="btn primary" id="playHero">▶ CHƠI NGAY</button>
-          <button class="btn" id="shopHero">🛒 MỞ SHOP</button>
-          <button class="btn" id="switchPlayer">👤 ĐỔI TÊN</button>
-        </div>
-      </div>
-      <div class="grid3">
-        <div class="card stat"><label>NGƯỜI CHƠI</label><strong id="playerNameHome">—</strong></div>
-        <div class="card stat"><label>TỔNG XU</label><strong id="coinsHome">0</strong></div>
-        <div class="card stat"><label>KỶ LỤC</label><strong id="bestHome">0 m</strong></div>
-      </div>
-    </section>
+<main>
+<section id="home" class="view active">
+<div class="hero">
+<div class="eyebrow">DINO AURORA • ENDLESS RUN</div>
+<h1>CHẠY.<br><span style="color:var(--yellow)">THU THẬP.</span><br>TIẾN HÓA.</h1>
+<p>Game chạy vô tận với âm thanh, map nhiều biome, skin Cầu Vồng, thành tựu, avatar, VIP và bảng xếp hạng.</p>
+<div class="actions">
+<button id="homePlay" class="btn primary">▶ CHƠI NGAY</button>
+<button id="homeShop" class="btn">🛒 SHOP</button>
+<button id="renameHome" class="btn">✏️ ĐỔI TÊN</button>
+<button id="fullscreenHome" class="btn">⛶ TOÀN MÀN HÌNH</button>
+</div>
+</div>
+<div class="cards3">
+<div class="card stat"><small>NGƯỜI CHƠI</small><strong id="homeName">—</strong></div>
+<div class="card stat"><small>TỔNG XU</small><strong id="homeCoins">0</strong></div>
+<div class="card stat"><small>KỶ LỤC</small><strong id="homeBest">0 m</strong></div>
+</div>
+<div class="section-head"><div><div class="eyebrow">PROFILE</div><h2>Hồ sơ & tùy chỉnh</h2></div></div>
+<div class="card profile-main">
+<div class="profile-identity">
+<div id="profileAvatar" class="avatar-box frame-bronze">🦖</div>
+<h3 id="profileName" style="margin:10px 0 3px">—</h3>
+<div class="mini" id="profileTitle">Người chơi mới</div>
+<div style="margin-top:7px"><span id="vipProfile" class="vip-badge vip1" style="position:static">VIP 0</span></div>
+<div id="profileSkinLabel" class="profile-skin-label">Skin: Azure Knight</div>
+</div>
+<div>
+<div class="profile-stats">
+<div class="profile-stat"><small>LƯỢT CHẠY</small><strong id="profileRuns">0</strong></div>
+<div class="profile-stat"><small>KỶ LỤC</small><strong id="profileBest">0 m</strong></div>
+<div class="profile-stat"><small>TỔNG MÉT</small><strong id="profileDistance">0 m</strong></div>
+<div class="profile-stat"><small>XU KIẾM ĐƯỢC</small><strong id="profileEarned">0</strong></div>
+</div>
+<div class="profile-custom">
+<div class="section-head" style="margin:0 0 8px"><div><div class="eyebrow">CUSTOMIZE</div><h3 style="margin:3px 0 0">🧑 Avatar</h3></div></div>
+<div class="choice-grid" id="avatarChoices"></div>
+<div class="section-head" style="margin:12px 0 8px"><div><div class="eyebrow">FRAME</div><h3 style="margin:3px 0 0">🖼️ Khung</h3></div></div>
+<div class="choice-grid" id="frameChoices"></div>
+</div>
+</div>
+</div>
+</section>
 
-    <section id="game" class="view">
-      <div class="game-head"><div><div class="eyebrow">LIVE RUN</div><h2>DINO RUSH</h2></div><span class="tag" id="biomeBadge">🌿 ĐỒNG CỎ</span></div>
-      <div class="game-frame">
-        <canvas id="gameCanvas" width="1100" height="470"></canvas>
-        <div id="mapBadge" class="map-badge">🌅 BÌNH MINH</div>
-      </div>
-      <div class="hud">
-        <div class="card"><small>ĐIỂM</small><strong id="hudScore">0</strong></div>
-        <div class="card"><small>XU TRONG LƯỢT</small><strong id="hudCoins">0</strong></div>
-        <div class="card"><small>COMBO</small><strong id="hudCombo">x1</strong></div>
-        <div class="card"><small>POWER</small><strong id="hudPower">—</strong></div>
-        <div class="card"><small>ÂM THANH</small><strong id="hudSound">BẬT</strong></div>
-      </div>
-      <div class="controls">
-        <button class="btn primary" id="jumpBtn">⬆ NHẢY</button>
-        <button class="btn" id="pauseBtn">Ⅱ TẠM DỪNG</button>
-        <button class="btn" id="restartBtn">↻ LẠI</button>
-      </div>
-      <div class="card" style="margin-top:11px"><b id="gameState">Sẵn sàng!</b><span style="color:var(--muted)"> • Space / ↑ / W hoặc chạm màn hình.</span></div>
-    </section>
+<section id="game" class="view">
+<div class="game-head"><div><div class="eyebrow">LIVE RUN</div><h2>DINO AURORA</h2></div><span class="badge" id="biomeBadge">🌿 ĐỒNG CỎ</span></div>
+<div class="game-frame">
+<button id="fullscreenBtn">⛶ Fullscreen</button>
+<canvas id="gameCanvas" width="1100" height="500"></canvas>
+<div style="position:absolute;right:12px;top:12px;z-index:2;padding:7px 9px;border-radius:9px;background:#071421aa;border:1px solid #ffffff20;font-size:10px;font-weight:900" id="phaseBadge">🌅 BÌNH MINH</div>
+</div>
+<div class="hud">
+<div class="card"><small>ĐIỂM</small><strong id="hudDistance">0 m</strong></div>
+<div class="card"><small>XU</small><strong id="hudCoins">0</strong></div>
+<div class="card"><small>COMBO</small><strong id="hudCombo">x1</strong></div>
+<div class="card"><small>POWER</small><strong id="hudPower">—</strong></div>
+<div class="card"><small>TIME</small><strong id="hudTime">00:00</strong></div>
+</div>
+<div class="controls">
+<button id="jumpBtn" class="btn primary">⬆ NHẢY</button>
+<button id="pauseBtn" class="btn">Ⅱ TẠM DỪNG</button>
+<button id="restartBtn" class="btn">↻ LẠI</button>
+<button id="soundBtn" class="btn">🔊 ÂM THANH: BẬT</button>
+</div>
+<div class="card" style="margin-top:10px"><b id="gameState">Đăng ký tên để bắt đầu.</b><span class="mini"> • Space / ↑ / W hoặc chạm màn hình để nhảy.</span></div>
+</section>
 
-    <section id="shop" class="view">
-      <div class="section-title">
-        <div><div class="eyebrow">DINO LAB</div><h2>CỬA HÀNG</h2></div>
-        <span class="tag">🪙 <span id="shopCoins">0</span></span>
-      </div>
-      <div class="card" style="margin-bottom:14px">
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-          <div><b>👤 Người chơi: <span id="shopPlayerName">—</span></b>
-            <div class="mini" style="margin-top:4px">Thẻ đổi tên sở hữu: <b id="renameTicketsShop">0</b></div>
-          </div>
-          <button class="btn" id="renameNowBtn">✏️ ĐỔI TÊN</button>
-        </div>
-      </div>
-      <div class="section-title">
-        <div><div class="eyebrow">ITEMS</div><h2>🎒 VẬT PHẨM</h2></div>
-        <span class="mini">Vật phẩm dùng bằng xu</span>
-      </div>
-      <div class="shop-grid" id="itemsGrid"></div>
-      <div class="section-title" style="margin-top:30px">
-        <div><div class="eyebrow">DINO SKINS</div><h2>🦖 SKIN</h2></div>
-        <span class="mini">Trang bị diện mạo Dino</span>
-      </div>
-      <div class="shop-grid" id="shopGrid"></div>
-      <div class="card" style="margin-top:12px">
-        <b>💡 Skin Cầu Vồng</b>
-        <p class="mini">Aura + tia cầu vồng phía sau + âm thanh riêng.</p>
-        <div class="rainbow-note">RAINBOW AURA • RAINBOW TRAIL • RAINBOW SOUND</div>
-      </div>
-    </section>
+<section id="shop" class="view">
+<div class="section-head"><div><div class="eyebrow">DINO SHOP</div><h2>CỬA HÀNG</h2></div><span class="badge">🪙 <span id="shopCoins">0</span></span></div>
+<div class="tabs">
+<button class="tab active" data-tab="items">🎒 Vật phẩm</button>
+<button class="tab" data-tab="skins">🦖 Skin</button>
+<button class="tab" data-tab="upgrades">⚡ Nâng cấp</button>
+</div>
+<div id="itemsPanel" class="shop-panel"></div>
+<div id="skinsPanel" class="shop-panel hidden"></div>
+<div id="upgradesPanel" class="shop-panel hidden"></div>
+</section>
 
-    <section id="quests" class="view">
-      <div class="section-title"><div><div class="eyebrow">MISSION CONTROL</div><h2>NHIỆM VỤ</h2></div></div>
-      <div class="card" id="questsList"></div>
-    </section>
-  </main>
-  <footer>DINO RUN • AURORA • <button id="adminOpen" style="background:transparent;color:#7890a7;text-decoration:underline">Panel Admin</button></footer>
+<section id="achievements" class="view">
+<div class="section-head"><div><div class="eyebrow">PROFILE PROGRESS</div><h2>🏆 THÀNH TỰU</h2></div></div>
+<div id="achievementsGrid" class="ach-grid"></div>
+</section>
+
+<section id="ranking" class="view">
+<div class="section-head"><div><div class="eyebrow">LIVE LEADERBOARD</div><h2>🏅 BẢNG XẾP HẠNG</h2></div><span class="mini">Tự cập nhật mỗi 5 phút</span></div>
+<div class="leader-grid">
+<div class="card"><h3>💰 Vàng</h3><div class="mini">Nhiều xu nhất</div><div id="rankCoins" class="leader-list" style="margin-top:8px"></div></div>
+<div class="card"><h3>🏃 Xa nhất 1 lượt</h3><div class="mini">Kỷ lục một lần chạy</div><div id="rankBest" class="leader-list" style="margin-top:8px"></div></div>
+<div class="card"><h3>📏 Tổng mét</h3><div class="mini">Tổng quãng đường đã chạy</div><div id="rankDistance" class="leader-list" style="margin-top:8px"></div></div>
+</div>
+</section>
+</main>
+<footer style="text-align:center;color:#5d748a;font-size:11px;padding:17px 0">DINO AURORA • GAME SAVE LOCAL</footer>
 </div>
 
-<div id="nameModal" class="modal-wrap">
-  <div class="modal">
-    <div class="eyebrow">PLAYER REGISTRATION</div>
-    <h2>Đăng ký tên để chơi</h2>
-    <p>Nhập tên người chơi. Dữ liệu của từng tên được lưu riêng trên trình duyệt này.</p>
-    <input id="playerNameInput" maxlength="18" placeholder="Ví dụ: HungDino" autocomplete="off">
-    <button id="registerBtn" class="btn primary" style="width:100%;margin-top:10px">🚀 XÁC NHẬN</button>
-    <p id="nameError" style="color:#ff8f9d;margin-bottom:0"></p>
-  </div>
-</div>
+<!-- Registration -->
+<div id="nameModal" class="modal-bg">
+<div class="modal">
+<div class="eyebrow">PLAYER REGISTRATION</div><h2>👤 Đăng ký tên</h2>
+<p class="mini">Muốn chơi phải có tên người chơi. Khi đổi tên, bạn phải dùng Thẻ Đổi Tên.</p>
+<input id="nameInput" maxlength="18" placeholder="Tên người chơi">
+<button id="registerBtn" class="btn primary" style="width:100%;margin-top:9px">XÁC NHẬN</button>
+<p id="nameError" style="color:#ff8d9c;font-size:12px"></p>
+</div></div>
 
-<div id="renameModal" class="modal-wrap hidden">
-  <div class="modal">
-    <div class="eyebrow">RENAME TICKET</div>
-    <h2>✏️ Đổi tên người chơi</h2>
-    <p id="renameCostText"></p>
-    <input id="renameInput" maxlength="18" placeholder="Tên mới" autocomplete="off">
-    <button id="renameConfirmBtn" class="btn primary" style="width:100%;margin-top:10px">✅ XÁC NHẬN</button>
-    <button id="renameCloseBtn" class="btn" style="width:100%;margin-top:8px">HỦY</button>
-    <p id="renameError" style="color:#ff8f9d;margin-bottom:0"></p>
-  </div>
-</div>
+<!-- Rename -->
+<div id="renameModal" class="modal-bg hidden">
+<div class="modal">
+<div class="eyebrow">RENAME</div><h2>✏️ Đổi tên</h2>
+<p id="renameInfo" class="mini"></p>
+<input id="newNameInput" maxlength="18" placeholder="Tên mới">
+<button id="renameBtn" class="btn primary" style="width:100%;margin-top:9px">ĐỔI TÊN</button>
+<button id="renameCancel" class="btn" style="width:100%;margin-top:7px">HỦY</button>
+<p id="renameError" style="color:#ff8d9c;font-size:12px"></p>
+</div></div>
 
-<div id="adminModal" class="modal-wrap hidden">
-  <div class="modal" style="width:min(900px,100%)">
-    <div style="display:flex;justify-content:space-between;gap:10px;align-items:start">
-      <div><div class="eyebrow">ADMIN PANEL</div><h2>Quản trị Dino Run</h2><p>Buff xu, xem người chơi và chỉnh giá skin. Mật khẩu: <b>1</b>.</p></div>
-      <button id="adminClose" class="btn">✕</button>
-    </div>
-    <div id="adminLogin">
-      <input id="adminPassword" class="admin-input" type="password" placeholder="Nhập mật khẩu">
-      <button id="adminLoginBtn" class="btn primary" style="width:100%;margin-top:9px">🔐 ĐĂNG NHẬP</button>
-      <p id="adminError" style="color:#ff8f9d"></p>
-    </div>
-    <div id="adminContent" class="hidden admin-panel">
-      <div class="admin-grid">
-        <div class="card">
-          <h3>🪙 Buff coin</h3>
-          <select id="adminPlayer" class="admin-input"></select>
-          <input id="buffAmount" class="admin-input" type="number" min="1" value="1000" style="margin-top:8px">
-          <button id="buffBtn" class="btn green" style="width:100%;margin-top:8px">+ CỘNG XU</button>
-          <button id="setCoinsBtn" class="btn" style="width:100%;margin-top:8px">ĐẶT SỐ XU</button>
-        </div>
-        <div class="card">
-          <h3>🛒 Chỉnh giá skin</h3>
-          <div id="priceEditor"></div>
-          <button id="savePricesBtn" class="btn primary" style="width:100%;margin-top:9px">💾 LƯU GIÁ</button>
-        </div>
-      </div>
-      <div class="card" style="margin-top:12px">
-        <h3>👥 Danh sách người chơi</h3>
-        <div id="adminPlayersTable"></div>
-      </div>
-      <div class="actions"><button id="adminResetData" class="btn danger">XÓA TẤT CẢ DỮ LIỆU LOCAL</button><button id="adminLogout" class="btn">ĐĂNG XUẤT ADMIN</button></div>
-    </div>
-  </div>
+<!-- Admin -->
+<div id="adminModal" class="modal-bg hidden">
+<div class="modal admin-modal">
+<div style="display:flex;justify-content:space-between;gap:10px"><div><div class="eyebrow">ADMIN CONTROL</div><h2>🛠 PANEL QUẢN TRỊ</h2><p class="mini">Mật khẩu panel: <b id="adminPassStatus">đã đặt</b></p></div><button id="adminClose" class="btn">✕</button></div>
+<div id="adminLoginBox">
+<input id="adminPassword" type="password" placeholder="Mật khẩu">
+<button id="adminLogin" class="btn primary" style="width:100%;margin-top:9px">🔐 ĐĂNG NHẬP</button><p id="adminError" style="color:#ff8d9c;font-size:12px"></p>
 </div>
+<div id="adminBody" class="hidden">
+<div class="admin-grid">
+<div class="card">
+<h3>👤 Quản lý người chơi</h3>
+<select id="adminPlayer"></select>
+<div class="form-row"><label>Buff xu</label><input id="adminCoins" type="number" value="1000"></div>
+<div class="actions"><button id="buffCoins" class="btn green">+ COIN</button><button id="setCoins" class="btn">ĐẶT COIN</button></div>
+<div class="form-row"><label>Đổi tên trực tiếp</label><input id="adminNewName" maxlength="18" placeholder="Tên mới"></div>
+<button id="adminRename" class="btn" style="width:100%;margin-top:8px">ĐỔI TÊN</button>
+</div>
+<div class="card">
+<h3>💸 Giá shop</h3>
+<div id="adminPrices"></div>
+<button id="saveAdminPrices" class="btn primary" style="width:100%;margin-top:9px">💾 LƯU GIÁ</button>
+</div>
+</div>
+<div class="card" style="margin-top:10px">
+<h3>⚙️ Cơ chế game</h3>
+<div class="admin-grid">
+<div>
+<div class="form-row"><label>Xu / 1 mét</label><input id="cfgCoinPerMeter" type="number"></div>
+<div class="form-row"><label>Thưởng cuối lượt</label><input id="cfgRunBonus" type="number"></div>
+<div class="form-row"><label>Tốc độ cơ bản</label><input id="cfgBaseSpeed" type="number"></div>
+<div class="form-row"><label>Tốc độ tối đa</label><input id="cfgMaxSpeed" type="number"></div>
+</div>
+<div>
+<div class="form-row"><label>Mật độ chướng ngại</label><input id="cfgObstacleRate" type="number" step=".05"></div>
+<div class="form-row"><label>Tần suất xu</label><input id="cfgCoinRate" type="number" step=".05"></div>
+<div class="form-row"><label>Tần suất power-up</label><input id="cfgPowerRate" type="number" step=".1"></div>
+<div class="form-row"><label>Hệ số skin thưởng</label><input id="cfgSkinMultiplier" type="number" step=".05"></div>
+</div>
+</div>
+<button id="saveGameConfig" class="btn primary" style="width:100%;margin-top:10px">💾 LƯU CƠ CHẾ GAME</button>
+</div>
+<div class="card" style="margin-top:10px"><h3>🎵 Nhạc nền MP3</h3><p class="mini">Dán link MP3 hoặc tải file lên Supabase Storage để mọi thiết bị dùng chung.</p><div class="admin-audio"><div class="form-row"><label>Link MP3</label><input id="musicUrl" type="url" placeholder="https://.../nhac.mp3"></div><div class="form-row"><label>Âm lượng</label><input id="musicVolume" type="number" min="0" max="1" step="0.05"></div><button id="saveMusic" class="btn primary">💾 LƯU NHẠC</button></div><div class="actions" style="margin-top:8px"><button id="testMusic" class="btn">▶ NGHE THỬ</button><button id="stopMusic" class="btn">■ DỪNG</button><label class="btn">📁 TẢI MP3 <input id="musicFile" type="file" accept="audio/mpeg,audio/mp3,.mp3" style="display:none"></label></div><div id="musicStatus" class="music-status">Chưa cấu hình nhạc.</div></div>
+<div class="card" style="margin-top:10px"><h3>☁️ Đồng bộ đa thiết bị</h3><p class="mini">Người chơi, Shop, VIP, cấu hình, BXH và nhạc được đồng bộ qua Supabase.</p><div class="admin-grid"><div class="form-row"><label>Supabase URL</label><input id="cloudUrl" type="url"></div><div class="form-row"><label>Supabase Anon Key</label><input id="cloudKey" type="password"></div></div><div class="actions"><button id="saveCloudConfig" class="btn primary">☁️ LƯU KẾT NỐI</button><button id="testCloud" class="btn">🔎 KIỂM TRA</button><button id="syncCloudNow" class="btn green">↻ ĐỒNG BỘ NGAY</button></div><div id="cloudStatus" class="music-status">Chưa kết nối.</div></div>
+<div class="card" style="margin-top:10px"><h3>🔐 Bảo mật Panel</h3><div class="admin-grid"><div class="form-row"><label>Mật khẩu mới</label><input id="newAdminPassword" type="password"></div><div class="form-row"><label>Xác nhận</label><input id="newAdminPassword2" type="password"></div></div><button id="saveAdminPassword" class="btn primary" style="width:100%;margin-top:9px">🔑 ĐỔI MẬT KHẨU PANEL</button></div>
+<div class="card" style="margin-top:10px"><h3>🧩 Chức năng Panel</h3><div class="actions"><button id="refreshAdminAll" class="btn">↻ LÀM MỚI DỮ LIỆU</button><button id="grantVipSelected" class="btn green">👑 CẤP VIP NGƯỜI CHƠI</button></div><p class="mini">Tải lại người chơi, BXH và cấu hình ngay trong Panel.</p></div>
+<div class="card" style="margin-top:10px">
+<h3>👥 Danh sách người chơi</h3><div id="adminPlayers"></div>
+</div>
+<div class="actions"><button id="adminLogout" class="btn">ĐĂNG XUẤT</button><button id="resetAll" class="btn danger">XÓA DỮ LIỆU LOCAL</button></div>
+</div>
+</div></div>
 
+<button id="floatingAdmin" class="btn hidden" style="position:fixed;right:12px;bottom:12px;z-index:40">🛠 ADMIN</button>
 <div id="toast" class="toast hidden"></div>
 
 <script>
 (() => {
-  "use strict";
+"use strict";
 
-  const PLAYER_KEY = "dino-aurora-players-v1";
-  const PRICE_KEY = "dino-aurora-prices-v1";
-  const CURRENT_KEY = "dino-aurora-current-player-v1";
+const KEY_PLAYERS="dino_aurora_players_v7";
+const KEY_CONFIG="dino_aurora_config_v7";
+const KEY_PRICES="dino_aurora_prices_v7";
+const KEY_CURRENT="dino_aurora_current_v7";
+const KEY_ADMIN="dino_aurora_admin_v2";
+const KEY_MUSIC="dino_aurora_music_v2";
+const KEY_SUPABASE="dino_aurora_supabase_v1";
+const DEFAULT_SUPABASE_URL="https://dbpvlgckhaaidrdintjc.supabase.co";
+const DEFAULT_SUPABASE_ANON_KEY="";
 
-  const skinDefs = {
-    blue:   {name:"Blue", price:1000, body:"#2ad4ff", shade:"#0875bd", belly:"#e6fdff", desc:"Dino cân bằng."},
-    pink:   {name:"Pink", price:1500, body:"#ff62ad", shade:"#ad1457", belly:"#ffe7f2", desc:"+5% xu."},
-    red:    {name:"Red Fury", price:2500, body:"#ff5a48", shade:"#a80f29", belly:"#ffe0da", desc:"+10% xu."},
-    rainbow:{name:"Rainbow", price:5000, body:"#ffffff", shade:"#ffffff", belly:"#ffffff", desc:"Aura + tia cầu vồng + âm thanh riêng.", rainbow:true}
-  };
+const DEFAULT_CONFIG={
+coinPerMeter:1,runBonus:25,baseSpeed:350,maxSpeed:760,obstacleRate:1.15,coinRate:.46,powerRate:7.5,skinMultiplier:.25
+};
+const SKINS={
+blue:{name:"Azure Knight",price:800,body:"#2ad4ff",shade:"#0875bd",belly:"#e6fdff",accent:"#9ff5ff",bonus:0,kind:"ice"},
+pink:{name:"Sakura Spirit",price:1500,body:"#ff62ad",shade:"#ad1457",belly:"#ffe7f2",accent:"#ffd1e8",bonus:.05,kind:"sakura"},
+red:{name:"Inferno Rex",price:2500,body:"#ff5a48",shade:"#a80f29",belly:"#ffe0da",accent:"#ffd05a",bonus:.10,kind:"fire"},
+galaxy:{name:"Void Galaxy",price:4000,body:"#a978ff",shade:"#5740a7",belly:"#f0e8ff",accent:"#6ee7ff",bonus:.15,kind:"galaxy"},
+rainbow:{name:"Prism Dragon",price:6000,body:"#ff4b5f",shade:"#6f3cc7",belly:"#fff1ff",accent:"#fff08a",bonus:.25,rainbow:true,kind:"prism"}
+};
+const ITEMS={
+rename:{name:"Thẻ Đổi Tên",icon:"🎫",base:500},
+shield:{name:"Khiên",icon:"🛡️",base:600},
+magnet:{name:"Nam Châm",icon:"🧲",base:800},
+turbo:{name:"Turbo",icon:"⚡",base:1000}
+};
+const UPGRADES={
+jump:{name:"Siêu Nhảy",icon:"🦘",base:250,max:20,desc:"Tăng lực nhảy."},
+magnet:{name:"Magnet",icon:"🧲",base:300,max:20,desc:"Tăng bán kính hút xu."},
+shield:{name:"Khiên Khởi Đầu",icon:"🛡️",base:450,max:10,desc:"Mỗi cấp thêm một khiên khi bắt đầu."},
+coin:{name:"Coin Master",icon:"🪙",base:500,max:20,desc:"Tăng phần thưởng xu."},
+speed:{name:"Turbo Engine",icon:"🚀",base:550,max:20,desc:"Tăng tốc độ cơ bản."}
+};
+const AVATARS=[
+{id:"dino",icon:"🦖",name:"Dino",cost:0},
+{id:"fox",icon:"🦊",name:"Cáo",cost:500},
+{id:"wolf",icon:"🐺",name:"Sói",cost:900},
+{id:"tiger",icon:"🐯",name:"Hổ",cost:1300},
+{id:"panda",icon:"🐼",name:"Panda",cost:1800},
+{id:"dragon",icon:"🐉",name:"Rồng",cost:2500},
+{id:"eagle",icon:"🦅",name:"Đại bàng",cost:3200}
+];
+const FRAMES=[
+{id:"bronze",name:"Đồng",cost:0,how:"Mặc định"},
+{id:"silver",name:"Bạc",cost:1200,how:"Mua 1.200 xu"},
+{id:"gold",name:"Vàng",cost:3000,how:"Mua 3.000 xu"},
+{id:"neon",name:"Neon",cost:5500,how:"Mua 5.500 xu"},
+{id:"rainbow",name:"Cầu vồng",cost:10000,how:"Mua 10.000 xu"},
+{id:"vip1",name:"VIP Đồng",cost:0,how:"Tặng khi đạt VIP 1"},
+{id:"vip2",name:"VIP Bạc",cost:0,how:"Tặng khi đạt VIP 2"},
+{id:"vip3",name:"VIP Vàng",cost:0,how:"Tặng khi đạt VIP 3"}
+];
+const ACH=[
+{id:"run1",name:"Lần đầu chạy",desc:"Hoàn thành 1 lượt.",need:p=>p.stats.runs>=1,frame:"bronze",reward:100,icon:"🏃"},
+{id:"m500",name:"500 mét",desc:"Kỷ lục đạt 500m.",need:p=>p.best>=500,frame:"silver",reward:200,icon:"📏"},
+{id:"m2000",name:"Dũng sĩ đường dài",desc:"Kỷ lục đạt 2.000m.",need:p=>p.best>=2000,frame:"gold",reward:400,icon:"⚡"},
+{id:"coin5000",name:"Kho báu",desc:"Tích lũy 5.000 xu từ gameplay.",need:p=>p.stats.coinsEarned>=5000,frame:"gold",reward:500,icon:"🪙"},
+{id:"distance10k",name:"Chạy 10K",desc:"Tổng chạy 10.000m.",need:p=>p.totalDistance>=10000,frame:"rainbow",reward:800,icon:"🏆"},
+{id:"rainbow",name:"Rainbow Hunter",desc:"Sở hữu Skin Rainbow.",need:p=>p.ownedSkins.includes("rainbow"),frame:"rainbow",reward:1000,icon:"🌈"},
+{id:"vip1",name:"VIP I",desc:"Đạt 5.000 xu sở hữu.",need:p=>p.coins>=5000,frame:"vip1",reward:250,icon:"🥉"},
+{id:"vip2",name:"VIP II",desc:"Đạt 15.000 xu sở hữu.",need:p=>p.coins>=15000,frame:"vip2",reward:600,icon:"🥈"},
+{id:"vip3",name:"VIP III",desc:"Đạt 50.000 xu sở hữu.",need:p=>p.coins>=50000,frame:"vip3",reward:1500,icon:"🥇"}
+];
+function loadJSON(key,fallback){try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback));}catch{return JSON.parse(JSON.stringify(fallback));}}
+let players=loadJSON(KEY_PLAYERS,{});
+let config={...DEFAULT_CONFIG,...loadJSON(KEY_CONFIG,DEFAULT_CONFIG)};
+let prices={...Object.fromEntries(Object.entries(SKINS).map(([k,v])=>[k,v.price])),...loadJSON(KEY_PRICES,{})};
+let adminPassword=localStorage.getItem(KEY_ADMIN)||"1";
+let adminPasswordHash=localStorage.getItem("dino_aurora_admin_hash")||"";
+let musicConfig=loadJSON(KEY_MUSIC,{url:"",volume:.35,enabled:true});
+let cloudConfig=loadJSON(KEY_SUPABASE,{url:DEFAULT_SUPABASE_URL,key:DEFAULT_SUPABASE_ANON_KEY,enabled:false});
+let currentName=localStorage.getItem(KEY_CURRENT)||"";
+let player=players[currentName]||null;
 
-  const defaultPrices = Object.fromEntries(Object.entries(skinDefs).map(([k,v]) => [k,v.price]));
+function normPlayer(p,name){
+if(!p)p=freshPlayer(name);
+p.name=p.name||name;p.coins=Number(p.coins)||0;p.best=Number(p.best)||0;p.totalDistance=Number(p.totalDistance)||0;
+p.selectedSkin=p.selectedSkin||"blue";p.ownedSkins=Array.isArray(p.ownedSkins)?p.ownedSkins:["blue"];if(!p.ownedSkins.includes("blue"))p.ownedSkins.push("blue");
+p.upgrades={jump:0,magnet:0,shield:0,coin:0,speed:0,...(p.upgrades||{})};
+p.inventory={renameTickets:0,shield:0,magnet:0,turbo:0,...(p.inventory||{})};
+p.renameCount=Number(p.renameCount)||0;p.avatar=p.avatar||"dino";p.avatarOwned=Array.isArray(p.avatarOwned)?p.avatarOwned:["dino"];
+p.achievements=Array.isArray(p.achievements)?p.achievements:[];p.vip=Math.max(0,Math.min(3,Number(p.vip)||0));p.frame=p.frame||"bronze";p.ownedFrames=Array.isArray(p.ownedFrames)?p.ownedFrames:["bronze"];if(!p.ownedFrames.includes("bronze"))p.ownedFrames.push("bronze");
+p.stats={runs:0,coinsEarned:0,jumps:0,...(p.stats||{})};p.sound=p.sound!==false;return p;
+}
+function freshPlayer(name){return normPlayer({name,coins:0,best:0,totalDistance:0,selectedSkin:"blue",ownedSkins:["blue"],upgrades:{},inventory:{},stats:{},avatar:"dino",avatarOwned:["dino"],achievements:[],vip:0,renameCount:0,frame:"bronze",ownedFrames:["bronze"]},name);}
+Object.keys(players).forEach(n=>players[n]=normPlayer(players[n],n));
+if(player)player=normPlayer(player,currentName);
+const $=id=>document.getElementById(id),fmt=n=>Math.floor(Number(n)||0).toLocaleString("vi-VN");
 
-  function freshPlayer(name){
-    return {
-      name, coins:0, best:0, selectedSkin:"blue", ownedSkins:["blue"],
-      renameTickets:0, renameCount:0,
-      stats:{runs:0, distance:0, jumps:0, collected:0},
-      quest:{distance:0, coins:0, runs:0},
-      sound:true, createdAt:Date.now(), updatedAt:Date.now()
-    };
-  }
+function cloudReady(){return !!(cloudConfig.enabled&&cloudConfig.url&&cloudConfig.key);}
+function setCloudStatus(t){const e=$("cloudStatus");if(e)e.textContent=t;}
+async function cloudFetch(path,options={}){if(!cloudReady())throw new Error("Chưa cấu hình Supabase");const res=await fetch(cloudConfig.url.replace(/\/$/,"")+path,{...options,headers:{apikey:cloudConfig.key,Authorization:`Bearer ${cloudConfig.key}`,...(options.headers||{})}});if(!res.ok)throw new Error(await res.text().catch(()=>"HTTP "+res.status));return res;}
+function save(){if(!player)return;players[player.name]=player;localStorage.setItem(KEY_PLAYERS,JSON.stringify(players));localStorage.setItem(KEY_CURRENT,player.name);clearTimeout(window.__cp);window.__cp=setTimeout(()=>cloudUpsertPlayer(player),350);}
+function saveData(){localStorage.setItem(KEY_PLAYERS,JSON.stringify(players));localStorage.setItem(KEY_CONFIG,JSON.stringify(config));localStorage.setItem(KEY_PRICES,JSON.stringify(prices));clearTimeout(window.__cs);window.__cs=setTimeout(()=>cloudUpsertState(),500);}
+async function cloudUpsertPlayer(p){if(!cloudReady()||!p)return;try{await cloudFetch('/rest/v1/dino_players?on_conflict=name',{method:'POST',headers:{'Content-Type':'application/json',Prefer:'resolution=merge-duplicates,return=minimal'},body:JSON.stringify({name:p.name,data:p,updated_at:new Date().toISOString()})});}catch(e){setCloudStatus('⚠️ '+e.message);}}
+async function cloudUpsertState(){if(!cloudReady())return;try{await cloudFetch('/rest/v1/dino_app_state?on_conflict=id',{method:'POST',headers:{'Content-Type':'application/json',Prefer:'resolution=merge-duplicates,return=minimal'},body:JSON.stringify({id:'main',data:{config,prices,musicConfig,adminPasswordHash},updated_at:new Date().toISOString()})});}catch(e){setCloudStatus('⚠️ '+e.message);}}
+async function cloudLoadAll(){if(!cloudReady())return;try{const a=await (await cloudFetch('/rest/v1/dino_players?select=name,data')).json();const remote={};for(const row of a){if(row&&row.name)remote[row.name]=normPlayer(row.data,row.name);}if(Object.keys(remote).length){players={...players,...remote};if(!active&&player&&players[player.name])player=players[player.name];localStorage.setItem(KEY_PLAYERS,JSON.stringify(players));}const b=await (await cloudFetch('/rest/v1/dino_app_state?select=data&limit=1')).json();const st=b&&b[0]&&b[0].data;if(st){if(st.config)config={...DEFAULT_CONFIG,...st.config};if(st.prices)prices={...prices,...st.prices};if(st.musicConfig)musicConfig={...musicConfig,...st.musicConfig};if(st.adminPasswordHash){adminPasswordHash=st.adminPasswordHash;localStorage.setItem("dino_aurora_admin_hash",adminPasswordHash);}}localStorage.setItem(KEY_CONFIG,JSON.stringify(config));localStorage.setItem(KEY_PRICES,JSON.stringify(prices));localStorage.setItem(KEY_MUSIC,JSON.stringify(musicConfig));setupMusic();refreshUI();renderRanking();setCloudStatus('✅ Đã tải dữ liệu cloud');}catch(e){setCloudStatus('⚠️ Không tải được cloud: '+e.message);}}
+async function cloudSyncNow(){if(!cloudReady()){setCloudStatus('⚠️ Hãy nhập URL và Anon Key');return;}if(player)await cloudUpsertPlayer(player);await cloudUpsertState();await cloudLoadAll();toast('☁️ Đồng bộ xong');}
+function toast(t){const e=$("toast");e.textContent=t;e.classList.remove("hidden");clearTimeout(window.__toast);window.__toast=setTimeout(()=>e.classList.add("hidden"),1900);}
+function showView(id){document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===id));document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===id));if(id==="ranking")renderRanking();if(id==="achievements")renderAchievements();if(id==="game")draw();}
 
-  let players = {};
-  try { players = JSON.parse(localStorage.getItem(PLAYER_KEY) || "{}"); } catch { players = {}; }
-  let prices = {};
-  try { prices = {...defaultPrices, ...(JSON.parse(localStorage.getItem(PRICE_KEY) || "{}"))}; } catch { prices = {...defaultPrices}; }
-  let currentName = localStorage.getItem(CURRENT_KEY) || "";
-  let player = currentName && players[currentName] ? players[currentName] : null;
-  function normalizePlayer(p){
-    if(!p)return p;
-    p.renameTickets=Math.max(0,Number(p.renameTickets)||0);
-    p.renameCount=Math.max(0,Number(p.renameCount)||0);
-    p.completedQuests ||= [];
-    p.ownedSkins ||= ["blue"];
-    p.inventory ||= {};
-    p.quest ||= {distance:0,coins:0,runs:0};
-    p.stats ||= {runs:0,distance:0,jumps:0,collected:0};
-    return p;
-  }
-  Object.keys(players).forEach(k=>players[k]=normalizePlayer(players[k]));
-  if(player) player=normalizePlayer(player);
+document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>showView(b.dataset.view));
+$("brandBtn").onclick=()=>showView("home");$("walletBtn").onclick=()=>showView("shop");$("homePlay").onclick=()=>startGame();$("homeShop").onclick=()=>showView("shop");$("renameHome").onclick=()=>openRename();$("fullscreenHome").onclick=fullscreenGame;
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));t.classList.add("active");document.querySelectorAll(".shop-panel").forEach(x=>x.classList.add("hidden"));$(t.dataset.tab+"Panel").classList.remove("hidden");});
 
-  const el = id => document.getElementById(id);
-  const fmt = n => Math.floor(Number(n)||0).toLocaleString("vi-VN");
+function refreshUI(){
+if(!player)return;
+awardVIP();
+$("homeName").textContent=player.name;$("profileName").textContent=player.name;$("coinsTop").textContent=fmt(player.coins);$("homeCoins").textContent=fmt(player.coins);$("homeBest").textContent=fmt(player.best)+" m";$("shopCoins").textContent=fmt(player.coins);
+const a=AVATARS.find(x=>x.id===player.avatar)||AVATARS[0];$("profileAvatar").textContent=a.icon;$("profileAvatar").className="avatar-box frame-"+getFrame();$("profileName").textContent=player.name;$("profileTitle").textContent=player.vip?("VIP "+player.vip+" • "+a.name):a.name;$("vipProfile").textContent=player.vip?"VIP "+player.vip:"VIP 0";$("vipProfile").className="vip-badge "+(player.vip===1?"vip1":player.vip===2?"vip2":"vip3");$("profileRuns").textContent=fmt(player.stats.runs);$("profileBest").textContent=fmt(player.best)+" m";$("profileDistance").textContent=fmt(player.totalDistance)+" m";$("profileEarned").textContent=fmt(player.stats.coinsEarned);const ps=SKINS[player.selectedSkin]||SKINS.blue;$("profileSkinLabel").textContent="Skin: "+ps.name;renderProfileChoices();
+renderShop();renderAchievements();renderRanking();
+}
+function getFrame(){return player?.frame||"bronze";}
 
-  function savePlayers(){
-    if(player){
-      player.updatedAt = Date.now();
-      players[player.name] = player;
-      localStorage.setItem(PLAYER_KEY, JSON.stringify(players));
-      localStorage.setItem(CURRENT_KEY, player.name);
-    }
-  }
-  function savePrices(){ localStorage.setItem(PRICE_KEY, JSON.stringify(prices)); }
-  function toast(msg){
-    const t = el("toast"); t.textContent = msg; t.classList.remove("hidden");
-    clearTimeout(window.__toast); window.__toast = setTimeout(()=>t.classList.add("hidden"),1800);
-  }
+function openName(){
+$("nameModal").classList.remove("hidden");$("nameInput").value=player?.name||"";$("nameError").textContent="";setTimeout(()=>$("nameInput").focus(),20);
+}
+$("registerBtn").onclick=()=>{
+const n=$("nameInput").value.trim();if(n.length<2){$("nameError").textContent="Tên tối thiểu 2 ký tự.";return}
+if(!/^[\p{L}\p{N}_ -]+$/u.test(n)){$("nameError").textContent="Tên có ký tự không hợp lệ.";return}
+if(players[n]&&(!player||n!==player.name)){$("nameError").textContent="Tên này đã tồn tại.";return}
+if(!player)player=players[n]?normPlayer(players[n],n):freshPlayer(n);else player.name=n;
+currentName=n;save();$("nameModal").classList.add("hidden");refreshUI();toast("👤 Xin chào "+n+"!");
+};
+$("nameInput").addEventListener("keydown",e=>{if(e.key==="Enter")$("registerBtn").click();});
 
-  function showView(name){
-    document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===name));
-    document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===name));
-    if(name==="game") draw();
-  }
-  document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
-  el("brand").onclick=()=>showView("home");
-  el("wallet").onclick=()=>showView("shop");
-  el("shopHero").onclick=()=>showView("shop");
-  el("playHero").onclick=()=>startGame();
-  el("switchPlayer").onclick=()=>openNameModal(true);
+function renameCost(){return 1+player.renameCount;}
+function openRename(){
+cloudLoadAll().catch(()=>{});
+if(!player){openName();return}
+$("renameInfo").innerHTML=`Lần đổi tên này cần <b>${renameCost()} Thẻ Đổi Tên</b>. Bạn có <b>${player.inventory.renameTickets}</b> thẻ.`;
+$("newNameInput").value="";$("renameError").textContent="";$("renameModal").classList.remove("hidden");setTimeout(()=>$("newNameInput").focus(),20);
+}
+$("renameCancel").onclick=()=>$("renameModal").classList.add("hidden");
+$("renameBtn").onclick=()=>{
+const n=$("newNameInput").value.trim();if(n.length<2){$("renameError").textContent="Tên tối thiểu 2 ký tự.";return}
+if(players[n]){$("renameError").textContent="Tên đã tồn tại.";return}
+const need=renameCost();if(player.inventory.renameTickets<need){$("renameError").textContent="Không đủ Thẻ Đổi Tên.";return}
+const old=player.name;player.inventory.renameTickets-=need;player.renameCount++;delete players[old];player.name=n;players[n]=player;currentName=n;save();$("renameModal").classList.add("hidden");refreshUI();toast("✏️ Đổi tên thành công.");
+};
 
-  function enableNavigation(){
-    document.querySelectorAll(".nav button").forEach(b=>b.disabled=false);
-  }
+function itemPrice(type){
+  const base=Number(prices[type] ?? ITEMS[type].base);
+  if(type==="rename") return Math.round(base*Math.pow(1.7,player.renameCount));
+  return Math.round(base);
+}
+function upgradePrice(type){const u=UPGRADES[type],lv=Number(player.upgrades[type])||0;return Math.round(u.base*Math.pow(1.55,lv));}
 
-  function refreshUI(){
-    if(!player) return;
-    enableNavigation();
-    el("playerNameHome").textContent = player.name;
-    el("coinsTop").textContent = fmt(player.coins);
-    el("coinsHome").textContent = fmt(player.coins);
-    el("bestHome").textContent = fmt(player.best)+" m";
-    el("shopCoins").textContent = fmt(player.coins);
-    el("shopPlayerName").textContent = player.name;
-    el("renameTicketsShop").textContent = fmt(player.renameTickets);
-    renderShop();
-    renderQuests();
-  }
+function renderShop(){
+if(!player)return;
+$("itemsPanel").innerHTML=`<div class="shop-grid">
+${itemCard("rename",itemPrice("rename"),`🎫 Mỗi lần đổi tên tiếp theo cần ${renameCost()} thẻ.`,`Số thẻ: ${fmt(player.inventory.renameTickets)}`)}
+${itemCard("shield",itemPrice("shield"),"Thêm Khiên cho lượt chạy.","Số lượng: "+fmt(player.inventory.shield))}
+${itemCard("magnet",itemPrice("magnet"),"Tăng Nam Châm dùng trong một lượt.","Số lượng: "+fmt(player.inventory.magnet))}
+${itemCard("turbo",itemPrice("turbo"),"Tăng tốc đặc biệt trong lượt.","Số lượng: "+fmt(player.inventory.turbo))}
+</div>`;
+$("skinsPanel").innerHTML=`<div class="shop-grid">${Object.entries(SKINS).map(([id,s])=>skinCard(id,s)).join("")}</div>`;
+$("upgradesPanel").innerHTML=`<div class="shop-grid">${Object.entries(UPGRADES).map(([id,u])=>upgradeCard(id,u)).join("")}</div>`;
+}
+function itemCard(id,price,desc,count){const i=ITEMS[id];return `<div class="card"><div class="item-icon">${i.icon}</div><div style="display:flex;justify-content:space-between;margin-top:10px"><h3 style="margin:0">${i.name}</h3><span class="price">🪙 ${fmt(price)}</span></div><p class="mini">${desc}</p><span class="badge">${count}</span><button class="btn primary" style="width:100%;margin-top:9px" onclick="buyItem('${id}')">MUA</button></div>`}
+function skinCard(id,s){const own=player.ownedSkins.includes(id),eq=player.selectedSkin===id;const desc=s.kind==="fire"?"Khủng long lửa, gai nhiệt + trail đỏ.":s.kind==="galaxy"?"Khủng long thiên hà, thân sao + trail tím.":s.kind==="sakura"?"Khủng long hoa anh đào + trail hồng.":s.rainbow?"Khủng long cầu vồng nhiều lớp + trail vải liền.":"Khủng long băng giáp xanh + trail lạnh.";return `<div class="card"><div class="skin-preview ${s.rainbow?"rainbow-preview":""}"><div class="dino-mini">${s.rainbow?"🦖":s.kind==="fire"?"🐲":s.kind==="galaxy"?"👾":s.kind==="sakura"?"🦖":"🦕"}</div></div><div style="display:flex;justify-content:space-between;gap:8px;margin-top:10px"><h3 style="margin:0">${s.name}</h3><span class="price">🪙 ${fmt(prices[id])}</span></div><p class="mini">${desc} • Bonus xu +${Math.round(s.bonus*100)}%.</p><button class="btn ${eq?"green":"primary"}" style="width:100%;margin-top:8px" onclick="buySkin('${id}')">${eq?"✓ ĐANG DÙNG":own?"TRANG BỊ":"MUA"}</button></div>`}
+function upgradeCard(id,u){const lv=Number(player.upgrades[id])||0,max=lv>=u.max,p=upgradePrice(id);return `<div class="card"><div style="font-size:42px">${u.icon}</div><h3>${u.name}</h3><p class="mini">${u.desc}</p><div class="progress"><span style="width:${lv/u.max*100}%"></span></div><div class="mini" style="margin-top:7px">Lv.${lv}/${u.max}</div><button class="btn ${max?"":"primary"}" ${max?"disabled":""} style="width:100%;margin-top:8px" onclick="buyUpgrade('${id}')">${max?"ĐÃ TỐI ĐA":"NÂNG CẤP • 🪙 "+fmt(p)}</button></div>`}
 
-  function openNameModal(force){
-    el("nameModal").classList.remove("hidden");
-    el("playerNameInput").value = force && player ? player.name : "";
-    setTimeout(()=>el("playerNameInput").focus(),30);
-  }
+window.buyItem=id=>{
+if(!player)return;const p=itemPrice(id);if(player.coins<p){toast("❌ Không đủ xu");return}player.coins-=p;
+if(id==="rename")player.inventory.renameTickets++;else player.inventory[id]++;
+save();refreshUI();toast("✅ Đã mua "+ITEMS[id].name);
+};
+window.buySkin=id=>{
+const s=SKINS[id];if(player.ownedSkins.includes(id)){player.selectedSkin=id;save();refreshUI();toast("🦖 Đã trang bị "+s.name);rainbowFXSound(id,"equip");return}
+if(player.coins<prices[id]){toast("❌ Không đủ xu");return}
+player.coins-=prices[id];player.ownedSkins.push(id);player.selectedSkin=id;save();refreshUI();rainbowFXSound(id,"buy");toast("🎉 Mở khóa "+s.name);
+};
+window.buyUpgrade=id=>{
+const u=UPGRADES[id],p=upgradePrice(id),lv=Number(player.upgrades[id])||0;if(lv>=u.max){toast("Đã tối đa.");return}
+if(player.coins<p){toast("❌ Không đủ xu");return}player.coins-=p;player.upgrades[id]=lv+1;save();refreshUI();toast("⚡ "+u.name+" lên Lv."+player.upgrades[id]);
+};
 
-  function registerOrLoad(){
-    const name = el("playerNameInput").value.trim().replace(/\s+/g," ");
-    if(name.length<2){el("nameError").textContent="Tên phải có ít nhất 2 ký tự.";return;}
-    if(!/^[\p{L}\p{N}_\- ]+$/u.test(name)){el("nameError").textContent="Tên chỉ được dùng chữ, số, khoảng trắng, _ hoặc -.";return;}
-    if(!players[name]) players[name]=freshPlayer(name);
-    player = normalizePlayer(players[name]);
-    currentName = name;
-    savePlayers();
-    enableNavigation();
-    el("nameError").textContent="";
-    el("nameModal").classList.add("hidden");
-    refreshUI();
-    toast("👤 Xin chào "+name+"!");
-  }
-  el("registerBtn").onclick=registerOrLoad;
-  el("playerNameInput").addEventListener("keydown",e=>{if(e.key==="Enter")registerOrLoad()});
+window.claimAchievement=id=>{
+const a=ACH.find(x=>x.id===id);if(!a||player.achievements.includes(id)||!a.need(player))return;player.achievements.push(id);player.coins+=a.reward;save();refreshUI();toast("🏆 Thành tựu +"+a.reward+" xu");
+};
 
-  function renameTicketPrice(){
-    return Math.max(1, 1 + (player?.renameCount || 0));
-  }
+function renderRanking(){
+const arr=Object.values(players).map(p=>normPlayer(p,p.name));
+renderRank("rankCoins",[...arr].sort((a,b)=>b.coins-a.coins),"coins");
+renderRank("rankBest",[...arr].sort((a,b)=>b.best-a.best),"best");
+renderRank("rankDistance",[...arr].sort((a,b)=>b.totalDistance-a.totalDistance),"distance");
+}
+function renderRank(id,arr,key){
+$(id).innerHTML=arr.slice(0,10).map((p,i)=>{
+const av=AVATARS.find(a=>a.id===p.avatar)||AVATARS[0];let v=key==="coins"?fmt(p.coins)+" xu":key==="best"?fmt(p.best)+" m":fmt(p.totalDistance)+" m";
+return `<div class="leader-row"><div class="rank">#${i+1}</div><div style="display:flex;align-items:center;gap:7px"><span class="player-avatar">${av.icon}</span><span class="rank-name">${p.name}${p.vip?` <span class="badge">VIP ${p.vip}</span>`:""}</span></div><div class="rank-value">${v}</div></div>`;
+}).join("")||`<div class="mini">Chưa có dữ liệu.</div>`;
+}
 
-  function renderShop(){
-    if(!player)return;
-    const items=el("itemsGrid"),grid=el("shopGrid");
-    items.innerHTML="";grid.innerHTML="";
-    const ticketPrice=400*Math.pow(2,Math.max(0,player.renameCount||0));
+setInterval(()=>{if(cloudReady())cloudLoadAll();else{players=loadJSON(KEY_PLAYERS,{});Object.keys(players).forEach(n=>players[n]=normPlayer(players[n],n));if(player&&players[player.name])player=players[player.name];renderRanking();refreshUI();}},300000);
 
-    items.insertAdjacentHTML("beforeend",`
-      <div class="card skin-card">
-        <div class="item-icon">🎫</div>
-        <div style="margin-top:12px;display:flex;justify-content:space-between;gap:8px">
-          <h3 style="margin:0">Thẻ Đổi Tên</h3><span class="price">🪙 ${fmt(ticketPrice)}</span>
-        </div>
-        <p class="mini">Mua thẻ để đổi tên. Mỗi lần đổi tên, số thẻ cần cho lần tiếp theo tăng thêm 1.</p>
-        <div class="tag">Có: ${fmt(player.renameTickets)} thẻ</div>
-        <button class="btn primary" style="width:100%;margin-top:10px" onclick="window.buyRenameTicket()">MUA 1 THẺ</button>
-      </div>
-    `);
+function showModalAdmin(){ $("adminModal").classList.remove("hidden");$("adminLoginBox").classList.remove("hidden");$("adminBody").classList.add("hidden");$("adminPassword").value="";$("adminError").textContent="";}
+function adminFill(){
+const s=$("adminPlayer");s.innerHTML=Object.keys(players).sort().map(n=>`<option value="${escapeHTML(n)}">${escapeHTML(n)} • ${fmt(players[n].coins)} xu</option>`).join("");if(player)s.value=player.name;
+const rows=Object.values(players).sort((a,b)=>b.coins-a.coins);$("adminPlayers").innerHTML=`<table class="admin-table"><tr><th>Tên</th><th>Xu</th><th>Best</th><th>Tổng m</th><th>VIP</th></tr>${rows.map(p=>`<tr><td>${escapeHTML(p.name)}</td><td>${fmt(p.coins)}</td><td>${fmt(p.best)}</td><td>${fmt(p.totalDistance)}</td><td>VIP ${p.vip}</td></tr>`).join("")}</table>`;
+$("adminPrices").innerHTML=[...Object.entries(SKINS),...Object.entries(ITEMS)].map(([id,v])=>`<div class="form-row"><label>${escapeHTML(v.name)}</label><input class="priceInput" data-price="${id}" type="number" min="0" value="${prices[id]??v.price??0}"></div>`).join("");
+$("cfgCoinPerMeter").value=config.coinPerMeter;$("cfgRunBonus").value=config.runBonus;$("cfgBaseSpeed").value=config.baseSpeed;$("cfgMaxSpeed").value=config.maxSpeed;$("cfgObstacleRate").value=config.obstacleRate;$("cfgCoinRate").value=config.coinRate;$("cfgPowerRate").value=config.powerRate;$("cfgSkinMultiplier").value=config.skinMultiplier;
+$("musicUrl").value=musicConfig.url||"";$("musicVolume").value=musicConfig.volume;$("musicStatus").textContent=musicConfig.url?"Đã cấu hình nhạc MP3.":"Chưa cấu hình nhạc.";
+}
+if($("cloudUrl"))$("cloudUrl").value=cloudConfig.url||DEFAULT_SUPABASE_URL;if($("cloudKey"))$("cloudKey").value=cloudConfig.key||"";if($("cloudStatus"))$("cloudStatus").textContent=cloudReady()?"✅ Đã cấu hình Supabase.":"Chưa cấu hình Supabase.";
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+$("adminClose").onclick=()=>$("adminModal").classList.add("hidden");
+$("adminLogin").onclick=async()=>{const entered=$("adminPassword").value;const ok=cloudReady()&&adminPasswordHash?await hashText(entered)===adminPasswordHash:entered===adminPassword;if(!ok){$("adminError").textContent="Sai mật khẩu.";return}$("adminLoginBox").classList.add("hidden");$("adminBody").classList.remove("hidden");adminFill();};
+$("buffCoins").onclick=()=>{const n=$("adminPlayer").value,a=Math.max(0,Number($("adminCoins").value)||0);if(!players[n])return;players[n].coins+=a;saveData();if(player?.name===n)player=players[n];adminFill();refreshUI();toast("🪙 Buff +"+fmt(a));};
+$("setCoins").onclick=()=>{const n=$("adminPlayer").value,a=Math.max(0,Number($("adminCoins").value)||0);if(!players[n])return;players[n].coins=a;saveData();if(player?.name===n)player=players[n];adminFill();refreshUI();toast("🪙 Đã đặt coin");};
+$("adminRename").onclick=()=>{const old=$("adminPlayer").value,n=$("adminNewName").value.trim();if(!players[old]||!n||players[n]){toast("Tên mới không hợp lệ hoặc đã tồn tại.");return}const p=players[old];delete players[old];p.name=n;players[n]=p;if(player?.name===old){player=p;currentName=n;localStorage.setItem(KEY_CURRENT,n)}saveData();adminFill();refreshUI();toast("✏️ Admin đã đổi tên");};
+$("saveAdminPrices").onclick=()=>{document.querySelectorAll(".priceInput").forEach(i=>prices[i.dataset.price]=Math.max(0,Number(i.value)||0));localStorage.setItem(KEY_PRICES,JSON.stringify(prices));renderShop();toast("💸 Đã lưu giá shop");};
+$("saveGameConfig").onclick=()=>{config={coinPerMeter:Math.max(0,Number($("cfgCoinPerMeter").value)||0),runBonus:Math.max(0,Number($("cfgRunBonus").value)||0),baseSpeed:Math.max(100,Number($("cfgBaseSpeed").value)||350),maxSpeed:Math.max(200,Number($("cfgMaxSpeed").value)||760),obstacleRate:Math.max(.3,Number($("cfgObstacleRate").value)||1),coinRate:Math.max(.15,Number($("cfgCoinRate").value)||.5),powerRate:Math.max(1,Number($("cfgPowerRate").value)||7),skinMultiplier:Math.max(0,Number($("cfgSkinMultiplier").value)||.25)};localStorage.setItem(KEY_CONFIG,JSON.stringify(config));toast("⚙️ Đã lưu cơ chế game");};
+$("saveMusic").onclick=async()=>{musicConfig={url:$("musicUrl").value.trim(),volume:Math.min(1,Math.max(0,Number($("musicVolume").value)||0)),enabled:true};localStorage.setItem(KEY_MUSIC,JSON.stringify(musicConfig));setupMusic();$("musicStatus").textContent=musicConfig.url?"Đã lưu nhạc MP3.":"Đã xóa nhạc nền.";await cloudUpsertState();toast("🎵 Đã lưu nhạc nền");};
+$("testMusic").onclick=()=>{setupMusic();playMusic();};
+$("stopMusic").onclick=()=>stopMusic();
+$("saveAdminPassword").onclick=async()=>{const a=$("newAdminPassword").value,b=$("newAdminPassword2").value;if(!a||a!==b){toast("❌ Mật khẩu xác nhận không khớp");return}adminPassword=a;adminPasswordHash=await hashText(a);localStorage.setItem(KEY_ADMIN,adminPassword);localStorage.setItem("dino_aurora_admin_hash",adminPasswordHash);$("newAdminPassword").value="";$("newAdminPassword2").value="";await cloudUpsertState();toast("🔐 Đã đổi mật khẩu Panel");};
+$("refreshAdminAll").onclick=()=>{players=loadJSON(KEY_PLAYERS,{});Object.keys(players).forEach(n=>players[n]=normPlayer(players[n],n));if(player&&players[player.name])player=players[player.name];config={...DEFAULT_CONFIG,...loadJSON(KEY_CONFIG,DEFAULT_CONFIG)};prices={...Object.fromEntries(Object.entries(SKINS).map(([k,v])=>[k,v.price])),...loadJSON(KEY_PRICES,{})};musicConfig=loadJSON(KEY_MUSIC,{url:"",volume:.35,enabled:true});adminFill();refreshUI();toast("↻ Panel đã tải lại dữ liệu");};
+$("grantVipSelected").onclick=()=>{const n=$("adminPlayer").value;if(!players[n])return;players[n].vip=3;players[n].ownedFrames=Array.isArray(players[n].ownedFrames)?players[n].ownedFrames:[];["vip1","vip2","vip3"].forEach(f=>{if(!players[n].ownedFrames.includes(f))players[n].ownedFrames.push(f)});saveData();if(player?.name===n)player=players[n];adminFill();refreshUI();toast("👑 Đã cấp VIP III");};
+$("adminLogout").onclick=()=>{$("adminBody").classList.add("hidden");$("adminLoginBox").classList.remove("hidden");};
+$("saveCloudConfig").onclick=()=>{cloudConfig={url:$("cloudUrl").value.trim(),key:$("cloudKey").value.trim(),enabled:true};localStorage.setItem(KEY_SUPABASE,JSON.stringify(cloudConfig));setCloudStatus(cloudReady()?"✅ Đã lưu Supabase":"⚠️ Thiếu URL hoặc Key");};
+$("testCloud").onclick=async()=>{try{await cloudFetch('/rest/v1/dino_app_state?select=id&limit=1');setCloudStatus("✅ Kết nối Supabase thành công");}catch(e){setCloudStatus("❌ "+e.message);}};
+$("syncCloudNow").onclick=()=>cloudSyncNow();
+$("musicFile").addEventListener("change",async e=>{const f=e.target.files&&e.target.files[0];if(!f)return;if(f.size>25*1024*1024){toast("❌ MP3 tối đa 25MB");return;}if(!cloudReady()){toast("⚠️ Kết nối Supabase trước");return;}try{setCloudStatus("⬆️ Đang tải MP3...");const path="music/"+Date.now()+"_"+f.name.replace(/[^a-zA-Z0-9._-]+/g,"_");await cloudFetch('/storage/v1/object/dino-assets/'+path,{method:'POST',headers:{'Content-Type':f.type||'audio/mpeg','x-upsert':'true'},body:f});const url=cloudConfig.url.replace(/\/$/,"")+"/storage/v1/object/public/dino-assets/"+path.split('/').map(encodeURIComponent).join('/');$("musicUrl").value=url;musicConfig={url,volume:Number($("musicVolume").value)||.35,enabled:true};localStorage.setItem(KEY_MUSIC,JSON.stringify(musicConfig));await cloudUpsertState();setupMusic();$("musicStatus").textContent="✅ MP3 đã lưu trên cloud";setCloudStatus("✅ Upload MP3 thành công");}catch(e){setCloudStatus("❌ Upload lỗi: "+e.message);}});
+$("resetAll").onclick=()=>{if(confirm("Xóa toàn bộ dữ liệu game trên trình duyệt này?")){localStorage.removeItem(KEY_PLAYERS);localStorage.removeItem(KEY_CURRENT);localStorage.removeItem(KEY_CONFIG);localStorage.removeItem(KEY_PRICES);localStorage.removeItem(KEY_ADMIN);localStorage.removeItem(KEY_MUSIC);location.reload();}};
 
-    const items2=[
-      {icon:"🛡️",name:"Khiên Run",desc:"Vật phẩm hỗ trợ lượt chạy tiếp theo.",price:700,key:"shieldItem"},
-      {icon:"🧲",name:"Nam châm",desc:"Vật phẩm hút xu trong lượt chạy.",price:900,key:"magnetItem"},
-      {icon:"⚡",name:"Turbo Core",desc:"Vật phẩm tăng tốc đặc biệt.",price:1200,key:"turboItem"}
-    ];
-    items2.forEach(item=>{
-      const count=player.inventory?.[item.key]||0;
-      items.insertAdjacentHTML("beforeend",`
-        <div class="card skin-card">
-          <div class="item-icon">${item.icon}</div>
-          <div style="margin-top:12px;display:flex;justify-content:space-between;gap:8px">
-            <h3 style="margin:0">${item.name}</h3><span class="price">🪙 ${fmt(item.price)}</span>
-          </div>
-          <p class="mini">${item.desc}</p>
-          <div class="tag">Số lượng: ${fmt(count)}</div>
-          <button class="btn primary" style="width:100%;margin-top:10px" onclick="window.buyItem('${item.key}',${item.price},'${item.name}')">MUA 1</button>
-        </div>
-      `);
-    });
+let audio=null;
+let adminAudioStarted=false;
+function setupMusic(){const m=$("bgMusic");if(!m)return;m.src=musicConfig.url||"";m.volume=Math.min(1,Math.max(0,Number(musicConfig.volume)||0));m.loop=true;}
+function playMusic(){const m=$("bgMusic");if(!m||!musicConfig.url)return;m.volume=Math.min(1,Math.max(0,Number(musicConfig.volume)||0));m.play().then(()=>{adminAudioStarted=true}).catch(()=>{});}
+function stopMusic(){const m=$("bgMusic");if(m){m.pause();m.currentTime=0;}}
+setupMusic();
 
-    for(const [id,s] of Object.entries(skinDefs)){
-      const owned=player.ownedSkins.includes(id),equipped=player.selectedSkin===id,price=prices[id];
-      const extra=id==="rainbow"?`<div class="rainbow-note" style="margin-top:7px;font-size:11px">AURA • RAINBOW TRAIL • RAINBOW SOUND</div>`:"";
-      const bg=id==="rainbow"?"rainbow-preview":"";
-      grid.insertAdjacentHTML("beforeend",`
-        <div class="card skin-card">
-          <div class="skin-preview ${bg}">
-            ${id==="rainbow"?`<div style="font-size:75px;position:relative;z-index:2">🦖</div>`:`
-            <svg class="dino-svg" viewBox="0 0 220 180" aria-hidden="true">
-              <ellipse cx="112" cy="161" rx="70" ry="10" fill="#05070c" opacity=".35"/>
-              <path d="M45 105C15 100 20 75 46 74l32 19zM67 65c5-31 47-43 77-26 18 10 23 27 19 51l-6 36c-4 29-25 43-58 39-32-4-44-25-40-55zM136 62c39-12 59 9 53 37-5 24-24 27-49 19zM81 143l-5 22h28l6-21M128 144l11 21h28l-14-28" fill="${s.body}"/>
-              <path d="M83 60l9-18 9 20m13-7 10-19 7 22" stroke="#ffe18c" stroke-width="8" fill="none" stroke-linecap="round"/>
-              <ellipse cx="155" cy="82" rx="12" ry="14" fill="#fff"/><circle cx="159" cy="85" r="5" fill="#172238"/>
-            </svg>`}
-          </div>
-          <div style="margin-top:12px;display:flex;justify-content:space-between;gap:8px"><h3 style="margin:0">${s.name}</h3><span class="price">🪙 ${fmt(price)}</span></div>
-          <p class="mini">${s.desc}</p>${extra}
-          <button class="btn ${equipped?"green":"primary"}" style="width:100%;margin-top:10px" onclick="window.buySkin('${id}')">${equipped?"✓ ĐANG DÙNG":owned?"ĐEO SKIN":"MỞ KHÓA • 🪙 "+fmt(price)}</button>
-        </div>
-      `);
-    }
-  }
+function audioInit(){if(!player?.sound)return null;try{audio ||= new (window.AudioContext||window.webkitAudioContext)();if(audio.state==="suspended")audio.resume();return audio}catch{return null}}
+function tone(a1,a2,d=.09,type="triangle",v=.035){const ac=audioInit();if(!ac)return;const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.setValueAtTime(a1,ac.currentTime);o.frequency.exponentialRampToValueAtTime(Math.max(40,a2),ac.currentTime+d);g.gain.setValueAtTime(v,ac.currentTime);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+d);o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+d)}
+function rainbowFXSound(id,kind){if(id!=="rainbow")return;[660,880,1175].forEach((n,i)=>setTimeout(()=>tone(n,n*1.08,.08,"sine",.025),i*55));}
+function soundJump(){tone(250,760,.13,"triangle",.05);if(player.selectedSkin==="rainbow")rainbowFXSound("rainbow","jump");}
+function soundCoin(){tone(670,1000,.06,"sine",.03);if(player.selectedSkin==="rainbow")rainbowFXSound("rainbow","coin");}
+function soundHit(){tone(160,55,.32,"sawtooth",.07)}
 
-  window.buyRenameTicket=()=>{
-    if(!player)return;
-    const price=400*Math.pow(2,Math.max(0,player.renameCount||0));
-    if(player.coins<price){toast("❌ Không đủ xu để mua thẻ đổi tên");return;}
-    player.coins-=price;player.renameTickets++;
-    savePlayers();refreshUI();toast("🎫 Đã mua 1 Thẻ Đổi Tên");
-  };
+const canvas=$("gameCanvas"),ctx=canvas.getContext("2d");
+let active=false,paused=false,raf=0,last=0,dist=0,runCoins=0,combo=1,comboTimer=0,obTimer=0,cTimer=0,pTimer=0,elapsed=0,speed=350,power=null,powerUntil=0,shield=0;
+let obstacles=[],coins=[],powers=[],particles=[],trail=[];
+const dino={x:135,y:0,w:67,h:72,vy:0,grounded:true};
+const BIOMES=[{from:0,name:"🌿 ĐỒNG CỎ",a:"#163a52",b:"#091f2d",g:"#153626"},{from:1400,name:"🏜️ SA MẠC",a:"#5a3e2c",b:"#22151c",g:"#4b3121"},{from:3200,name:"🌋 NÚI LỬA",a:"#5b202a",b:"#1d0d15",g:"#35171b"},{from:5600,name:"❄️ BĂNG GIÁ",a:"#2c5670",b:"#102033",g:"#183247"},{from:9000,name:"🌌 AURORA",a:"#20275d",b:"#091025",g:"#11203b"}];
+function biome(){let b=BIOMES[0];for(const x of BIOMES)if(dist>=x.from)b=x;return b}
+function ground(){return canvas.height-86}
+function resetDino(){dino.y=ground()-dino.h;dino.vy=0;dino.grounded=true}
+function startGame(){
+if(!player){openName();return}audioInit();playMusic();showView("game");active=true;paused=false;cancelAnimationFrame(raf);dist=0;runCoins=0;combo=1;comboTimer=0;obTimer=.7;cTimer=.5;pTimer=5;elapsed=0;power=null;powerUntil=0;shield=(player.upgrades.shield||0)+((player.inventory.shield>0)?1:0);player.inventory.shield=Math.max(0,player.inventory.shield-(player.inventory.shield>0?1:0));if(player.inventory.turbo>0){player.inventory.turbo--;power="boost";powerUntil=performance.now()+4500}if(player.inventory.magnet>0){player.inventory.magnet--;power="magnet";powerUntil=performance.now()+4500}trail=[];obstacles=[];coins=[];powers=[];particles=[];resetDino();last=performance.now();$("gameState").textContent="ĐANG CHẠY!";$("pauseBtn").textContent="Ⅱ TẠM DỪNG";raf=requestAnimationFrame(loop);save();}
+function jump(){if(paused)return;if(!active){startGame();return}if(dino.grounded){dino.vy=-(735+(player.upgrades.jump||0)*14);dino.grounded=false;player.stats.jumps++;soundJump()}}
+function pause(){if(!active)return;paused=!paused;$("pauseBtn").textContent=paused?"▶ TIẾP TỤC":"Ⅱ TẠM DỪNG";$("gameState").textContent=paused?"TẠM DỪNG":"ĐANG CHẠY!";if(!paused){last=performance.now();raf=requestAnimationFrame(loop)}}
+function makeObstacle(){const tall=Math.random()>.5;obstacles.push({x:canvas.width+30,w:tall?39:31,h:tall?98:60})}
+function makeCoin(){coins.push({x:canvas.width+20,y:175+Math.random()*165,r:Math.random()<.08?12:9,spin:Math.random()*6.2})}
+function makePower(){powers.push({x:canvas.width+20,y:165+Math.random()*130,type:["shield","magnet","boost"][Math.floor(Math.random()*3)]})}
+function collide(a,b){return a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y}
+function emit(x,y,c){particles.push({x,y,vx:(Math.random()-.5)*190,vy:(Math.random()-.5)*170,life:.5+Math.random()*.3,max:.8,c,s:2+Math.random()*4})}
+function rcolor(i){return["#ff4c5e","#ff9f3d","#ffe45b","#60ef79","#42ddff","#7d70ff","#db67ff"][i%7]}
+function update(dt){
+dino.vy+=1900*dt;dino.y+=dino.vy*dt;if(dino.y>=ground()-dino.h){dino.y=ground()-dino.h;dino.vy=0;dino.grounded=true}
+elapsed+=dt;dist+=dt*(10+(player.upgrades.speed||0)*.35);speed=Math.min(config.maxSpeed,config.baseSpeed+dist*.07+(player.upgrades.speed||0)*6);
+obTimer+=dt;cTimer+=dt;pTimer-=dt;if(obTimer>=Math.max(.45,config.obstacleRate-dist/8000)){obTimer=0;makeObstacle()}if(cTimer>=config.coinRate){cTimer=0;makeCoin()}if(pTimer<=0){pTimer=config.powerRate+Math.random()*4;makePower()}
+if(comboTimer>0){comboTimer-=dt;if(comboTimer<=0)combo=1}if(power&&performance.now()>powerUntil)power=null;
+obstacles.forEach(o=>o.x-=speed*dt);coins.forEach(c=>{c.x-=speed*dt;c.spin+=dt*8});powers.forEach(p=>p.x-=speed*dt);
+obstacles=obstacles.filter(o=>o.x>-70);coins=coins.filter(c=>c.x>-70);powers=powers.filter(p=>p.x>-60);
+const radius=90+(player.upgrades.magnet||0)*18;
+for(let i=coins.length-1;i>=0;i--){const c=coins[i],dx=dino.x+32-c.x,dy=dino.y+34-c.y,dd=Math.hypot(dx,dy);if((player.upgrades.magnet||0)>0&&dd<radius){c.x+=dx*dt*6;c.y+=dy*dt*6}if(dd<35){const base=c.r===12?5:1;const skin=SKINS[player.selectedSkin]?.bonus||0;const val=Math.floor(base*combo*(1+skin+config.skinMultiplier*(player.selectedSkin==="rainbow"?1:0))*(1+(player.upgrades.coin||0)*.03));runCoins+=val;player.stats.coinsEarned+=val;combo=Math.min(5,combo+.3);comboTimer=2.5;emit(c.x,c.y,player.selectedSkin==="rainbow"?rcolor(i):"#ffd34d");soundCoin();coins.splice(i,1)}}
+for(let i=powers.length-1;i>=0;i--){const p=powers[i],b={x:p.x-14,y:p.y-14,w:28,h:28},d={x:dino.x+9,y:dino.y+7,w:dino.w-16,h:dino.h-10};if(collide(d,b)){power=p.type;powerUntil=performance.now()+6000+(p.type==="shield"?2500:0);emit(p.x,p.y,"#42ddff");tone(520,1200,.18,"triangle",.045);powers.splice(i,1)}}
+const d={x:dino.x+10,y:dino.y+8,w:dino.w-18,h:dino.h-10};
+for(let i=obstacles.length-1;i>=0;i--){const o=obstacles[i],b={x:o.x+4,y:ground()-o.h,w:o.w-8,h:o.h};if(collide(d,b)){if(shield>0||power==="shield"){shield=Math.max(0,shield-1);power=null;obstacles.splice(i,1);for(let k=0;k<20;k++)emit(dino.x+30,dino.y+30,"#42ddff");tone(260,650,.13,"triangle",.04)}else{endGame();return}}}
+if(power==="magnet"){for(const c of coins){const dx=dino.x+32-c.x,dy=dino.y+34-c.y,dd=Math.max(1,Math.hypot(dx,dy));if(dd<330){c.x+=dx*dt*7;c.y+=dy*dt*7}}}
+if(power==="boost")speed*=1.22;
+player.totalDistance+=dt*(10+(player.upgrades.speed||0)*.35);player.quest=player.quest||{};trail.push({x:dino.x+8,y:dino.y+35,life:1});if(trail.length>38)trail.shift();
+renderHUD();
+}
+function renderHUD(){$("hudDistance").textContent=fmt(dist)+" m";$("hudCoins").textContent=fmt(runCoins);$("hudCombo").textContent="x"+combo.toFixed(1);$("hudPower").textContent=power==="shield"?"🛡️":power==="magnet"?"🧲":power==="boost"?"⚡":shield?"🛡️ "+shield:"—";$("hudTime").textContent=`${String(Math.floor(elapsed/60)).padStart(2,"0")}:${String(Math.floor(elapsed%60)).padStart(2,"0")}`;$("biomeBadge").textContent=biome().name;const s=Math.floor((elapsed%48)/12);$("phaseBadge").textContent=["🌅 BÌNH MINH","☀️ BAN NGÀY","🌇 HOÀNG HÔN","🌙 BAN ĐÊM"][s]}
+function drawMountains(off,col,base,h,w){ctx.fillStyle=col;for(let x=-w-(off%w);x<canvas.width+w;x+=w){ctx.beginPath();ctx.moveTo(x,base);ctx.lineTo(x+w*.48,base-h);ctx.lineTo(x+w,base);ctx.closePath();ctx.fill()}}
+function vipByStats(){if(player.coins>=50000)return 3;if(player.coins>=15000)return 2;if(player.coins>=5000)return 1;return 0;}
+function awardVIP(){const v=vipByStats(),old=player.vip;player.vip=Math.max(player.vip,v);for(let i=1;i<=3;i++)if(player.vip>=i&&!player.ownedFrames.includes("vip"+i))player.ownedFrames.push("vip"+i);if(v>old)toast("👑 Bạn đạt VIP "+v+"!");}
+function updateAchievementProgress(){awardVIP();for(const a of ACH){if(!player.achievements.includes(a.id)&&a.need(player)){player.achievements.push(a.id);player.coins+=a.reward;toast("🏆 Tự động mở thành tựu: "+a.name+" +"+a.reward)}}awardVIP();save();}
 
-  function openRenameModal(){
-    if(!player)return;
-    const cost=renameTicketPrice();
-    el("renameCostText").innerHTML=`Lần đổi tên tiếp theo cần <b>${cost}</b> thẻ. Bạn đang có <b>${player.renameTickets}</b> thẻ.`;
-    el("renameInput").value="";el("renameError").textContent="";
-    el("renameModal").classList.remove("hidden");
-    setTimeout(()=>el("renameInput").focus(),30);
-  }
-  el("renameNowBtn").onclick=openRenameModal;
+function renderHUD(){$("hudDistance").textContent=fmt(dist)+" m";$("hudCoins").textContent=fmt(runCoins);$("hudCombo").textContent="x"+combo.toFixed(1);$("hudPower").textContent=power==="shield"?"🛡️":power==="magnet"?"🧲":power==="boost"?"⚡":shield?"🛡️ "+shield:"—";$("hudTime").textContent=`${String(Math.floor(elapsed/60)).padStart(2,"0")}:${String(Math.floor(elapsed%60)).padStart(2,"0")}`;$("biomeBadge").textContent=biome().name;const s=Math.floor((elapsed%48)/12);$("phaseBadge").textContent=["🌅 BÌNH MINH","☀️ BAN NGÀY","🌇 HOÀNG HÔN","🌙 BAN ĐÊM"][s]}
+function drawMountains(off,col,base,h,w){ctx.fillStyle=col;for(let x=-w-(off%w);x<canvas.width+w;x+=w){ctx.beginPath();ctx.moveTo(x,base);ctx.lineTo(x+w*.48,base-h);ctx.lineTo(x+w,base);ctx.closePath();ctx.fill()}}
+function drawDino(){const s=SKINS[player?.selectedSkin||"blue"],x=dino.x,y=dino.y,b=dino.grounded&&active?Math.sin(performance.now()/75)*3:0,t=performance.now();ctx.save();let body=s.body,shade=s.shade,belly=s.belly;let rainbowGradient=null;if(s.kind==="prism"){rainbowGradient=ctx.createLinearGradient(x-18,y,x+72,y+72);["#ff3b5f","#ff9a2e","#ffe34a","#49e36f","#2fd7ff","#6876ff","#d95cff"].forEach((c,i)=>rainbowGradient.addColorStop(i/6,c));ctx.fillStyle=rainbowGradient;}else ctx.fillStyle=body;ctx.roundRect(x+12,y+20+b,43,42,17);ctx.fill();ctx.fillStyle=s.kind==="prism"?rainbowGradient:body;ctx.roundRect(x+39,y+3+b,31,35,13);ctx.fill();ctx.fillStyle=belly;ctx.beginPath();ctx.ellipse(x+40,y+39+b,17,19,-.35,0,Math.PI*2);ctx.fill();ctx.fillStyle=s.kind==="prism"?rainbowGradient:shade;ctx.beginPath();ctx.moveTo(x+18,y+40+b);ctx.lineTo(x-13,y+27+b);ctx.lineTo(x-17,y+42+b);ctx.lineTo(x+18,y+55+b);ctx.closePath();ctx.fill();ctx.fillStyle=s.kind==="prism"?rainbowGradient:body;ctx.fillRect(x+22,y+58+b,12,15);ctx.fillRect(x+47,y+58-b,12,15);if(s.kind==="prism"){ctx.fillStyle=rainbowGradient;for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(x+22+i*11,y+21+b);ctx.lineTo(x+27+i*11,y+6+b);ctx.lineTo(x+32+i*11,y+21+b);ctx.fill()}}else if(s.kind==="fire"){ctx.fillStyle="#ffcc43";for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(x+20+i*11,y+21+b);ctx.lineTo(x+26+i*11,y+5+b);ctx.lineTo(x+31+i*11,y+21+b);ctx.fill()}}else if(s.kind==="galaxy"){ctx.fillStyle="#6ee7ff";for(let i=0;i<4;i++){ctx.beginPath();ctx.arc(x+25+i*11,y+17+b,4,0,Math.PI*2);ctx.fill()}}else if(s.kind==="sakura"){ctx.fillStyle="#ffd2e8";for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(x+20+i*11,y+21+b);ctx.quadraticCurveTo(x+26+i*11,y+6+b,x+32+i*11,y+21+b);ctx.fill()}}else{ctx.fillStyle=s.accent;for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(x+22+i*11,y+20+b);ctx.lineTo(x+27+i*11,y+8+b);ctx.lineTo(x+32+i*11,y+20+b);ctx.fill()}}ctx.fillStyle="#fff";ctx.beginPath();ctx.ellipse(x+59,y+14+b,9,11,0,0,Math.PI*2);ctx.fill();ctx.fillStyle=s.kind==="fire"?"#ff2d1f":s.kind==="galaxy"?"#64e8ff":s.kind==="prism"?"#5b1b7d":"#101521";ctx.beginPath();ctx.arc(x+62,y+17+b,4,0,Math.PI*2);ctx.fill();if(s.kind==="prism"){for(let i=0;i<7;i++){ctx.fillStyle=i%2?"#fff":"#fff3b0";ctx.fillRect(x+9+i*8,y+6+Math.sin(t/180+i)*2,5,3)}}if(s.kind==="sakura"){for(let i=0;i<7;i++){const px=x+7+((i*17+t/35)%64),py=y+8+((i*13+t/55)%50);ctx.fillStyle="#ffd1e8cc";ctx.beginPath();ctx.arc(px,py,2.5,0,Math.PI*2);ctx.fill()}}if(s.kind==="galaxy"){for(let i=0;i<8;i++){const a=t/800+i*.8,rx=38+Math.sin(i)*10;ctx.fillStyle=i%2?"#6ee7ff":"#fff";ctx.beginPath();ctx.arc(x+34+Math.cos(a)*rx,y+35+Math.sin(a)*rx*.6,1.6,0,Math.PI*2);ctx.fill()}}ctx.restore()}
 
-  function confirmRename(){
-    const name=el("renameInput").value.trim().replace(/\s+/g," ");
-    if(name.length<2){el("renameError").textContent="Tên phải có ít nhất 2 ký tự.";return;}
-    if(!/^[\p{L}\p{N}_\- ]+$/u.test(name)){el("renameError").textContent="Tên chỉ được dùng chữ, số, khoảng trắng, _ hoặc -.";return;}
-    const cost=renameTicketPrice();
-    if(player.renameTickets<cost){el("renameError").textContent=`Bạn cần ${cost} thẻ đổi tên.`;return;}
-    if(players[name]&&name!==player.name){el("renameError").textContent="Tên này đã tồn tại.";return;}
-    const oldName=player.name;
-    player.renameTickets-=cost;player.renameCount+=1;player.name=name;
-    delete players[oldName];players[name]=player;currentName=name;
-    savePlayers();localStorage.setItem(CURRENT_KEY,name);
-    el("renameModal").classList.add("hidden");refreshUI();
-    toast(`✏️ Đã đổi tên thành ${name}. Lần sau cần ${renameTicketPrice()} thẻ.`);
-  }
-  el("renameConfirmBtn").onclick=confirmRename;
-  el("renameCloseBtn").onclick=()=>el("renameModal").classList.add("hidden");
-  el("renameInput").addEventListener("keydown",e=>{if(e.key==="Enter")confirmRename()});
+function draw(){
+const b=biome(),W=canvas.width,H=canvas.height,h=ground(),day=(Math.sin((elapsed%48)/48*Math.PI*2-Math.PI/2)+1)/2;ctx.clearRect(0,0,W,H);const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,b.a);g.addColorStop(.75,b.b);g.addColorStop(1,b.g);ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+if(day<.4||b.name.includes("AURORA"))for(let i=0;i<36;i++){ctx.fillStyle="#ffffff44";ctx.fillRect((i*97)%W,22+((i*43)%135),2,2)}
+if(b.name.includes("AURORA")){const aur=ctx.createLinearGradient(0,0,W,0);aur.addColorStop(0,"#7c58ff22");aur.addColorStop(.5,"#42ddff33");aur.addColorStop(1,"#ff62d322");ctx.fillStyle=aur;ctx.fillRect(0,0,W,150)}
+ctx.fillStyle=day>.45?"#ffd75ccc":"#d8ebff99";ctx.beginPath();ctx.arc(W-120,70+Math.cos(elapsed/48*Math.PI*2)*22,day>.45?30:22,0,Math.PI*2);ctx.fill();
+drawMountains(dist*.05,"#06132177",h-5,125,265);drawMountains(dist*.12,"#123b4fbb",h+5,90,190);
+ctx.fillStyle="#ffffff14";ctx.fillRect(0,h-30,W,42);ctx.fillStyle=b.g;ctx.fillRect(0,h,W,H-h);ctx.strokeStyle="#ffd34d";ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(0,h+1);ctx.lineTo(W,h+1);ctx.stroke();
+ctx.strokeStyle="#ffffff2e";ctx.lineWidth=2;const lo=(dist*9)%48;for(let x=-lo;x<W;x+=48){ctx.beginPath();ctx.moveTo(x,h+20);ctx.lineTo(x+24,h+20);ctx.stroke()}
+if(trail.length>2){const kind=SKINS[player?.selectedSkin||"blue"]?.kind||"ice";ctx.save();ctx.lineCap="round";ctx.lineJoin="round";const pts=trail;for(let i=0;i<pts.length-2;i++){const p0=pts[i],p1=pts[i+1],p2=pts[i+2],q=i/(pts.length-2);ctx.globalAlpha=.18+.72*q;ctx.lineWidth=4+12*q;if(kind==="prism"){const g2=ctx.createLinearGradient(p0.x,p0.y,p2.x,p2.y);g2.addColorStop(0,rcolor(i));g2.addColorStop(.25,rcolor(i+1));g2.addColorStop(.5,rcolor(i+2));g2.addColorStop(.75,rcolor(i+3));g2.addColorStop(1,rcolor(i+4));ctx.strokeStyle=g2}else if(kind==="fire")ctx.strokeStyle=`hsl(${20-5*q},100%,${58+18*q}%)`;else if(kind==="galaxy")ctx.strokeStyle=`hsl(${250+45*q},100%,${65+14*q}%)`;else if(kind==="sakura")ctx.strokeStyle=`hsl(${330+10*q},100%,${68+16*q}%)`;else ctx.strokeStyle=`hsl(${190-25*q},100%,${62+16*q}%)`;ctx.beginPath();ctx.moveTo(p0.x,p0.y);ctx.quadraticCurveTo(p1.x,p1.y,p2.x,p2.y);ctx.stroke()}ctx.globalAlpha=1;ctx.restore()}obstacles.forEach(o=>{const y=h-o.h;ctx.fillStyle="#6e2c22";ctx.fillRect(o.x+9,y,o.w-17,o.h);ctx.fillStyle="#bd4631";ctx.fillRect(o.x,y+o.h*.3,o.w,10);ctx.fillStyle="#ff8a60";ctx.fillRect(o.x+11,y+7,4,o.h-17)});
+coins.forEach(c=>{const sc=.7+Math.abs(Math.sin(c.spin))*.3;ctx.save();ctx.translate(c.x,c.y);ctx.scale(sc,1);ctx.fillStyle=c.r===12?"#fff0a5":"#ffd34d";ctx.beginPath();ctx.arc(0,0,c.r,0,Math.PI*2);ctx.fill();ctx.restore()});
+powers.forEach(p=>{ctx.fillStyle=p.type==="shield"?"#42ddff":p.type==="magnet"?"#ff62c9":"#ffd34d";ctx.beginPath();ctx.arc(p.x,p.y,15,0,Math.PI*2);ctx.fill();ctx.fillStyle="#07111c";ctx.font="900 14px Arial";ctx.textAlign="center";ctx.fillText(p.type==="shield"?"S":p.type==="magnet"?"M":"⚡",p.x,p.y+5)});
+drawDino();particles.forEach(p=>{ctx.globalAlpha=Math.max(0,p.life/p.max);ctx.fillStyle=p.c;ctx.fillRect(p.x,p.y,p.s,p.s)});ctx.globalAlpha=1;
+if(!active){ctx.fillStyle="#fff";ctx.font="900 19px Arial";ctx.textAlign="center";ctx.fillText("SPACE / CHẠM ĐỂ CHẠY",W/2,185);ctx.font="600 13px Arial";ctx.fillStyle="#9db3c8";ctx.fillText(player?("Người chơi: "+player.name):"Đăng ký tên để bắt đầu",W/2,211)}
+}
+function loop(t){if(!active||paused)return;const dt=Math.min(.032,(t-last)/1000);last=t;update(dt);draw();raf=requestAnimationFrame(loop)}
+function endGame(){
+active=false;cancelAnimationFrame(raf);stopMusic();soundHit();const final=Math.floor(dist);const skin=SKINS[player.selectedSkin]||SKINS.blue;const mult=1+skin.bonus+player.upgrades.coin*.03;const reward=Math.floor(runCoins*mult+final*config.coinPerMeter+config.runBonus);
+player.coins+=reward;player.best=Math.max(player.best,final);player.stats.runs++;
+if(player.selectedSkin==="rainbow")rainbowFXSound("rainbow","end");for(let i=0;i<25;i++)emit(dino.x+30,dino.y+30,player.selectedSkin==="rainbow"?rcolor(i):"#ff6575");
+updateAchievementProgress();save();refreshUI();$("gameState").textContent=`GAME OVER • ${fmt(final)} m • +${fmt(reward)} xu`;draw();
+}
 
-  window.buyItem=(key,price,name)=>{
-    if(!player)return;
-    player.inventory ||= {};
-    if(player.coins<price){toast("❌ Không đủ xu");return;}
-    player.coins-=price;player.inventory[key]=(player.inventory[key]||0)+1;
-    savePlayers();refreshUI();toast("🎒 Đã mua "+name);
-  };
+$("jumpBtn").onclick=jump;$("pauseBtn").onclick=pause;$("restartBtn").onclick=startGame;$("soundBtn").onclick=()=>{player.sound=player.sound===false;save();$("soundBtn").textContent=player.sound?"🔊 ÂM THANH: BẬT":"🔇 ÂM THANH: TẮT";if(player.sound)audioInit()};
+canvas.addEventListener("pointerdown",e=>{e.preventDefault();jump()});addEventListener("keydown",e=>{if(["Space","ArrowUp","KeyW"].includes(e.code)){e.preventDefault();jump()}if(e.code==="KeyP"){e.preventDefault();pause()}if(e.code==="KeyR"){e.preventDefault();startGame()}});document.addEventListener("visibilitychange",()=>{if(document.hidden&&active&&!paused)pause()});
 
-  window.buySkin = id => {
-    if(!player)return;
-    const s=skinDefs[id], price=prices[id];
-    if(player.ownedSkins.includes(id)){
-      player.selectedSkin=id; savePlayers(); refreshUI();
-      playSkinSound(id,"equip"); toast("🦖 Đã trang bị "+s.name); return;
-    }
-    if(player.coins<price){toast("❌ Không đủ xu"); return;}
-    player.coins-=price; player.ownedSkins.push(id); player.selectedSkin=id;
-    savePlayers(); refreshUI();
-    playSkinSound(id,"buy"); toast("🎉 Đã mở "+s.name+"!");
-  };
+function fullscreenGame(){const target=$("game");if(document.fullscreenElement)document.exitFullscreen?.();else target.requestFullscreen?.().catch(()=>{});}
 
-  const quests=[
-    {id:"q1",name:"Chạy 500m",desc:"Tích lũy tổng quãng đường.",key:"distance",goal:500,reward:250},
-    {id:"q2",name:"Nhặt 100 xu",desc:"Thu thập xu qua gameplay.",key:"coins",goal:100,reward:350},
-    {id:"q3",name:"Chơi 5 lượt",desc:"Hoàn thành 5 lượt chạy.",key:"runs",goal:5,reward:500}
-  ];
-  function renderQuests(){
-    const box=el("questsList"); if(!box||!player)return; box.innerHTML="";
-    const done = player.completedQuests || (player.completedQuests=[]);
-    quests.forEach(q=>{
-      const val=Math.min(q.goal, player.quest[q.key]||0), claimed=done.includes(q.id);
-      box.insertAdjacentHTML("beforeend",`
-        <div class="quest card">
-          <div><b>${q.name}</b><div class="mini">${q.desc} • ${fmt(val)}/${fmt(q.goal)}</div><div class="bar"><span style="width:${val/q.goal*100}%"></span></div></div>
-          <button class="btn ${claimed?"":"primary"}" ${claimed||val<q.goal?"disabled":""} onclick="window.claimQuest('${q.id}')">${claimed?"✓ ĐÃ NHẬN":"+ "+q.reward+" 🪙"}</button>
-        </div>
-      `);
-    });
-  }
-  window.claimQuest=id=>{
-    if(!player)return; const q=quests.find(x=>x.id===id); if(!q)return;
-    player.completedQuests ||= [];
-    if(player.completedQuests.includes(id) || (player.quest[q.key]||0)<q.goal)return;
-    player.completedQuests.push(id); player.coins+=q.reward; savePlayers(); refreshUI(); toast("🎯 Nhiệm vụ hoàn thành +"+q.reward+" xu");
-  };
+function openAdmin(){
+  $("adminModal").classList.remove("hidden");
+  $("adminLoginBox").classList.remove("hidden");
+  $("adminBody").classList.add("hidden");
+  $("adminPassword").value="";
+  $("adminError").textContent="";
+}
+document.addEventListener("keydown",e=>{if(e.key==="F2")openAdmin();if(e.key==="Escape"){["adminModal","renameModal"].forEach(x=>$(x).classList.add("hidden"))}});
+const adminOpen=$("floatingAdmin");adminOpen.classList.remove("hidden");adminOpen.onclick=openAdmin;
 
-  // ---------- Audio ----------
-  let audio=null;
-  function initAudio(){
-    if(!player?.sound) return null;
-    try{
-      audio ||= new (window.AudioContext||window.webkitAudioContext)();
-      if(audio.state==="suspended") audio.resume();
-      return audio;
-    }catch{return null}
-  }
-  function tone(f1,f2,d=0.08,type="square",vol=0.04){
-    const a=initAudio(); if(!a)return;
-    const o=a.createOscillator(),g=a.createGain();
-    o.type=type;o.frequency.setValueAtTime(f1,a.currentTime);
-    if(f2) o.frequency.exponentialRampToValueAtTime(Math.max(40,f2),a.currentTime+d);
-    g.gain.setValueAtTime(vol,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+d);
-    o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+d);
-  }
-  function jumpSound(){ tone(240,720,.14,"triangle",.055); }
-  function coinSound(){ tone(660,980,.07,"sine",.035); }
-  function hitSound(){ tone(170,55,.34,"sawtooth",.07); }
-  function powerSound(){ tone(520,1180,.18,"triangle",.05); }
-  function comboSound(level){ tone(500+level*70,900+level*110,.08,"square",.035); }
-  function rainbowSound(kind){
-    if(!player?.sound)return;
-    const a=initAudio(); if(!a)return;
-    const notes = kind==="coin" ? [660,880,1175] : kind==="jump" ? [400,700,1050,1450] : [220,330,440,660];
-    notes.forEach((n,i)=>setTimeout(()=>tone(n,n*1.07,.08,"sine",.028),i*55));
-  }
-  function playSkinSound(id,kind){ if(id==="rainbow") rainbowSound(kind==="buy"?"end":kind==="equip"?"jump":"coin"); else if(kind==="buy") powerSound(); }
+function renderProfileChoices(){
+  if(!player)return;
+  $("avatarChoices").innerHTML=AVATARS.map(a=>{const own=player.avatarOwned.includes(a.id),eq=player.avatar===a.id;return `<button class="choice-btn avatar-choice ${eq?"active":""}" onclick="selectAvatar('${a.id}')"><span>${a.icon}</span><span>${a.name}<small style="display:block;font-size:8px;opacity:.75">${own?(eq?"Đang dùng":"Đã sở hữu"):(a.cost?"🪙 "+fmt(a.cost):"Mặc định")}</small></span></button>`}).join("");
+  $("frameChoices").innerHTML=FRAMES.map(f=>{const own=player.ownedFrames.includes(f.id),eq=player.frame===f.id;return `<button class="choice-btn ${eq?"active":""}" onclick="selectFrame('${f.id}')"><span class="frame-${f.id}" style="display:inline-block;width:16px;height:16px;border-radius:5px;border:2px solid currentColor;vertical-align:-3px;margin-right:3px"></span>${f.name}<br><span style="font-size:8px;opacity:.75">${own?(eq?"Đang dùng":f.how):f.cost>0?"Chưa sở hữu":"Mặc định"}</span></button>`}).join("");
+}
+window.selectAvatar=id=>{if(!player)return;const a=AVATARS.find(x=>x.id===id);if(!a)return;if(!player.avatarOwned.includes(id)){if(player.coins<a.cost){toast("❌ Không đủ xu để mua avatar");return}player.coins-=a.cost;player.avatarOwned.push(id);toast("🐾 Đã mở avatar "+a.name)}player.avatar=id;save();refreshUI();toast("🐾 Đã chọn avatar "+a.name)};
+window.selectFrame=id=>{if(!player)return;const f=FRAMES.find(x=>x.id===id);if(!f)return;if(!player.ownedFrames.includes(id)){if(player.coins<f.cost){toast("❌ Không đủ xu để mua khung");return}player.coins-=f.cost;player.ownedFrames.push(id);toast("🖼️ Đã mở khung "+f.name)}player.frame=id;save();refreshUI();toast("🖼️ Đã chọn khung "+f.name)};
+function renderAchievements(){
+  if(!player)return;
+  const box=$("achievementsGrid");
+  box.innerHTML=ACH.map(a=>{const done=player.achievements.includes(a.id);const frame=done?a.frame:"bronze";const buttonText=done?"✓ ĐÃ MỞ":"MỞ • +"+a.reward+" 🪙";return `<div class="card achievement"><div class="avatar-box ach-icon frame-${frame}"><span>${a.icon||"🏆"}</span></div><h3>${a.name}</h3><p class="mini">${a.desc}</p><button class="btn ${done?"green":"primary"}" ${done?"disabled":""} style="width:100%" onclick="claimAchievement('${a.id}')">${buttonText}</button></div>`}).join("");
+}
 
-  // ---------- Game ----------
-  const canvas=el("gameCanvas"),ctx=canvas.getContext("2d");
-  let active=false,paused=false,lastTime=0,distance=0,runCoins=0,combo=1,comboTimer=0,spawnTimer=0,coinTimer=0,powerTimer=0,speed=350,phase=0;
-  let obstacles=[],coins=[],powers=[],particles=[];
-  let power=null,powerUntil=0,shield=0;
-  const dino={x:130,y:0,w:66,h:72,vy:0,grounded:true};
-  let rainbowTrail=[];
-  const biomes=[
-    {from:0,name:"🌿 ĐỒNG CỎ",sky1:"#143a52",sky2:"#09202f",ground:"#153728"},
-    {from:1200,name:"🏜️ SA MẠC",sky1:"#563a2b",sky2:"#21151b",ground:"#473020"},
-    {from:2800,name:"🌋 NÚI LỬA",sky1:"#551d27",sky2:"#1b0d16",ground:"#32181d"},
-    {from:5000,name:"❄️ BĂNG GIÁ",sky1:"#254c67",sky2:"#101f33",ground:"#193145"},
-    {from:8000,name:"🌌 AURORA",sky1:"#1e2458",sky2:"#0a1026",ground:"#142342"}
-  ];
-
-  function currentBiome(){
-    let out=biomes[0]; for(const b of biomes) if(distance>=b.from)out=b; return out;
-  }
-  function groundY(){return canvas.height-82}
-  function resetDino(){dino.y=groundY()-dino.h;dino.vy=0;dino.grounded=true}
-
-  function startGame(){
-    if(!player){openNameModal(false);return;}
-    initAudio(); showView("game"); active=true;paused=false;
-    cancelAnimationFrame(window.__raf);
-    distance=0;runCoins=0;combo=1;comboTimer=0;spawnTimer=.55;coinTimer=.8;powerTimer=5;speed=350;phase=0;
-    obstacles=[];coins=[];powers=[];particles=[];power=null;powerUntil=0;shield=1+Math.floor((player.selectedSkin==="rainbow")?1:0);rainbowTrail=[];
-    resetDino();el("gameState").textContent="ĐANG CHẠY!";el("pauseBtn").textContent="Ⅱ TẠM DỪNG";lastTime=performance.now();
-    window.__raf=requestAnimationFrame(loop);
-  }
-
-  function jump(){
-    initAudio();
-    if(paused)return;
-    if(!active){startGame();return;}
-    if(dino.grounded){
-      dino.vy=-(735+(player.selectedSkin==="rainbow"?18:0));dino.grounded=false;
-      player.stats.jumps++;jumpSound();
-      if(player.selectedSkin==="rainbow")rainbowSound("jump");
-    }
-  }
-
-  function togglePause(){
-    if(!active)return; paused=!paused;
-    el("gameState").textContent=paused?"TẠM DỪNG":"ĐANG CHẠY!";
-    el("pauseBtn").textContent=paused?"▶ TIẾP TỤC":"Ⅱ TẠM DỪNG";
-    if(!paused){lastTime=performance.now();window.__raf=requestAnimationFrame(loop);}
-  }
-
-  function makeObstacle(){
-    const tall=Math.random()>.52,h=tall?95:58,w=tall?38:31;
-    obstacles.push({x:canvas.width+30,w,h,type:tall?"tall":"normal"});
-  }
-  function makeCoin(){
-    coins.push({x:canvas.width+20,y:180+Math.random()*150,r:Math.random()<.08?12:9,spin:Math.random()*6.2});
-  }
-  function makePower(){
-    const type=["shield","magnet","boost"][Math.floor(Math.random()*3)];
-    powers.push({x:canvas.width+20,y:170+Math.random()*120,type});
-  }
-  function addParticle(x,y,color){
-    particles.push({x,y,vx:(Math.random()-.5)*190,vy:(Math.random()-.5)*170,life:.5+Math.random()*.3,max:.8,c:color,s:2+Math.random()*4});
-  }
-  function rainbowColor(t){
-    const a=["#ff4d5d","#ff9d3d","#ffe45a","#62ef7b","#42ddff","#7c71ff","#dd68ff"];
-    return a[Math.floor((t*7)%a.length)];
-  }
-  function hit(a,b){return a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y}
-
-  function collectCoin(i,c){
-    const multi=combo;
-    const value=(c.r===12?5:1)*(player.selectedSkin==="pink"?1.05:player.selectedSkin==="red"?1.10:player.selectedSkin==="rainbow"?1.25:1);
-    runCoins+=Math.floor(value*multi);
-    player.stats.collected+=c.r===12?5:1;
-    player.quest.coins+=c.r===12?5:1;
-    combo=Math.min(5,combo+0.35);comboTimer=2.4;
-    addParticle(c.x,c.y,player.selectedSkin==="rainbow"?rainbowColor(performance.now()/400):"#ffd34d");
-    if(player.selectedSkin==="rainbow")rainbowSound("coin"); else coinSound();
-    if(combo>=2.5)comboSound(Math.floor(combo));
-    coins.splice(i,1);
-  }
-
-  function update(dt){
-    dino.vy+=1880*dt; dino.y+=dino.vy*dt;
-    if(dino.y>=groundY()-dino.h){dino.y=groundY()-dino.h;dino.vy=0;dino.grounded=true;}
-    distance+=dt*(10+(player.selectedSkin==="red"?0.45:0));
-    phase+=dt*12;
-    speed=Math.min(760,350+distance*.075);
-    spawnTimer+=dt;coinTimer+=dt;powerTimer-=dt;
-    if(spawnTimer>Math.max(.58,1.16-distance/6000)){spawnTimer=0;makeObstacle();}
-    if(coinTimer>.48){coinTimer=0;if(Math.random()<.9)makeCoin();}
-    if(powerTimer<=0){powerTimer=7+Math.random()*5;makePower();}
-    if(comboTimer>0){comboTimer-=dt;if(comboTimer<=0)combo=1;}
-    if(power && performance.now()>powerUntil)power=null;
-
-    obstacles.forEach(o=>o.x-=speed*dt);coins.forEach(c=>{c.x-=speed*dt;c.spin+=dt*8});powers.forEach(p=>p.x-=speed*dt);
-    obstacles=obstacles.filter(o=>o.x+o.w>-50);coins=coins.filter(c=>c.x>-50);powers=powers.filter(p=>p.x>-50);
-
-    const mag=100;
-    for(let i=coins.length-1;i>=0;i--){
-      const c=coins[i],dx=dino.x+32-c.x,dy=dino.y+35-c.y,dd=Math.hypot(dx,dy);
-      if(player.selectedSkin==="rainbow" && dd<mag){c.x+=dx*dt*3;c.y+=dy*dt*3;}
-      if(dd<36)collectCoin(i,c);
-    }
-    for(let i=powers.length-1;i>=0;i--){
-      const p=powers[i],box={x:p.x-13,y:p.y-13,w:26,h:26},db={x:dino.x+8,y:dino.y+7,w:dino.w-14,h:dino.h-10};
-      if(hit(db,box)){
-        power=p.type;powerUntil=performance.now()+(p.type==="shield"?8000:5500);powers.splice(i,1);addParticle(p.x,p.y,"#42ddff");powerSound();
-      }
-    }
-
-    if(power==="shield")shield=Math.max(shield,1);
-    if(power==="magnet"){
-      for(const c of coins){const dx=dino.x+32-c.x,dy=dino.y+35-c.y,dd=Math.max(1,Math.hypot(dx,dy)); if(dd<300){c.x+=dx*dt*6;c.y+=dy*dt*6;}}
-    }
-
-    const db={x:dino.x+10,y:dino.y+8,w:dino.w-18,h:dino.h-10};
-    for(let i=obstacles.length-1;i>=0;i--){
-      const o=obstacles[i],ob={x:o.x+4,y:groundY()-o.h,w:o.w-8,h:o.h};
-      if(hit(db,ob)){
-        if(shield>0 || power==="shield"){
-          if(power==="shield")power=null; else shield--;
-          obstacles.splice(i,1); for(let n=0;n<18;n++)addParticle(dino.x+30,dino.y+30,"#42ddff");powerSound();continue;
-        }
-        endGame();return;
-      }
-    }
-
-    player.stats.distance+=dt*10;
-    player.quest.distance=Math.floor(player.stats.distance);
-    player.quest.runs=player.stats.runs;
-    if(player.selectedSkin==="rainbow"){
-      rainbowTrail.push({x:dino.x+5,y:dino.y+40,life:1});
-      if(rainbowTrail.length>30)rainbowTrail.shift();
-    } else rainbowTrail.length=0;
-
-    particles.forEach(p=>{p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=180*dt;p.life-=dt});
-    particles=particles.filter(p=>p.life>0);
-
-    el("hudScore").textContent=fmt(distance);
-    el("hudCoins").textContent=fmt(runCoins);
-    el("hudCombo").textContent="x"+combo.toFixed(1);
-    el("hudPower").textContent=power==="shield"?"🛡️ KHIÊN":power==="magnet"?"🧲 NAM CHÂM":power==="boost"?"⚡ TURBO":shield?"🛡️ "+shield:"—";
-    const b=currentBiome();el("biomeBadge").textContent=b.name;
-    const cyc=(performance.now()/1000)%48,stage=Math.floor(cyc/12),ph=["🌅 BÌNH MINH","☀️ BAN NGÀY","🌇 HOÀNG HÔN","🌙 BAN ĐÊM"][stage];
-    el("mapBadge").textContent=ph;
-  }
-
-  function drawMountains(offset,color,base,height,width){
-    ctx.fillStyle=color;
-    for(let x=-width-(offset%width);x<canvas.width+width;x+=width){
-      ctx.beginPath();ctx.moveTo(x,base);ctx.lineTo(x+width*.48,base-height);ctx.lineTo(x+width,base);ctx.closePath();ctx.fill();
-    }
-  }
-
-  function draw(){
-    const b=currentBiome(),W=canvas.width,H=canvas.height,horizon=groundY();
-    const day=(Math.sin((performance.now()/1000%48)/48*Math.PI*2-Math.PI/2)+1)/2;
-    const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,b.sky1);g.addColorStop(.75,b.sky2);g.addColorStop(1,b.ground);
-    ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
-
-    // sky details
-    if(b.name.includes("AURORA")){
-      const grd=ctx.createLinearGradient(0,0,W*.9,0);grd.addColorStop(0,"#6d47ff28");grd.addColorStop(.5,"#31efff38");grd.addColorStop(1,"#ff56d62b");
-      ctx.fillStyle=grd;ctx.fillRect(0,0,W,150);
-      for(let i=0;i<42;i++){ctx.fillStyle="#fff";ctx.globalAlpha=.35+((i*7)%10)/20;ctx.fillRect((i*83)%W,25+((i*47)%120),2,2);}ctx.globalAlpha=1;
-    }else if(day<.35){
-      for(let i=0;i<24;i++){ctx.fillStyle="#ffffff66";ctx.fillRect((i*93)%W,24+((i*39)%125),2,2);}
-    }
-
-    const sunX=W-115,sunY=72+Math.cos((performance.now()/1000%48)/48*Math.PI*2)*24;
-    ctx.fillStyle=day>.48?"#ffd75cbb":"#d6e8ff99";ctx.beginPath();ctx.arc(sunX,sunY,day>.48?31:23,0,Math.PI*2);ctx.fill();
-
-    // parallax mountains / fog
-    drawMountains(distance*.06,"rgba(5,15,28,.55)",horizon-5,125,260);
-    drawMountains(distance*.12,"rgba(16,50,61,.78)",horizon+7,88,195);
-    ctx.fillStyle="rgba(57,153,171,.16)";ctx.fillRect(0,horizon-14,W,30);
-
-    // ground
-    ctx.fillStyle=b.ground;ctx.fillRect(0,horizon,W,H-horizon);
-    ctx.strokeStyle="#ffd34d";ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(0,horizon+1);ctx.lineTo(W,horizon+1);ctx.stroke();
-    ctx.strokeStyle="#ffffff2e";ctx.lineWidth=2;const off=(distance*10)%45;for(let x=-off;x<W;x+=45){ctx.beginPath();ctx.moveTo(x,horizon+18);ctx.lineTo(x+23,horizon+18);ctx.stroke();}
-
-    // rainbow trail
-    if(player?.selectedSkin==="rainbow" && rainbowTrail.length){
-      rainbowTrail.forEach((t,i)=>{ctx.globalAlpha=Math.max(0,t.life*(i/rainbowTrail.length));ctx.fillStyle=rainbowColor(i/rainbowTrail.length);ctx.beginPath();ctx.arc(t.x-i*.9,t.y+i*.05,4+(i%4),0,Math.PI*2);ctx.fill();});
-      ctx.globalAlpha=1;
-      for(let k=0;k<7;k++){ctx.strokeStyle=["#ff4d5d","#ff9d3d","#ffe45a","#62ef7b","#42ddff","#7c71ff","#dd68ff"][k]+"aa";ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(dino.x+4,dino.y+20+k*5);ctx.lineTo(dino.x-90,dino.y+10+k*7);ctx.stroke();}
-    }
-
-    // obstacles
-    obstacles.forEach(o=>{const y=horizon-o.h;ctx.fillStyle="#6f2a21";ctx.fillRect(o.x+9,y,o.w-17,o.h);ctx.fillStyle="#be4631";ctx.fillRect(o.x,y+o.h*.32,o.w,10);ctx.fillStyle="#ff8d61";ctx.fillRect(o.x+11,y+7,4,o.h-16);});
-
-    // coins
-    coins.forEach(c=>{const sc=.7+Math.abs(Math.sin(c.spin))*.3;ctx.save();ctx.translate(c.x,c.y);ctx.scale(sc,1);ctx.fillStyle=c.r===12?"#fff0a0":"#ffd34d";ctx.beginPath();ctx.arc(0,0,c.r,0,Math.PI*2);ctx.fill();ctx.fillStyle="#fff7cf";ctx.beginPath();ctx.arc(-3,-3,3,0,Math.PI*2);ctx.fill();ctx.restore();});
-
-    // powers
-    powers.forEach(p=>{ctx.fillStyle=p.type==="shield"?"#42ddff":p.type==="magnet"?"#ff62d2":"#ffd34d";ctx.beginPath();ctx.arc(p.x,p.y,15,0,Math.PI*2);ctx.fill();ctx.fillStyle="#07111d";ctx.font="900 14px Arial";ctx.textAlign="center";ctx.fillText(p.type==="shield"?"S":p.type==="magnet"?"M":"⚡",p.x,p.y+5);});
-
-    drawDino();
-    particles.forEach(p=>{ctx.globalAlpha=Math.max(0,p.life/p.max);ctx.fillStyle=p.c;ctx.fillRect(p.x,p.y,p.s,p.s);});ctx.globalAlpha=1;
-
-    if(!active){
-      ctx.fillStyle="#ffffffdd";ctx.font="900 20px Arial";ctx.textAlign="center";ctx.fillText("NHẤN SPACE HOẶC CHẠM ĐỂ CHẠY",W/2,190);
-      ctx.font="600 13px Arial";ctx.fillStyle="#9cb1c7";ctx.fillText(player?("Người chơi: "+player.name):"Đăng ký tên để bắt đầu",W/2,216);
-    }
-  }
-
-  function drawDino(){
-    const s=skinDefs[player?.selectedSkin||"blue"],x=dino.x,y=dino.y,bob=dino.grounded&&active?Math.sin(phase)*3:0;
-    ctx.save();
-    if(s.rainbow){
-      const aura=ctx.createRadialGradient(x+34,y+30,10,x+34,y+30,75);aura.addColorStop(0,"#ffffff66");aura.addColorStop(.3,"#ff4d5d33");aura.addColorStop(.55,"#45dbff28");aura.addColorStop(1,"transparent");
-      ctx.fillStyle=aura;ctx.beginPath();ctx.arc(x+34,y+30,75,0,Math.PI*2);ctx.fill();
-    }else{ctx.shadowColor=s.body;ctx.shadowBlur=18;}
-    ctx.fillStyle=s.body;ctx.roundRect(x+12,y+20+bob,43,42,17);ctx.fill();ctx.roundRect(x+39,y+3+bob,31,35,13);ctx.fill();
-    ctx.fillStyle=s.belly;ctx.beginPath();ctx.ellipse(x+40,y+39+bob,17,19,-.35,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle=s.shade;ctx.beginPath();ctx.moveTo(x+18,y+40+bob);ctx.lineTo(x-13,y+27+bob);ctx.lineTo(x-17,y+42+bob);ctx.lineTo(x+18,y+55+bob);ctx.closePath();ctx.fill();
-    ctx.fillStyle=s.body;ctx.fillRect(x+22,y+58+bob,12,15);ctx.fillRect(x+47,y+58-bob,12,15);
-    ctx.fillStyle="#ffd34d";[[x+22,y+20],[x+33,y+14],[x+44,y+12],[x+53,y+15]].forEach(p=>{ctx.beginPath();ctx.moveTo(p[0],p[1]+bob);ctx.lineTo(p[0]+5,p[1]-11+bob);ctx.lineTo(p[0]+10,p[1]+1+bob);ctx.closePath();ctx.fill();});
-    ctx.fillStyle="#f8ffff";ctx.beginPath();ctx.ellipse(x+59,y+14+bob,9,11,0,0,Math.PI*2);ctx.fill();ctx.fillStyle="#101521";ctx.beginPath();ctx.arc(x+62,y+17+bob,4,0,Math.PI*2);ctx.fill();
-    if(s.rainbow){
-      for(let i=0;i<7;i++){ctx.fillStyle=["#ff4d5d","#ff9d3d","#ffe45a","#62ef7b","#42ddff","#7c71ff","#dd68ff"][i];ctx.fillRect(x+11+i*7,y+4+bob,5,3);}
-      ctx.strokeStyle="#ffffffaa";ctx.lineWidth=2;ctx.beginPath();ctx.arc(x+34,y+31,48+Math.sin(phase)*3,0,Math.PI*2);ctx.stroke();
-    }
-    ctx.restore();
-  }
-
-  function loop(t){
-    if(!active||paused)return;
-    const dt=Math.min(.033,(t-lastTime)/1000);lastTime=t;update(dt);draw();window.__raf=requestAnimationFrame(loop);
-  }
-
-  function endGame(){
-    if(!active)return;active=false;cancelAnimationFrame(window.__raf);hitSound();
-    const final=Math.floor(distance);
-    let multiplier=1;
-    if(player.selectedSkin==="pink")multiplier=1.05;
-    if(player.selectedSkin==="red")multiplier=1.10;
-    if(player.selectedSkin==="rainbow")multiplier=1.25;
-    const reward=Math.floor(runCoins*multiplier + final/10);
-    player.coins+=reward;player.best=Math.max(player.best,final);
-    player.stats.runs++;player.quest.runs=player.stats.runs;player.quest.distance=Math.floor(player.stats.distance);
-    savePlayers();refreshUI();
-    el("gameState").textContent=`GAME OVER • ${fmt(final)}m • +${fmt(reward)} xu`;
-    if(player.selectedSkin==="rainbow")rainbowSound("end");
-    for(let i=0;i<28;i++)addParticle(dino.x+25,dino.y+25,player.selectedSkin==="rainbow"?rainbowColor(i/28):"#ff6678");
-    draw();
-  }
-
-  canvas.addEventListener("pointerdown",e=>{e.preventDefault();jump()});
-  el("jumpBtn").onclick=jump;el("pauseBtn").onclick=togglePause;el("restartBtn").onclick=startGame;
-  window.addEventListener("keydown",e=>{
-    if(["Space","ArrowUp","KeyW"].includes(e.code)){e.preventDefault();jump();}
-    if(e.code==="KeyP"){e.preventDefault();togglePause();}
-    if(e.code==="KeyR"){e.preventDefault();startGame();}
-  });
-  document.addEventListener("visibilitychange",()=>{if(document.hidden&&active&&!paused)togglePause();});
-  document.addEventListener("keydown",e=>{
-    if(e.key==="Escape"){
-      el("renameModal").classList.add("hidden");
-      el("adminModal").classList.add("hidden");
-    }
-  });
-
-  // ---------- Admin ----------
-  function populateAdminPlayers(){
-    const select=el("adminPlayer");select.innerHTML="";
-    Object.keys(players).sort().forEach(name=>{
-      const o=document.createElement("option");o.value=name;o.textContent=name+" • "+fmt(players[name].coins)+" xu";select.appendChild(o);
-    });
-    if(player && players[player.name]) select.value=player.name;
-    const table=el("adminPlayersTable");
-    const names=Object.keys(players).sort();
-    table.innerHTML=names.length?`<table class="admin-table"><thead><tr><th>Tên</th><th>Xu</th><th>Kỷ lục</th><th>Skin</th></tr></thead><tbody>${names.map(n=>{const p=players[n];return `<tr><td>${n}</td><td>${fmt(p.coins)}</td><td>${fmt(p.best)}m</td><td>${p.selectedSkin}</td></tr>`}).join("")}</tbody></table>`:`<div class="mini">Chưa có người chơi.</div>`;
-  }
-  function renderPriceEditor(){
-    const box=el("priceEditor");box.innerHTML="";
-    Object.entries(skinDefs).forEach(([id,s])=>{
-      box.insertAdjacentHTML("beforeend",`<div style="margin-bottom:8px"><div class="mini">${s.name}</div><input class="admin-input price-input" data-skin="${id}" type="number" min="0" value="${prices[id]}"></div>`);
-    });
-  }
-  function openAdmin(){
-    el("adminModal").classList.remove("hidden");el("adminLogin").classList.remove("hidden");el("adminContent").classList.add("hidden");el("adminPassword").value="";el("adminError").textContent="";
-  }
-  el("adminOpen").onclick=openAdmin;el("adminClose").onclick=()=>el("adminModal").classList.add("hidden");
-  el("adminLoginBtn").onclick=()=>{
-    if(el("adminPassword").value!=="1"){el("adminError").textContent="Sai mật khẩu.";return;}
-    el("adminError").textContent="";el("adminLogin").classList.add("hidden");el("adminContent").classList.remove("hidden");populateAdminPlayers();renderPriceEditor();
-  };
-  el("buffBtn").onclick=()=>{
-    const n=el("adminPlayer").value,amount=Math.max(0,Math.floor(Number(el("buffAmount").value)||0));
-    if(!n||!players[n])return;players[n].coins+=amount;localStorage.setItem(PLAYER_KEY,JSON.stringify(players));
-    if(player?.name===n){player=players[n];refreshUI();}populateAdminPlayers();toast("✅ Đã buff +"+fmt(amount)+" xu cho "+n);
-  };
-  el("setCoinsBtn").onclick=()=>{
-    const n=el("adminPlayer").value,amount=Math.max(0,Math.floor(Number(el("buffAmount").value)||0));
-    if(!n||!players[n])return;players[n].coins=amount;localStorage.setItem(PLAYER_KEY,JSON.stringify(players));
-    if(player?.name===n){player=players[n];refreshUI();}populateAdminPlayers();toast("✅ Đã đặt "+fmt(amount)+" xu cho "+n);
-  };
-  el("savePricesBtn").onclick=()=>{
-    document.querySelectorAll(".price-input").forEach(i=>prices[i.dataset.skin]=Math.max(0,Math.floor(Number(i.value)||0)));
-    savePrices();renderShop();toast("🛒 Đã lưu giá skin.");
-  };
-  el("adminLogout").onclick=()=>{el("adminContent").classList.add("hidden");el("adminLogin").classList.remove("hidden");el("adminPassword").value="";};
-  el("adminResetData").onclick=()=>{
-    if(!confirm("Xóa toàn bộ người chơi và giá skin local?"))return;
-    localStorage.removeItem(PLAYER_KEY);localStorage.removeItem(CURRENT_KEY);localStorage.removeItem(PRICE_KEY);
-    location.reload();
-  };
-
-  // start
-  if(!player) openNameModal(false); else refreshUI();
-  if(!player) {
-    document.querySelectorAll(".nav button").forEach(b=>b.disabled=false);
-  }
-  resetDino();draw();
+if(!player){$("gameState").textContent="Đăng ký tên để bắt đầu.";}else{refreshUI();$("nameModal").classList.add("hidden");}
+resetDino();draw();
 })();
 </script>
 </body>
