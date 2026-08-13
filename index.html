@@ -1,991 +1,169 @@
 <!doctype html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Dino Aurora Ultimate</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Aurora Rift — Neon Arena</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#06101b;--panel:#0c1c2d;--panel2:#10253a;--line:#244761;--text:#eff7ff;--muted:#8fa8c0;--cyan:#42ddff;--yellow:#ffd34d;--green:#68ee91;--red:#ff6274;--purple:#b990ff}
-*{box-sizing:border-box}html,body{margin:0;background:radial-gradient(circle at 15% 0%,#14405e 0,transparent 30%),linear-gradient(180deg,#06101b,#071322 65%,#040a11);color:var(--text);font-family:Inter,system-ui,Arial,sans-serif}
-body{min-height:100vh;overflow-x:hidden}button,input,select{font:inherit}button{cursor:pointer;border:0;color:inherit}.hidden{display:none!important}
-.app{width:min(1220px,calc(100% - 20px));margin:auto;padding:10px 0 25px}
-.top{position:sticky;top:8px;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border:1px solid #2a4b66;border-radius:18px;background:#05111ddd;backdrop-filter:blur(16px);box-shadow:0 18px 50px #0008}
-.brand{display:flex;align-items:center;gap:10px;background:transparent;font-weight:950}.logo{width:42px;height:42px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(135deg,#39ddff,#7669ff);font-size:23px}
-.nav{display:flex;gap:4px}.nav button{padding:9px 12px;border-radius:10px;background:transparent;color:var(--muted);font-weight:900}.nav button:hover,.nav button.active{background:#17344b;color:var(--yellow)}
-.wallet{padding:10px 13px;border-radius:11px;background:#292411;border:1px solid #5b4e21;color:#ffe8a0;font-weight:950}
-.top-log-btn{padding:10px 13px;border-radius:11px;background:#10283b;border:1px solid #315472;color:#bfefff;font-weight:950}.top-log-btn:hover{background:#183a53;color:var(--yellow)}
-.update-log-card{display:none}
-.log-modal-card{width:min(620px,100%)}
-@media(max-width:850px){.hero-dino-card{position:relative;right:auto;bottom:auto;width:100%;height:140px;margin-top:8px}.hero-dino{font-size:76px}.hero-dino-ring{width:120px;height:120px}.hero-dino-caption{right:0}.hero-orbit{display:none}.top{gap:6px;padding:8px}.top-log-btn{padding:8px 10px;font-size:11px}.wallet{padding:8px 10px}.top .brand .brand-title{display:inline}.top .brand .header-profile-mini{display:inline-flex}}
-.game:fullscreen{width:100vw;height:100vh;background:#02070d;display:flex;flex-direction:column;justify-content:center}.game:fullscreen .game-head,.game:fullscreen .hud,.game:fullscreen .controls,.game:fullscreen .card[style*="margin-top:10px"]{display:none}.game:fullscreen .game-frame{width:100vw;height:100vh;border:0;border-radius:0;box-shadow:none;display:flex;align-items:center;justify-content:center}.game:fullscreen .game-frame canvas{width:100vw;height:100vh;object-fit:contain}.game:fullscreen #fullscreenBtn{left:14px;top:14px}.game.landscape-lock .game-frame canvas{width:100vw;height:100vh;object-fit:contain}
+:root{--bg:#050814;--panel:#0b1020e8;--panel2:#0e1628;--line:#243553;--text:#f3f7ff;--muted:#8ea1bd;--cyan:#4fe7ff;--purple:#a77bff;--pink:#ff62c6;--gold:#ffd75b;--green:#69f2af;--red:#ff6d7e}
+*{box-sizing:border-box;margin:0}html,body{min-height:100%;background:radial-gradient(circle at 30% 10%,#15214a 0,#050814 45%,#03050b 100%);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden}button,input{font:inherit}button{border:0;color:inherit;cursor:pointer}.hidden{display:none!important}
+.app{min-height:100vh;position:relative}.app:before,.app:after{content:"";position:fixed;inset:auto;pointer-events:none;filter:blur(40px);opacity:.18}.app:before{width:280px;height:280px;top:-80px;right:-50px;background:#4fe7ff;border-radius:50%}.app:after{width:320px;height:320px;bottom:-120px;left:-100px;background:#a77bff;border-radius:50%}
+.top{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:#050814e8;backdrop-filter:blur(18px);border-bottom:1px solid #243553}.brand{display:flex;align-items:center;gap:9px;font-weight:900}.brandLogo{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,#4fe7ff,#8a5bff);box-shadow:0 0 18px #4fe7ff55}.topRight{display:flex;gap:7px;align-items:center}.coin{padding:8px 11px;border:1px solid #66541f;background:#2a2210;border-radius:12px;color:#ffe89a;font-weight:900;font-size:12px}.circle{width:36px;height:36px;border-radius:50%;background:#13203a;border:1px solid #2a3c5d;display:grid;place-items:center}
+.content{max-width:1120px;margin:0 auto;padding:14px 14px 86px;position:relative;z-index:2}.view{display:none}.view.active{display:block}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.card{background:linear-gradient(135deg,#0c1427f2,#0a1020ef);border:1px solid #243553;border-radius:18px;padding:14px;box-shadow:0 14px 40px #0008;backdrop-filter:blur(12px)}.card.soft{background:#0a1020b8}.eyebrow{color:var(--cyan);font-size:10px;font-weight:900;letter-spacing:.16em}.h1{font-size:clamp(28px,5vw,54px);font-weight:900;line-height:.98}.h2{font-size:24px;font-weight:900}.muted{color:var(--muted)}.small{font-size:11px}.btn{padding:10px 14px;border-radius:11px;background:#14233e;border:1px solid #2a4065;font-weight:800;font-size:12px}.btn:hover{filter:brightness(1.12)}.btn.gold{background:linear-gradient(135deg,#ffd85f,#ffb929);color:#13110a;border-color:#ffe889}.btn.green{background:#0f3124;border-color:#2f8f64;color:#9dffd1}.btn.red{background:#3a1720;border-color:#6f3540;color:#ffbbc4}.btn.wide{width:100%}.pill{padding:5px 8px;border-radius:999px;background:#14223a;border:1px solid #293d5d;font-size:10px;font-weight:800}.rarity{font-size:10px;font-weight:900;color:var(--purple)}
+.hero{min-height:320px;display:grid;grid-template-columns:1.25fr .75fr;gap:14px;align-items:stretch}.heroMain{position:relative;overflow:hidden;background:linear-gradient(135deg,#0e1c35,#08101e)}.heroMain:before{content:"";position:absolute;inset:-20%;background:conic-gradient(from 0deg,transparent 0 28%,#4fe7ff22 35%,transparent 43%,#a77bff1f 55%,transparent 63%);animation:spin 14s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.heroText{position:relative;z-index:2}.heroVisual{position:relative;display:grid;place-items:center;min-height:250px}.orb{width:190px;height:190px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff, #6af1ff 15%,#8d5fff 45%,#140e2a 75%);box-shadow:0 0 40px #4fe7ff77,0 0 90px #a77bff55;animation:float 3s ease-in-out infinite}.orb:after{content:"";position:absolute;width:240px;height:90px;border:2px solid #ffffff20;border-radius:50%;transform:rotate(-18deg)}@keyframes float{50%{transform:translateY(-8px) scale(1.03)}}
+.kpi{display:flex;justify-content:space-between;align-items:end}.kpi b{font-size:24px}.section{margin-top:12px}.titleRow{display:flex;justify-content:space-between;align-items:end;margin-bottom:9px}.titleRow .sub{font-size:10px;color:var(--muted)}
+.bottom{position:fixed;bottom:0;left:0;right:0;z-index:60;display:flex;justify-content:space-around;padding:8px 6px 11px;background:#050814f4;backdrop-filter:blur(16px);border-top:1px solid #243553}.bottom button{background:none;color:var(--muted);padding:5px 8px;border-radius:9px;font-size:9px;font-weight:800}.bottom button.active{background:#ffd75b12;color:var(--gold)}.bottom span{display:block;font-size:18px;margin-bottom:1px}
+.modal{position:fixed;inset:0;z-index:200;background:#02040ce8;backdrop-filter:blur(18px);display:grid;place-items:center;padding:14px}.modalBox{width:min(1040px,100%);max-height:94vh;overflow:auto;background:linear-gradient(135deg,#0d1628,#0a1020);border:1px solid #2c456e;border-radius:22px;box-shadow:0 40px 100px #000d}.modalHead{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:#0a1020eF;border-bottom:1px solid #243553;backdrop-filter:blur(14px)}.modalBody{padding:14px}.close{width:34px;height:34px;border-radius:9px;background:#17233c;border:1px solid #2a3e5f}.detail{display:grid;grid-template-columns:280px 1fr;gap:14px}.preview{min-height:280px;display:grid;place-items:center;background:radial-gradient(circle at 50% 35%,#2a4d7355,#0a1020 70%);border:1px solid #273b5d;border-radius:18px}.bigIcon{font-size:100px;filter:drop-shadow(0 0 22px #4fe7ff55)}.list{display:grid;gap:8px}.row{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:10px 11px;border-radius:12px;background:#0f182b;border:1px solid #243553}.row strong{font-size:12px}.row small{color:var(--muted);font-size:10px}.tag{font-size:9px;font-weight:900;padding:4px 7px;border-radius:999px;background:#15233d;border:1px solid #294160}
+.canvasWrap{background:#070c18;border:1px solid #263a59;border-radius:18px;overflow:hidden;box-shadow:0 20px 60px #0009}.arena{position:relative}.arenaHud{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:8px;background:#080d19}.arenaHud .card{padding:9px;text-align:center}.arenaHud small{display:block;color:var(--muted);font-size:8px}.arenaHud b{display:block;font-size:15px}.controls{display:flex;gap:8px;margin-top:8px}.ability{flex:1}.ability .cool{font-size:9px;color:var(--muted)}
+.panelGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.hub{padding:12px 8px;text-align:center;background:#0e1729;border:1px solid #283b5b;border-radius:14px;transition:.18s}.hub:hover{transform:translateY(-2px);border-color:#4fe7ff66;box-shadow:0 12px 28px #0007}.hub .ico{font-size:22px;display:block;margin-bottom:4px}.hub b{font-size:10px}.hub small{display:block;color:var(--muted);font-size:8px;margin-top:3px}
+input,select,textarea{width:100%;padding:10px 11px;border-radius:10px;background:#081021;border:1px solid #2a3c5c;color:#fff;outline:none}.formGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.tabs{display:flex;gap:6px;overflow:auto;padding-bottom:6px}.tabs button{white-space:nowrap;padding:8px 10px;border-radius:9px;background:#0d172a;border:1px solid #253a5a;color:var(--muted);font-size:10px;font-weight:900}.tabs button.active{color:var(--cyan);border-color:#4fe7ff77;background:#4fe7ff12}
+.notice{padding:9px 11px;border-radius:11px;background:#0d182b;border:1px dashed #2b4368;color:#b9c8df;font-size:10px}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.heroVisual{min-height:180px}.grid4{grid-template-columns:repeat(2,1fr)}.grid3{grid-template-columns:repeat(2,1fr)}.detail{grid-template-columns:1fr}.preview{min-height:210px}.panelGrid{grid-template-columns:repeat(2,1fr)}.formGrid{grid-template-columns:1fr}.arenaHud{grid-template-columns:repeat(2,1fr)}.h1{font-size:34px}.modal{padding:0}.modalBox{width:100%;height:100%;max-height:100%;border-radius:0;border-left:0;border-right:0}.modalHead{padding:12px}.content{padding-left:10px;padding-right:10px}}
+</style>
 
-.view{display:none}.view.active{display:block;animation:appear .22s ease}@keyframes appear{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
-.hero{margin-top:14px;border:1px solid #2b4d68;border-radius:28px;padding:30px;background:radial-gradient(circle at 80% 20%,rgba(66,221,255,.24),transparent 30%),radial-gradient(circle at 15% 100%,rgba(185,144,255,.14),transparent 35%),linear-gradient(145deg,#10283e,#0a1726)}
- .hero-showcase{position:relative;overflow:hidden;min-height:430px;isolation:isolate}.hero-showcase:before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 0 42%,#42ddff0b 43%,transparent 54%),linear-gradient(180deg,transparent 0 65%,#ffd34d07 100%);pointer-events:none}.hero-showcase:after{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,#42ddff00,#42ddff14,#b990ff12,#ffd34d10,#42ddff00);animation:heroSpin 18s linear infinite;z-index:-1}.hero-word{display:inline-block;animation:heroFloat 3.8s ease-in-out infinite}.hero-word-gold{color:var(--yellow);text-shadow:0 0 25px #ffd34d25}.hero-word-cyan{color:#9ff5ff;text-shadow:0 0 25px #42ddff25}.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border-radius:999px;background:#0d2739aa;border:1px solid #2b536e}.hero-subtitle{font-size:15px;max-width:760px}.hero-pills{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px}.hero-pills span{padding:7px 10px;border:1px solid #2b4d68;border-radius:999px;background:#0a1d2caa;color:#ccefff;font-size:10px;font-weight:900}.hero-actions{margin-top:18px}.hero-main-btn{padding:14px 20px;box-shadow:0 8px 25px #ffd34d22}.hero-side-btn{background:#102b42}.hero-dino-card{position:absolute;right:34px;bottom:28px;width:245px;height:215px;display:grid;place-items:center;pointer-events:none}.hero-dino-glow{position:absolute;width:170px;height:170px;border-radius:50%;background:conic-gradient(#ff4b5f,#ffcc4d,#58f37c,#42ddff,#896dff,#ff4b5f);filter:blur(24px);opacity:.28;animation:heroDinoPulse 3s ease-in-out infinite}.hero-dino{position:relative;z-index:2;font-size:105px;filter:drop-shadow(0 18px 18px #0008);animation:heroDinoFloat 3.2s ease-in-out infinite}.hero-dino-ring{position:absolute;width:175px;height:175px;border:2px solid #42ddff35;border-radius:50%;animation:heroRing 8s linear infinite}.hero-dino-caption{position:absolute;bottom:0;right:0;display:flex;flex-direction:column;gap:4px;padding:9px 11px;border-radius:13px;border:1px solid #2b536e;background:#071624d9;backdrop-filter:blur(8px);text-align:right;font-size:9px}.hero-dino-caption b{color:#fff0a5;font-size:11px}.hero-dino-caption span{color:#b8d4e8}@keyframes heroDinoFloat{50%{transform:translateY(-8px) rotate(-2deg)}}@keyframes heroDinoPulse{50%{transform:scale(1.08);opacity:.38}}@keyframes heroRing{to{transform:rotate(360deg)}}
-.hero-live{display:flex;align-items:center;gap:7px;margin-top:15px;font-size:10px;color:#8fa8c0}.live-dot{width:7px;height:7px;border-radius:50%;background:#68ee91;box-shadow:0 0 10px #68ee91;animation:livePulse 1.4s infinite}.hero-orbit{position:absolute;border:1px solid #42ddff22;border-radius:50%;pointer-events:none}.orbit-one{width:320px;height:320px;right:-90px;top:30px;animation:orbit 14s linear infinite}.orbit-two{width:210px;height:210px;right:-35px;top:84px;border-color:#ffd34d1d;animation:orbit 10s linear reverse infinite}.hero-spark{position:absolute;color:#dff8ff;opacity:.75;animation:sparkFloat 2.6s ease-in-out infinite}.spark-one{right:210px;top:52px}.spark-two{right:105px;top:180px;animation-delay:.8s}@keyframes heroSpin{to{transform:rotate(360deg)}}@keyframes heroFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}@keyframes livePulse{50%{opacity:.45;transform:scale(.65)}}@keyframes orbit{to{transform:rotate(360deg)}}@keyframes sparkFloat{50%{transform:translateY(-8px) rotate(12deg);opacity:1}}
-.eyebrow{font-size:11px;font-weight:950;letter-spacing:.16em;color:var(--cyan)}h1{font-size:clamp(38px,7vw,74px);line-height:.92;margin:9px 0 14px}.hero p{max-width:720px;color:#b9cadb;line-height:1.65}
-.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:21px}.btn{padding:12px 16px;border-radius:12px;border:1px solid #315472;background:#17354e;font-weight:900}.btn.primary{background:var(--yellow);color:#121a23;border-color:#ffe783}.btn.green{background:#123c2a;border-color:#2d8b5d;color:#9dffc1}.btn.danger{background:#3b1920;border-color:#6b313d;color:#ffb3bb}.btn:disabled{opacity:.45;cursor:not-allowed}
-.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}.card{background:rgba(12,28,45,.91);border:1px solid var(--line);border-radius:17px;padding:16px;box-shadow:0 12px 30px #0003}.stat small{color:var(--muted);font-size:10px;font-weight:900}.stat strong{display:block;margin-top:5px;font-size:27px}
-.section-head{display:flex;justify-content:space-between;align-items:end;gap:10px;margin:22px 0 10px}.section-head h2{margin:0;font-size:28px}.mini{font-size:12px;color:var(--muted);line-height:1.45}
-.game-head{display:flex;justify-content:space-between;align-items:end;gap:10px;margin:20px 0 10px}.game-head h2{margin:4px 0 0;font-size:31px}
-.game-frame{position:relative;border:1px solid #2a4c68;border-radius:24px;overflow:hidden;background:#071422;box-shadow:0 28px 75px #0009}.game-frame canvas{display:block;width:100%;height:auto;touch-action:none}.badge{padding:6px 9px;border-radius:8px;background:#17344b;color:#9deaff;font-size:10px;font-weight:950}
-.hud{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px}.hud .card{padding:11px}.hud small{display:block;color:var(--muted);font-size:10px;font-weight:900}.hud strong{display:block;margin-top:4px;font-size:18px}
-.controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.controls .btn{flex:1;min-width:115px}
-.tabs{display:flex;gap:7px;margin-bottom:12px;overflow:auto}.tab{white-space:nowrap;padding:10px 14px;border-radius:11px;border:1px solid var(--line);background:#0b1a29;color:var(--muted);font-weight:900}.tab.active{background:#183a53;color:var(--yellow);border-color:#3b6484}
- .shop-panel .card{min-height:248px;display:flex;flex-direction:column;overflow:visible}.shop-panel .item-icon{height:74px;min-height:74px;font-size:40px}.shop-panel .skin-preview{height:92px;min-height:92px}.shop-panel .dino-mini{width:90px}.shop-panel .card h3{font-size:14px}.shop-panel .card .mini{font-size:10px}.shop-panel .card>button{margin-top:auto}.achievement{min-height:220px;padding:10px;border-radius:14px;display:flex;flex-direction:column}.ach-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:9px}.ach-icon{height:74px!important;width:74px;margin:0 auto;border-radius:16px!important;font-size:31px}.achievement h3{font-size:14px;margin:8px 0 4px}.achievement .mini{font-size:10px;min-height:48px}.achievement .btn{padding:8px 9px;font-size:10px;margin-top:auto}.choice-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.choice-btn{border:1px solid #244761;background:#0a1826;border-radius:11px;padding:7px;font-size:10px;text-align:left;color:#dff3ff;min-height:56px}.choice-btn.active{border-color:#ffd34d;background:#18354a;box-shadow:inset 0 0 0 1px #ffd34d44}.profile-main{display:grid;grid-template-columns:190px 1fr;gap:16px}.profile-identity{text-align:center}.profile-identity .avatar-box{width:128px;height:128px;margin:0 auto;font-size:60px}.profile-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.profile-stat{background:#0a1826;border:1px solid #1b344a;border-radius:12px;padding:10px}.profile-stat small{font-size:9px;color:var(--muted);font-weight:900}.profile-stat strong{display:block;font-size:19px;margin-top:4px}.admin-audio{display:grid;grid-template-columns:1.7fr .8fr auto;gap:8px;align-items:end}.admin-audio .btn{height:44px}.music-status{margin-top:7px;font-size:10px;color:var(--muted)}.frame-neon{border:2px solid #55f0ff;box-shadow:inset 0 0 0 2px #0b1b2a,0 0 12px #42ddff88}.frame-rainbow{border:3px solid transparent;background:linear-gradient(#0a1724,#0a1724) padding-box,conic-gradient(#ff495e,#ffaf3d,#ffe65e,#55f37a,#42ddff,#806fff,#df66ff,#ff495e) border-box;box-shadow:0 0 18px #42ddff55}.frame-vip1{border:3px solid transparent;background:linear-gradient(#1c120b,#0a1724) padding-box,linear-gradient(135deg,#7a4b22,#ffd17a,#8a5425) border-box;box-shadow:0 0 14px #d9964a77}.frame-vip2{border:3px solid transparent;background:linear-gradient(#111821,#0a1724) padding-box,linear-gradient(135deg,#778899,#ffffff,#6f7e91) border-box;box-shadow:0 0 16px #cbd6e455}.frame-vip3{border:3px solid transparent;background:linear-gradient(#191308,#0a1724) padding-box,linear-gradient(135deg,#8e6500,#fff2a2,#ff9f00,#fff0a0) border-box;box-shadow:0 0 20px #ffd34d77}
-.shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.item-icon{height:155px;display:grid;place-items:center;border-radius:15px;font-size:58px;background:radial-gradient(circle at 50% 35%,#ffffff20,transparent 58%),#102337}.skin-preview{height:180px;display:grid;place-items:center;border-radius:15px;background:radial-gradient(circle at 50% 30%,#ffffff18,transparent 56%),#102337}.rainbow-preview{position:relative;overflow:hidden}
-.dino-mini{width:145px;position:relative;z-index:2}.price{color:#ffe693;font-weight:950}
-.progress{height:7px;background:#162d43;border-radius:99px;overflow:hidden;margin-top:8px}.progress span{display:block;height:100%;background:linear-gradient(90deg,#42ddff,#ffd34d)}
-.ach-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.achievement{min-height:220px;padding:11px;border-radius:14px;display:flex;flex-direction:column}.achievement .ach-icon{width:72px;height:72px;margin:0 auto 9px;border-radius:15px}.achievement h3{font-size:14px;margin:8px 0 5px;text-align:center}.achievement .mini{text-align:center;font-size:10px;min-height:30px}.achievement .btn{padding:8px 9px;font-size:10px;margin-top:auto}.avatar-box{height:115px;display:grid;place-items:center;font-size:55px;border-radius:16px;background:#0a1724;border:2px solid #34516a;position:relative;overflow:hidden}.frame-bronze{border-color:#b77b42}.frame-silver{border-color:#d0d5dc;box-shadow:0 0 15px #fff4}.frame-gold{border-color:#ffd34d;box-shadow:0 0 20px #ffd34d66}.frame-neon{border-color:#42ddff;box-shadow:0 0 20px #42ddff99, inset 0 0 18px #42ddff22}.frame-rainbow{border:3px solid transparent;background:linear-gradient(#0a1724,#0a1724) padding-box,conic-gradient(#ff495e,#ffaf3d,#ffe65e,#55f37a,#42ddff,#806fff,#df66ff,#ff495e) border-box;box-shadow:0 0 24px #42ddff44}.vip-badge{position:absolute;right:7px;top:7px;padding:5px 7px;border-radius:8px;font-size:9px;font-weight:950}.vip1{background:#6e4425}.vip2{background:#727a87}.vip3{background:#b88b13;color:#fff4ad}.profile-main{display:grid;grid-template-columns:220px 1fr;gap:14px;align-items:stretch}.profile-identity{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px;background:#081725;border:1px solid #213f58;border-radius:15px}.profile-identity .avatar-box{width:112px!important;height:112px!important;font-size:66px}.profile-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.profile-stat{padding:11px;border-radius:12px;background:#0a1928;border:1px solid #1d3a52}.profile-stat small{display:block;color:var(--muted);font-size:9px;font-weight:900}.profile-stat strong{display:block;margin-top:4px;font-size:20px}.profile-custom{margin-top:10px;padding:12px;border-radius:14px;background:#091a29;border:1px solid #23445e}.profile-custom-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.choice-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.choice-btn{padding:7px 5px;border-radius:10px;background:#0b1a29;border:1px solid #21415a;color:#b9cadb;font-size:10px;font-weight:900}.choice-btn.active{border-color:#ffd34d;background:#17344b;color:#ffe78a}.choice-btn:disabled{opacity:.45}.avatar-choice{display:flex;align-items:center;gap:6px}.skin-mini-preview{height:64px;display:grid;place-items:center;font-size:28px;border-radius:12px;background:radial-gradient(circle at 50% 35%,#ffffff18,transparent 58%),#0d2134}.rainbow-skin-chip{position:relative;overflow:hidden}.rainbow-skin-chip:before{content:"";position:absolute;inset:5px;border-radius:10px;background:linear-gradient(120deg,#ff4b5f,#ff9f3d,#ffe45b,#60ef79,#42ddff,#7d70ff,#db67ff);opacity:.16}.profile-skin-label{font-size:10px;color:#bfefff;font-weight:900;margin-top:5px}.profile-settings-modal{width:min(860px,100%)}.hub-modal{width:min(760px,100%)}.hub-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}.hub-stat{padding:12px;border-radius:14px}.hub-stat small{display:block;color:var(--muted);font-size:9px;font-weight:900}.hub-stat strong{display:block;margin-top:5px;font-size:18px}.hub-stat span{color:var(--muted);font-size:9px}.upgrade-detail{margin-top:7px;padding:8px;border-radius:10px;background:#081725;border:1px solid #1c3850;color:#ccecff;font-size:10px;line-height:1.45}.rank-reward-line{display:flex;gap:6px;flex-wrap:wrap;margin:7px 0 10px}.rank-reward{padding:5px 7px;border-radius:8px;background:#10283b;border:1px solid #244761;font-size:9px;font-weight:900;color:#ffe89a}
-.leader-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.leader-list{display:flex;flex-direction:column;gap:7px}.leader-row{display:grid;grid-template-columns:34px 1fr auto;gap:8px;align-items:center;padding:9px;border-radius:10px;background:#0a1826;border:1px solid #1b344a}.rank{font-weight:950;color:var(--yellow);text-align:center}.player-avatar{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:#13263a;font-size:20px}.rank-name{font-weight:850}.rank-value{font-weight:950;color:#bfefff}
-.modal-bg{position:fixed;inset:0;z-index:80;background:#010711c9;backdrop-filter:blur(8px);display:grid;place-items:center;padding:15px}.modal{width:min(560px,100%);max-height:92vh;overflow:auto;background:#0d2136;border:1px solid #355a7a;border-radius:22px;padding:22px;box-shadow:0 30px 100px #000b}.modal::-webkit-scrollbar{width:8px}.modal::-webkit-scrollbar-thumb{background:#31526c;border-radius:99px}.modal input,.modal select{width:100%;padding:12px 13px;border-radius:11px;border:1px solid #345773;background:#071624;color:#fff;outline:none;margin-top:8px}.admin-modal{width:min(980px,100%);max-height:94vh;overflow:auto}.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.form-row{margin-top:9px}.form-row label{font-size:11px;color:var(--muted);font-weight:850;display:block}.admin-table{width:100%;border-collapse:collapse;margin-top:10px}.admin-table th,.admin-table td{font-size:11px;vertical-align:middle;text-align:left;padding:8px 6px;border-bottom:1px solid #20394e}.toast{position:fixed;left:50%;bottom:20px;z-index:100;transform:translateX(-50%);padding:12px 16px;border-radius:11px;background:#12314a;border:1px solid #3f6785;font-weight:900;box-shadow:0 15px 50px #0009}
-#fullscreenBtn{position:absolute;left:10px;top:10px;z-index:3;background:#071421bb;border:1px solid #ffffff24;border-radius:10px;padding:8px 10px;color:#d8efff;font-weight:900}
-@media(max-width:850px){.nav button{display:none}.profile-main{grid-template-columns:1fr}.profile-stats{grid-template-columns:repeat(2,1fr)}.choice-grid{grid-template-columns:repeat(2,1fr)}.admin-audio{grid-template-columns:1fr}.shop-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cards3,.shop-grid,.ach-grid,.leader-grid,.admin-grid,.profile-main,.profile-custom-grid{grid-template-columns:1fr}.profile-stats{grid-template-columns:repeat(2,1fr)}.choice-grid{grid-template-columns:repeat(3,1fr)}.hud{grid-template-columns:repeat(3,1fr)}.hero{padding:22px 17px}.app{width:min(100% - 10px,1220px)}.modal{max-height:88vh}}
-
-/* Compact UI overrides */
-.profile-compact{padding:9px 10px}.profile-compact-row{display:flex;align-items:center;gap:10px;min-height:64px;cursor:pointer}.profile-compact-avatar{width:48px!important;height:48px!important;min-width:48px;font-size:27px;border-radius:14px}.profile-compact-name{min-width:0;flex:1}.profile-compact-name-main{font-weight:950;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.profile-compact-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end} .profile-compact .profile-compact-name .mini{display:none}.profile-compact-meta{display:none}.profile-compact .profile-skin-label{margin-top:0}.profile-expanded{padding-top:10px}.profile-expanded .profile-identity .avatar-box{width:112px!important;height:112px!important}.admin-collapsed-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.admin-players-wrap{margin-top:8px}.shop-panel .shop-grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}.shop-panel .card{width:100%;min-height:248px;padding:10px;border-radius:14px;overflow:visible}.shop-panel .item-icon{height:72px;min-height:72px;font-size:40px}.shop-panel .skin-preview{height:86px;min-height:86px}.shop-panel .dino-mini{width:78px}.shop-panel .card h3{font-size:12px}.shop-panel .card .mini{font-size:9px;line-height:1.25}.shop-panel .card .badge{padding:4px 6px;font-size:9px}.shop-panel .card .btn{padding:7px 8px;font-size:10px}
-@media(max-width:850px){.hub-grid{grid-template-columns:repeat(2,1fr)}.profile-compact-meta{display:none}.profile-compact-row .btn{padding:8px 10px}.shop-panel .shop-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.profile-expanded .profile-main{grid-template-columns:1fr}.profile-expanded .profile-stats{grid-template-columns:repeat(2,1fr)}}
-
-.header-left{display:flex;align-items:center;gap:7px;min-width:0}.header-profile-trigger{display:flex;align-items:center;gap:5px;padding:5px 7px;border:1px solid #315472;border-radius:10px;background:#0b1b2a;color:#eef8ff;font-weight:900}.header-trigger-avatar{width:28px!important;height:28px!important;min-width:28px;border-radius:8px!important;display:grid;place-items:center;font-size:16px!important}.header-trigger-gear{font-size:13px}.top-mini-btn{padding:8px 10px;border-radius:10px;background:#0b1b2a;border:1px solid #315472;color:#bfefff;font-size:10px;font-weight:950}.top-mini-btn:hover{background:#183a53;color:var(--yellow)}.social-tabs,.rank-tabs{display:flex;gap:7px;overflow:auto;margin-bottom:10px}.social-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.chat-list{height:360px;overflow:auto;padding:8px;background:#071421;border:1px solid #1c3549;border-radius:12px}.chat-line{padding:7px 8px;border-bottom:1px solid #173047;font-size:12px}.chat-name{font-weight:900;color:#9deaff}.chat-time{float:right;color:#60798d;font-size:9px}.chat-compose{display:grid;grid-template-columns:1fr auto;gap:7px;margin-top:8px}.chat-compose input{width:100%;padding:11px 12px;border-radius:10px;border:1px solid #345773;background:#071624;color:#fff;outline:none}.clan-list{display:flex;flex-direction:column;gap:7px;margin-top:10px;max-height:360px;overflow:auto}.clan-row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px;border:1px solid #1b344a;border-radius:10px;background:#0a1826}.rank-panel,.clan-rank-panel{min-height:100px}.brand-title{white-space:nowrap}
-@media(max-width:850px){.top-mini-btn{padding:7px 8px}.header-left{gap:5px}.social-grid{grid-template-columns:1fr}.chat-list{height:300px}.brand-title{display:inline}.top{overflow:auto}.nav{flex-wrap:nowrap}.nav button{display:none}}
-
-/* v1.8 compact admin + true Live Run fullscreen */
-.game-frame:fullscreen,.game-frame.fullscreen-game{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;z-index:9999!important;border-radius:0!important;margin:0!important;background:#02070d!important;display:flex!important;align-items:center!important;justify-content:center!important;box-shadow:none!important}
-.game-frame:fullscreen canvas,.game-frame.fullscreen-game canvas{width:100vw!important;height:100vh!important;max-width:none!important;max-height:none!important;object-fit:contain!important}
-.game-frame:fullscreen #fullscreenBtn{top:12px!important;left:12px!important}
-.admin-overview{background:linear-gradient(145deg,#102d42,#0a1726);border:1px solid #3b617f!important}
-.admin-overview-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:9px}.admin-overview-stat{padding:9px;border:1px solid #21445d;border-radius:11px;background:#081725}.admin-overview-stat small{display:block;color:var(--muted);font-size:9px;font-weight:900}.admin-overview-stat strong{display:block;margin-top:3px;font-size:18px}.admin-overview-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.admin-overview-actions .btn{flex:1;min-width:130px}
-.admin-section-toggle{width:100%;display:flex;justify-content:space-between;align-items:center;background:#0b1c2c;border:1px solid #244761;color:#eff7ff;border-radius:11px;padding:10px 11px;font-weight:950;text-align:left;cursor:pointer}.admin-section-body{margin-top:9px}.admin-section.collapsed .admin-section-body{display:none}.admin-section.collapsed{padding-bottom:8px!important}
-.admin-edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.admin-edit-grid textarea{min-height:72px}.rank-reset-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.rank-reset-row .btn{font-size:9px;padding:7px 8px}
-@media(max-width:850px){.admin-overview-grid{grid-template-columns:repeat(2,1fr)}.admin-edit-grid{grid-template-columns:1fr}.game-frame:fullscreen canvas,.game-frame.fullscreen-game canvas{width:100vw!important;height:100vh!important;object-fit:contain!important}}
-
-/* v1.9 device choice + MAIN admin hubs */
-.device-select-modal{width:min(720px,100%)}
-.device-choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
-.device-choice{min-height:190px;padding:18px;border-radius:20px;border:1px solid #2c506b;background:linear-gradient(145deg,#0b2032,#081420);text-align:center;cursor:pointer;transition:.2s;box-shadow:0 12px 28px #0004}
-.device-choice:hover{transform:translateY(-3px);border-color:#42ddff;box-shadow:0 18px 38px #0006}
-.device-choice .device-icon{font-size:64px;display:block;margin-bottom:10px}
-.device-choice b{font-size:22px}.device-choice span{display:block;color:var(--muted);font-size:12px;margin-top:7px;line-height:1.5}
-.device-pc .app{max-width:1280px}.device-pc .game-frame{border-radius:24px}.device-mobile .app{width:100%;padding:6px}.device-mobile .top{border-radius:15px}.device-mobile .btn{min-height:44px}.device-mobile .hero{padding:18px 14px}.device-mobile .game-frame{border-radius:16px}.device-mobile .shop-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-.admin-main-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 13px;border-radius:14px;background:linear-gradient(145deg,#102d42,#0a1726);border:1px solid #315873;margin-bottom:10px}
-.admin-hub-nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin-top:10px}
-.admin-hub-btn{padding:12px 8px;min-height:88px;border-radius:14px;border:1px solid #244761;background:#0a1826;color:#eff7ff;font-weight:950;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;cursor:pointer;text-align:center}
-.admin-hub-btn:hover,.admin-hub-btn.active{border-color:#42ddff;background:#12314a;transform:translateY(-1px)}
-.admin-hub-btn .hub-ico{font-size:26px}.admin-hub-btn .hub-name{font-size:10px;line-height:1.25}
-.admin-hub-back{display:none;margin-bottom:10px}.admin-hub-view{display:none}.admin-hub-view.active{display:block}.admin-main-mode .admin-overview{display:block}.admin-main-mode .admin-main-head{display:flex}
-@media(max-width:850px){.device-choice-grid{grid-template-columns:1fr}.admin-hub-nav{grid-template-columns:repeat(2,1fr)}.admin-hub-btn{min-height:76px}.device-choice{min-height:165px}}
+<style id="grindStyles">
+.grindQuick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+.grindStat{padding:12px;border-radius:15px;background:linear-gradient(135deg,#111d34,#0b1222);border:1px solid #2a4164}
+.grindStat b{font-size:20px;display:block;margin-top:2px}.grindStat small{color:var(--muted);font-size:9px;font-weight:800;letter-spacing:.08em}
+.xpbar{height:9px;border-radius:999px;background:#101b30;border:1px solid #263b5b;overflow:hidden}.xpbar>i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#4fe7ff,#a77bff,#ff62c6)}
+.grindGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.quest{padding:12px;border-radius:14px;background:#0d1628;border:1px solid #263a5b}.quest h4{font-size:12px}.quest p{font-size:10px;color:var(--muted);margin:4px 0}.quest .qrow{display:flex;justify-content:space-between;gap:8px;align-items:center}.mastery{display:flex;gap:8px;align-items:center;padding:10px;border-radius:13px;background:#0e1729;border:1px solid #263a5b}.mastery .mi{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:#111f38;font-size:23px}.milestone{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 10px;border-radius:11px;background:#0d1628;border:1px solid #253a5a}.milestone.locked{opacity:.55}.chest{padding:12px;border-radius:15px;background:radial-gradient(circle at 50% 20%,#2a4c77,#0d1527 65%);border:1px solid #38577e;text-align:center}.chest .ci{font-size:38px;filter:drop-shadow(0 0 12px #ffd75b66)}
+@media(max-width:760px){.grindQuick{grid-template-columns:1fr 1fr}.grindGrid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<audio id="bgMusic" loop preload="none"></audio>
-<div class="app">
-<header class="top">
-<div class="header-left"><button id="headerProfileBtn" class="header-profile-trigger" title="Hồ sơ & tùy chỉnh"><span id="headerProfileAvatar" class="header-trigger-avatar frame-bronze">👤</span><span class="header-trigger-gear">⚙️</span></button><button class="brand" id="brandBtn"><span class="brand-title">DINO AURORA</span></button><button id="hubStatusBtn" class="top-mini-btn" title="Tổng quan người chơi">⚡ TỔNG QUAN</button><button id="musicTopBtn" class="top-mini-btn" title="Bật/tắt nhạc">🎵 NHẠC: BẬT</button></div>
-<nav class="nav">
-<button data-view="home" class="active">Trang chủ</button>
-<button data-view="game">Chơi</button>
-<button data-view="shop">Shop</button>
-<button data-view="achievements">Thành tựu</button>
-<button data-view="ranking">Xếp hạng</button><button data-view="social">💬 Xã hội</button>
-</nav>
-<button class="top-log-btn" id="logTopBtn">📜 <span id="topVersionLabel">1.4</span></button><button class="wallet" id="walletBtn">🪙 <span id="coinsTop">0</span></button>
-</header>
-
-<main>
-<section id="home" class="view active">
-<div class="hero hero-showcase">
-<div class="hero-orbit orbit-one"></div><div class="hero-orbit orbit-two"></div><div class="hero-spark spark-one">✦</div><div class="hero-spark spark-two">✦</div>
-<div id="heroEyebrow" class="eyebrow hero-eyebrow">🦖 DINO AURORA • ENDLESS RUN</div>
-<h1><span id="heroTitle1" class="hero-word">CHẠY.</span><br><span id="heroTitle2" class="hero-word hero-word-gold">THU THẬP.</span><br><span id="heroTitle3" class="hero-word hero-word-cyan">TIẾN HÓA.</span></h1>
-<p id="heroDescription" class="hero-subtitle">Lướt qua các biome, săn xu, mở skin hiếm, leo BXH và xây dựng tên tuổi của bạn trong thế giới DINO AURORA.</p>
-<div id="heroPills" class="hero-pills"><span>🌈 Skin hiếm</span><span>🏆 BXH mỗi 24h</span><span>🛡️ Clan & Chat</span><span>⚡ Map sống động</span></div>
-<div class="actions hero-actions">
-<button id="homePlay" class="btn primary hero-main-btn">▶ CHƠI NGAY</button>
-<button id="homeShop" class="btn hero-side-btn">🛒 SHOP</button>
-<button id="renameHome" class="btn hero-side-btn">✏️ ĐỔI TÊN</button>
-<button id="fullscreenHome" class="btn hero-side-btn">⛶ TOÀN MÀN HÌNH</button>
+<div class="app" id="app">
+<header class="top hidden" id="top"><button class="brand" onclick="nav('home')"><span class="brandLogo">✦</span><span>AURORA RIFT</span></button><div class="topRight"><button class="circle" onclick="openModal('notif')">🔔</button><div class="coin">🪙 <span id="coin">0</span></div><button class="circle" onclick="openModal('profile')">👤</button></div></header>
+<main class="content hidden" id="content">
+<section class="view active" id="home">
+<div class="hero">
+<div class="card heroMain"><div class="heroText"><div class="eyebrow">AURORA RIFT • NEON ARENA</div><div class="h1" style="margin:7px 0 12px">SURVIVE THE<br><span style="color:var(--cyan)">RIFT.</span></div><p class="muted" style="font-size:13px;max-width:520px;margin-bottom:14px">Một game hoàn toàn khác: điều khiển phi thuyền năng lượng trong đấu trường Aurora, sống sót qua từng đợt quái vật, dùng Dash và Pulse để phá vòng vây.</p><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn gold" onclick="nav('arena');startArena()">▶ CHƠI NGAY</button><button class="btn" onclick="openModal('about')">ℹ️ CÁCH CHƠI</button></div></div><div class="heroVisual"><div class="orb"></div></div></div>
+<div class="card"><div class="eyebrow">PLAYER CORE</div><div style="font-size:20px;font-weight:900;margin:6px 0 12px" id="homeName">PLAYER</div><div class="list"><div class="kpi"><span class="muted small">WAVE CAO NHẤT</span><b id="kWave">0</b></div><div class="kpi"><span class="muted small">TỔNG TRẬN</span><b id="kRuns">0</b></div><div class="kpi"><span class="muted small">TỔNG THỜI GIAN</span><b id="kTime">0m</b></div><div class="kpi"><span class="muted small">VIP</span><b id="kVip">0</b></div></div></div>
 </div>
-<div class="hero-live"><span class="live-dot"></span><b>LIVE</b><span>Cloud Save</span><span>•</span><span>Nhạc nền liên tục</span><span>•</span><span>Quà BXH mỗi 24h</span></div>
-<div class="hero-dino-card"><div class="hero-dino-glow"></div><div class="hero-dino">🦖</div><div class="hero-dino-ring"></div><div class="hero-dino-caption"><b id="hero-dino-title">PRISM RUNNER</b><span id="hero-dino-caption">🌈 Rainbow • ⚡ Turbo • 🏆 Daily Top</span></div></div>
-</div>
-<div class="cards3">
-<div class="card stat"><small>NGƯỜI CHƠI</small><strong id="homeName">—</strong></div>
-<div class="card stat"><small>TỔNG XU</small><strong id="homeCoins">0</strong></div>
-<div class="card stat"><small>KỶ LỤC</small><strong id="homeBest">0 m</strong></div>
-</div>
-
+<div class="section grid3"><div class="card"><div class="eyebrow">LOADOUT</div><div style="font-size:26px;margin:7px 0">🚀 <span id="homeShip">Nova</span></div><div class="muted small">Tàu đang dùng</div></div><div class="card"><div class="eyebrow">COMPANION</div><div style="font-size:26px;margin:7px 0">🐉 <span id="homePet">—</span></div><div class="muted small">Pet hỗ trợ</div></div><div class="card"><div class="eyebrow">RIFT STATUS</div><div style="font-size:26px;margin:7px 0;color:var(--green)">● ONLINE</div><div class="muted small">Arena đang mở</div></div></div>
+<div class="section titleRow"><div><div class="eyebrow">QUICK ACCESS</div><div class="h2">Trạm điều khiển</div></div></div>
+<div class="grid4"><button class="card" onclick="nav('shop')">🛒<br><b>Hangar</b><div class="muted small">Ship & Pet</div></button><button class="card" onclick="openGrind()">🔥<br><b>Cày & Tiến Hóa</b><div class="muted small">Level • Quest • Mastery</div></button><button class="card" onclick="nav('inventory')">🎒<br><b>Kho</b><div class="muted small">Đồ sở hữu</div></button><button class="card" onclick="nav('rank')">🏆<br><b>BXH</b><div class="muted small">Xếp hạng Rift</div></button><button class="card" onclick="openModal('admin')">🛠️<br><b>Admin</b><div class="muted small">Control Center</div></button></div>
 </section>
-
-<section id="game" class="view">
-<div class="game-head"><div><div class="eyebrow">LIVE RUN</div><h2>DINO AURORA</h2></div><span class="badge" id="biomeBadge">🌿 ĐỒNG CỎ</span></div>
-<div id="gameFrame" class="game-frame">
-<button id="fullscreenBtn">⛶ Fullscreen</button>
-<canvas id="gameCanvas" width="1100" height="500"></canvas>
-<div style="position:absolute;right:12px;top:12px;z-index:2;padding:7px 9px;border-radius:9px;background:#071421aa;border:1px solid #ffffff20;font-size:10px;font-weight:900" id="phaseBadge">🌅 BÌNH MINH</div>
-</div>
-<div class="hud">
-<div class="card"><small>ĐIỂM</small><strong id="hudDistance">0 m</strong></div>
-<div class="card"><small>XU</small><strong id="hudCoins">0</strong></div>
-<div class="card"><small>COMBO</small><strong id="hudCombo">x1</strong></div>
-<div class="card"><small>POWER</small><strong id="hudPower">—</strong></div>
-<div class="card"><small>TIME</small><strong id="hudTime">00:00</strong></div>
-</div>
-<div class="controls">
-<button id="jumpBtn" class="btn primary">⬆ NHẢY</button>
-<button id="pauseBtn" class="btn">Ⅱ TẠM DỪNG</button>
-<button id="restartBtn" class="btn">↻ LẠI</button>
-<button id="soundBtn" class="btn">🎵 NHẠC: BẬT</button>
-</div>
-<div class="card" style="margin-top:10px"><b id="gameState">Đăng ký tên để bắt đầu.</b><span class="mini"> • Space / ↑ / W hoặc chạm màn hình để nhảy.</span></div>
-</section>
-
-<section id="shop" class="view">
-<div class="section-head"><div><div class="eyebrow">DINO SHOP</div><h2>CỬA HÀNG</h2></div><span class="badge">🪙 <span id="shopCoins">0</span></span></div>
-<div class="tabs">
-<button class="tab active" data-tab="items">🎒 Vật phẩm</button>
-<button class="tab" data-tab="skins">🦖 Skin</button>
-<button class="tab" data-tab="upgrades">⚡ Nâng cấp</button>
-</div>
-<div id="itemsPanel" class="shop-panel"></div>
-<div id="skinsPanel" class="shop-panel hidden"></div>
-<div id="upgradesPanel" class="shop-panel hidden"></div>
-</section>
-
-<section id="achievements" class="view">
-<div class="section-head"><div><div class="eyebrow">PROFILE PROGRESS</div><h2>🏆 THÀNH TỰU</h2></div></div>
-<div id="achievementsGrid" class="ach-grid"></div>
-</section>
-
-<section id="social" class="view">
-<div class="section-head"><div><div class="eyebrow">DINO SOCIAL</div><h2>💬 XÃ HỘI</h2></div><span class="mini" id="socialStatus">Đang tải...</span></div>
-<div class="social-tabs">
-<button class="tab social-tab active" data-social="world">🌍 Chat thế giới</button>
-<button class="tab social-tab" data-social="clan">🛡️ Clan</button>
-<button class="tab social-tab" data-social="clanrank">🏆 BXH Clan</button>
-</div>
-<div id="socialWorldPanel" class="social-panel">
-<div class="card">
-<div class="chat-toolbar"><b>🌍 Kênh thế giới</b><span class="mini">Tin nhắn chung cho mọi người</span></div>
-<div id="worldChatList" class="chat-list"></div>
-<div class="chat-compose"><input id="worldChatInput" maxlength="180" placeholder="Viết tin nhắn..."><button id="worldChatSend" class="btn primary">GỬI</button></div>
-</div>
-</div>
-<div id="socialClanPanel" class="social-panel hidden">
-<div class="social-grid">
-<div class="card">
-<div class="section-head" style="margin:0 0 9px"><div><div class="eyebrow">MY CLAN</div><h3 style="margin:3px 0 0" id="myClanName">Chưa có Clan</h3></div><span id="myClanTag" class="badge">—</span></div>
-<div class="mini" id="myClanInfo">Tạo hoặc tham gia Clan để mở chat Clan.</div>
-<div class="actions"><button id="openClanCreate" class="btn primary">🛡️ TẠO CLAN</button><button id="refreshClans" class="btn">↻ TẢI CLAN</button></div>
-<div id="clanList" class="clan-list"></div>
-</div>
-<div class="card">
-<div class="chat-toolbar"><b>🛡️ Chat Clan</b><span class="mini">Chỉ thành viên Clan nhìn thấy</span></div>
-<div id="clanChatList" class="chat-list"></div>
-<div class="chat-compose"><input id="clanChatInput" maxlength="180" placeholder="Tin nhắn Clan..." disabled><button id="clanChatSend" class="btn primary" disabled>GỬI</button></div>
-</div>
-</div>
-</div>
-<div id="socialClanRankPanel" class="social-panel hidden">
-<div class="rank-tabs clan-rank-tabs">
-<button class="tab active" data-clan-rank="coins">💰 Xu</button>
-<button class="tab" data-clan-rank="best">🏃 Kỷ lục</button>
-<button class="tab" data-clan-rank="distance">📏 Tổng mét</button>
-</div>
-<div id="clanRankCoins" class="clan-rank-panel"></div>
-<div id="clanRankBest" class="clan-rank-panel hidden"></div>
-<div id="clanRankDistance" class="clan-rank-panel hidden"></div>
-</div>
-</section>
-
-<section id="ranking" class="view">
-<div class="section-head"><div><div class="eyebrow">LIVE LEADERBOARD</div><h2>🏅 BẢNG XẾP HẠNG</h2></div><span class="mini">Tự cập nhật mỗi 5 phút</span></div>
-<div class="rank-tabs">
-<button class="tab active" data-rank="coins">💰 Vàng</button>
-<button class="tab" data-rank="best">🏃 Xa nhất</button>
-<button class="tab" data-rank="distance">📏 Tổng mét</button>
-</div>
-<div id="rankCoinsPanel" class="rank-panel"><div class="card"><h3>💰 Nhiều xu nhất</h3><div class="rank-reward-line"><span class="rank-reward">🥇 +<span id="reward1Coins">1.000</span></span><span class="rank-reward">🥈 +<span id="reward2Coins">600</span></span><span class="rank-reward">🥉 +<span id="reward3Coins">300</span></span></div><div id="rankCoins" class="leader-list"></div></div></div>
-<div id="rankBestPanel" class="rank-panel hidden"><div class="card"><h3>🏃 Kỷ lục một lượt</h3><div class="rank-reward-line"><span class="rank-reward">🥇 +<span id="reward1Best">1.000</span></span><span class="rank-reward">🥈 +<span id="reward2Best">600</span></span><span class="rank-reward">🥉 +<span id="reward3Best">300</span></span></div><div id="rankBest" class="leader-list"></div></div></div>
-<div id="rankDistancePanel" class="rank-panel hidden"><div class="card"><h3>📏 Tổng quãng đường</h3><div class="rank-reward-line"><span class="rank-reward">🥇 +<span id="reward1Distance">1.000</span></span><span class="rank-reward">🥈 +<span id="reward2Distance">600</span></span><span class="rank-reward">🥉 +<span id="reward3Distance">300</span></span></div><div id="rankDistance" class="leader-list"></div></div></div>
-</section>
+<section class="view" id="arena"><div class="titleRow"><div><div class="eyebrow">RIFT ARENA</div><div class="h2">NEON SURVIVAL</div></div><button class="btn" onclick="nav('home')">← Thoát</button></div><div class="card arena"><div class="canvasWrap"><canvas id="cv" width="1000" height="560" style="width:100%;height:auto;display:block;touch-action:none"></canvas><div class="arenaHud"><div class="card"><small>WAVE</small><b id="aWave">1</b></div><div class="card"><small>KẺ ĐỊCH</small><b id="aEnemies">0</b></div><div class="card"><small>HP</small><b id="aHp">100</b></div><div class="card"><small>TIME</small><b id="aTime">0s</b></div></div></div><div class="controls"><button class="btn ability" id="dashBtn">⚡ DASH<div class="cool" id="dashCool">Sẵn sàng</div></button><button class="btn ability" id="pulseBtn">💥 PULSE<div class="cool" id="pulseCool">Sẵn sàng</div></button><button class="btn" onclick="pauseArena()">Ⅱ</button><button class="btn red" onclick="endArena()">■</button></div><div class="notice" style="margin-top:8px">PC: WASD di chuyển • Space: Dash • E: Pulse. Mobile: kéo trực tiếp trên Arena để di chuyển, chạm nút kỹ năng để kích hoạt.</div></div></section>
+<section class="view" id="shop"><div class="titleRow"><div><div class="eyebrow">RIFT HANGAR</div><div class="h2">Kho chiến đấu</div></div><button class="btn" onclick="openModal('ship')">🚀 Chi tiết tàu</button></div><div class="tabs" id="shopTabs"><button class="active" data-tab="ship">🚀 SHIP</button><button data-tab="pet">🐉 PET</button><button data-tab="module">⚙️ MODULE</button><button data-tab="frame">🛡️ FRAME</button></div><div class="grid3" id="shopGrid"></div></section>
+<section class="view" id="inventory"><div class="titleRow"><div><div class="eyebrow">INVENTORY</div><div class="h2">Kho đồ</div></div><button class="btn" onclick="openModal('profile')">👤 Profile</button></div><div class="grid3" id="invGrid"></div></section>
+<section class="view" id="rank"><div class="titleRow"><div><div class="eyebrow">LEADERBOARD</div><div class="h2">Rift Rankings</div></div></div><div class="tabs" id="rankTabs"><button class="active" data-rank="wave">🔥 BEST WAVE</button><button data-rank="score">✦ SCORE</button><button data-rank="runs">🎮 RUNS</button></div><div class="card" id="rankBox"></div></section>
 </main>
-<footer style="text-align:center;color:#5d748a;font-size:11px;padding:17px 0"><span id="footerText">DINO AURORA • VERSION <span id="footerVersion">1.4</span> • GAME SAVE CLOUD</span></footer>
+<nav class="bottom hidden" id="bottom"><button data-n="home" class="active"><span>⌂</span>Main</button><button data-n="arena"><span>✦</span>Arena</button><button data-n="shop"><span>⚙</span>Hangar</button><button data-n="inventory"><span>🎒</span>Kho</button><button data-n="rank"><span>🏆</span>BXH</button></nav>
+<div class="modal hidden" id="deviceModal"><div class="modalBox" style="max-width:560px"><div class="modalBody"><div style="text-align:center;padding:22px"><div style="font-size:60px;filter:drop-shadow(0 0 22px #4fe7ff55)">✦</div><div class="eyebrow">AURORA RIFT</div><div class="h2" style="margin:7px 0">CHỌN THIẾT BỊ</div><p class="muted small" style="margin-bottom:18px">Giao diện sẽ tự tối ưu cho thiết bị bạn chọn.</p><div class="grid2"><button class="card" onclick="selectDevice('pc')">🖥️<br><b>PC</b><div class="muted small">WASD / Keyboard</div></button><button class="card" onclick="selectDevice('mobile')">📱<br><b>MOBILE</b><div class="muted small">Touch controls</div></button></div></div></div></div></div>
+<div class="modal hidden" id="nameModal"><div class="modalBox" style="max-width:560px"><div class="modalBody"><div class="eyebrow">PLAYER REGISTRATION</div><div class="h2" style="margin:7px 0">Tạo hồ sơ Rift</div><p class="muted small" style="margin-bottom:12px">Tên từ 2–18 ký tự, không trùng người chơi khác.</p><input id="nameInput" maxlength="18" placeholder="Tên người chơi"><button class="btn gold wide" style="margin-top:8px" onclick="registerPlayer()">XÁC NHẬN</button><div id="nameErr" class="small" style="color:var(--red);margin-top:6px"></div></div></div></div>
+<div class="modal hidden" id="detailModal"><div class="modalBox"><div class="modalHead"><div><div class="eyebrow" id="dmEyebrow">DETAIL</div><div style="font-size:18px;font-weight:900" id="dmTitle">Detail</div></div><button class="close" onclick="closeModal('detailModal')">✕</button></div><div class="modalBody" id="dmBody"></div></div></div>
+<div class="modal hidden" id="adminModal"><div class="modalBox"><div class="modalHead"><div><div class="eyebrow">RIFT CONTROL</div><div style="font-size:18px;font-weight:900">ADMIN COMMAND CENTER</div></div><button class="close" onclick="closeModal('adminModal')">✕</button></div><div class="modalBody"><div id="adminLogin"><input id="adminPw" type="password" placeholder="Mật khẩu admin"><button class="btn gold wide" style="margin-top:8px" onclick="adminLogin()">🔐 ĐĂNG NHẬP</button><div id="adminErr" class="small" style="color:var(--red);margin-top:6px"></div></div><div id="adminApp" class="hidden"><div class="panelGrid" id="hubGrid"></div><div id="adminWindow" style="margin-top:12px"></div></div></div></div></div>
+<div class="modal hidden" id="notifModal"><div class="modalBox" style="max-width:600px"><div class="modalHead"><b>🔔 THÔNG BÁO</b><button class="close" onclick="closeModal('notifModal')">✕</button></div><div class="modalBody" id="notifBody"></div></div></div>
 </div>
-
-<!-- Device Choice -->
-<div id="deviceModal" class="modal-bg hidden">
-<div class="modal device-select-modal">
-<div class="eyebrow">DEVICE SETUP</div><h2 style="margin:5px 0 0">📱 Chọn thiết bị</h2>
-<p class="mini">Chọn thiết bị bạn đang dùng để tối ưu bố cục. Bạn có thể đổi lại trong Cài đặt.</p>
-<div class="device-choice-grid">
-<button class="device-choice" data-device-choice="pc"><span class="device-icon">🖥️</span><b>PC</b><span>Màn hình rộng • điều khiển bàn phím • bố cục desktop</span></button>
-<button class="device-choice" data-device-choice="mobile"><span class="device-icon">📱</span><b>ĐIỆN THOẠI</b><span>Nút chạm lớn • bố cục gọn • tối ưu màn hình dọc/ngang</span></button>
-</div></div></div>
-
-<!-- Registration -->
-<div id="nameModal" class="modal-bg">
-<div class="modal">
-<div class="eyebrow">PLAYER REGISTRATION</div><h2>👤 Đăng ký tên</h2>
-<p class="mini">Muốn chơi phải có tên người chơi. Khi đổi tên, bạn phải dùng Thẻ Đổi Tên.</p>
-<input id="nameInput" maxlength="18" placeholder="Tên người chơi">
-<button id="registerBtn" class="btn primary" style="width:100%;margin-top:9px">XÁC NHẬN</button>
-<p id="nameError" style="color:#ff8d9c;font-size:12px"></p>
-</div></div>
-
-<!-- Rename -->
-<div id="renameModal" class="modal-bg hidden">
-<div class="modal">
-<div class="eyebrow">RENAME</div><h2>✏️ Đổi tên</h2>
-<p id="renameInfo" class="mini"></p>
-<input id="newNameInput" maxlength="18" placeholder="Tên mới">
-<button id="renameBtn" class="btn primary" style="width:100%;margin-top:9px">ĐỔI TÊN</button>
-<button id="renameCancel" class="btn" style="width:100%;margin-top:7px">HỦY</button>
-<p id="renameError" style="color:#ff8d9c;font-size:12px"></p>
-</div></div>
-
-<!-- Profile Settings -->
-<div id="profileSettingsModal" class="modal-bg hidden">
-<div class="modal profile-settings-modal">
-<div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><div><div class="eyebrow">PLAYER PROFILE</div><h2 style="margin:3px 0 0">⚙️ Hồ sơ & tùy chỉnh</h2></div><button id="profileSettingsClose" class="btn">✕</button></div>
-<div class="profile-main" style="margin-top:12px">
-  <div class="profile-identity">
-    <div id="profileAvatarLarge" class="avatar-box frame-bronze">🦖</div>
-    <h3 id="profileNameLarge" style="margin:10px 0 3px">—</h3>
-    <div class="mini" id="profileTitleLarge">Người chơi mới</div>
-    <div style="margin-top:7px"><span id="vipProfileLarge" class="vip-badge vip1" style="position:static">VIP 0</span></div>
-  </div>
-  <div>
-    <div class="profile-stats">
-      <div class="profile-stat"><small>LƯỢT CHẠY</small><strong id="profileRuns">0</strong></div>
-      <div class="profile-stat"><small>KỶ LỤC</small><strong id="profileBest">0 m</strong></div>
-      <div class="profile-stat"><small>TỔNG MÉT</small><strong id="profileDistance">0 m</strong></div>
-      <div class="profile-stat"><small>XU KIẾM ĐƯỢC</small><strong id="profileEarned">0</strong></div>
-    </div>
-    <div class="profile-custom">
-      <div class="section-head" style="margin:0 0 8px"><div><div class="eyebrow">CUSTOMIZE</div><h3 style="margin:3px 0 0">🧑 Avatar</h3></div></div>
-      <div class="choice-grid" id="avatarChoices"></div>
-      <div class="section-head" style="margin:12px 0 8px"><div><div class="eyebrow">FRAME</div><h3 style="margin:3px 0 0">🖼️ Khung</h3></div></div>
-      <div class="choice-grid" id="frameChoices"></div>
-    </div>
-  </div>
-</div>
-<div class="actions" style="margin-top:12px"><button id="profileRenameBtn" class="btn">✏️ ĐỔI TÊN</button><button id="hubFromProfileBtn" class="btn">⚡ XEM TỔNG QUAN</button><button id="changeDeviceBtn" class="btn">🖥️ ĐỔI THIẾT BỊ</button><button id="clearLocalBtn" class="btn danger">🧹 XÓA DỮ LIỆU LOCAL</button></div>
-</div></div>
-
-<!-- Hub Status -->
-<div id="hubStatusModal" class="modal-bg hidden">
-<div class="modal hub-modal">
-<div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><div><div class="eyebrow">PLAYER STATUS</div><h2 style="margin:3px 0 0">⚡ TỔNG QUAN</h2></div><button id="hubStatusClose" class="btn">✕</button></div>
-<div class="hub-grid">
-<div class="card hub-stat"><small>TỐC CHẠY HIỆN TẠI</small><strong id="hubSpeed">0</strong><span>px/s</span></div>
-<div class="card hub-stat"><small>THỜI GIAN CHƠI</small><strong id="hubPlayTime">00:00:00</strong></div>
-<div class="card hub-stat"><small>BIOME</small><strong id="hubBiome">🌿 ĐỒNG CỎ</strong></div>
-<div class="card hub-stat"><small>SKIN</small><strong id="hubSkin">—</strong></div>
-<div class="card hub-stat"><small>VIP</small><strong id="hubVip">VIP 0</strong></div>
-<div class="card hub-stat"><small>CLAN</small><strong id="hubClan">Chưa có</strong></div>
-<div class="card hub-stat"><small>ĐÃ NHẢY</small><strong id="hubJumps">0</strong></div>
-<div class="card hub-stat"><small>TRẠNG THÁI</small><strong id="hubState">Sẵn sàng</strong></div>
-</div>
-<div class="card" style="margin-top:10px"><div class="mini">Hub cập nhật tốc độ và trạng thái khi đang chơi, còn tổng thời gian được lưu vào hồ sơ.</div></div>
-</div></div>
-
-<!-- Update Log -->
-<div id="updateLogModal" class="modal-bg hidden">
-<div class="modal log-modal-card">
-<div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><div><div class="eyebrow">DINO AURORA</div><h2 style="margin:3px 0 0">📜 UPDATE LOG <span class="badge" id="logModalVersion">1.4</span></h2></div><button id="updateLogClose" class="btn">✕</button></div>
-<div class="card" style="margin-top:12px;background:#091725">
-<div class="mini" id="logModalBuild">LIVE</div>
-<div id="updateLogModalText" class="mini" style="white-space:pre-line;margin-top:9px;line-height:1.75"></div>
-</div>
-<div class="actions" style="margin-top:12px"><button id="logPlayHint" class="btn primary">🎮 CHƠI NGAY</button></div>
-</div></div>
-
-<!-- Clan Create -->
-<div id="clanCreateModal" class="modal-bg hidden">
-<div class="modal">
-<div class="eyebrow">CLAN FORGE</div><h2>🛡️ Tạo Clan</h2>
-<p class="mini">Cần đúng <b>2 Thẻ Tạo Clan</b>. Mỗi thẻ giá <b>100.000 xu</b>.</p>
-<input id="clanNameInput" maxlength="24" placeholder="Tên Clan">
-<input id="clanTagInput" maxlength="6" placeholder="TAG (2–6 ký tự)">
-<div class="actions"><button id="clanCreateBtn" class="btn primary">🛡️ TẠO CLAN</button><button id="clanCreateCancel" class="btn">HỦY</button></div>
-<div id="clanCreateError" style="color:#ff8d9c;font-size:12px;margin-top:8px"></div>
-</div></div>
-
-<!-- Admin -->
-<div id="adminModal" class="modal-bg hidden">
-<div class="modal admin-modal">
-<div style="display:flex;justify-content:space-between;gap:10px"><div><div class="eyebrow">ADMIN CONTROL</div><h2>🛠 PANEL QUẢN TRỊ</h2><p class="mini">Mật khẩu panel: <b id="adminPassStatus">đã đặt</b></p></div><button id="adminClose" class="btn">✕</button></div>
-<div id="adminLoginBox">
-<input id="adminPassword" type="password" placeholder="Mật khẩu">
-<button id="adminLogin" class="btn primary" style="width:100%;margin-top:9px">🔐 ĐĂNG NHẬP</button><p id="adminError" style="color:#ff8d9c;font-size:12px"></p>
-</div>
-<div id="adminBody" class="hidden">
-<div id="adminOverview" class="card admin-overview admin-hub-view active">
-<h3 style="margin:0">📊 TỔNG QUAN</h3>
-<div class="mini" style="margin-top:5px">Điều khiển nhanh, reset phần thưởng BXH mà không xóa dữ liệu người chơi, và quản lý tài khoản riêng.</div>
-<div class="admin-overview-grid">
-<div class="admin-overview-stat"><small>NGƯỜI CHƠI</small><strong id="overviewPlayers">0</strong></div>
-<div class="admin-overview-stat"><small>TỔNG XU</small><strong id="overviewCoins">0</strong></div>
-<div class="admin-overview-stat"><small>PHIÊN BẢN</small><strong id="overviewVersion">1.7</strong></div>
-<div class="admin-overview-stat"><small>CLOUD</small><strong id="overviewCloud">—</strong></div>
-</div>
-<div class="admin-overview-actions">
-<button id="resetBoardCoins" class="btn danger">↻ RESET BXH XU</button>
-<button id="resetBoardBest" class="btn danger">↻ RESET BXH KỶ LỤC</button>
-<button id="resetBoardDistance" class="btn danger">↻ RESET BXH TỔNG MÉT</button>
-</div>
-<div class="mini" style="margin-top:7px">Reset BXH sẽ xóa dữ liệu <b>chỉ dùng cho xếp hạng</b> để tính lại từ đầu; xu, kỷ lục và dữ liệu hồ sơ người chơi vẫn giữ nguyên.</div>
-</div>
-<div id="adminMainHome" class="admin-main-head">
-<div><div class="eyebrow">MAIN</div><h3 style="margin:3px 0 0">🧩 TRUNG TÂM QUẢN TRỊ</h3><div class="mini">Chọn một Hub để mở đúng khu chỉnh sửa.</div></div><button id="adminHubMainBtn" class="btn">MAIN</button></div>
-<div id="adminHubNav" class="admin-hub-nav">
-<button class="admin-hub-btn active" data-admin-hub="main"><span class="hub-ico">🏠</span><span class="hub-name">MAIN</span></button>
-<button class="admin-hub-btn" data-admin-hub="players"><span class="hub-ico">👥</span><span class="hub-name">Danh sách người chơi</span></button>
-<button class="admin-hub-btn" data-admin-hub="shop"><span class="hub-ico">🛒</span><span class="hub-name">Shop & giá</span></button>
-<button class="admin-hub-btn" data-admin-hub="game"><span class="hub-ico">⚙️</span><span class="hub-name">Cơ chế game</span></button>
-<button class="admin-hub-btn" data-admin-hub="ranking"><span class="hub-ico">🏆</span><span class="hub-name">BXH & quà</span></button>
-<button class="admin-hub-btn" data-admin-hub="music"><span class="hub-ico">🎵</span><span class="hub-name">Nhạc nền</span></button>
-<button class="admin-hub-btn" data-admin-hub="website"><span class="hub-ico">🌐</span><span class="hub-name">Nội dung website</span></button>
-<button class="admin-hub-btn" data-admin-hub="cloud"><span class="hub-ico">☁️</span><span class="hub-name">Supabase</span></button>
-<button class="admin-hub-btn" data-admin-hub="security"><span class="hub-ico">🔐</span><span class="hub-name">Bảo mật</span></button>
-<button class="admin-hub-btn" data-admin-hub="settings"><span class="hub-ico">🧹</span><span class="hub-name">Cài đặt Panel</span></button>
-</div>
-<div id="adminHubBack" class="admin-hub-back"><button class="btn" id="adminHubBackBtn">← VỀ MAIN</button></div>
-<div id="adminSiteContent" class="card admin-section collapsed admin-hub-view">
-<button class="admin-section-toggle" type="button"><span>🌐 NỘI DUNG WEBSITE</span><span class="admin-section-chevron">▼</span></button>
-<div class="admin-section-body">
-<div class="mini">Chỉnh các nội dung chính trên giao diện mà không cần sửa code.</div>
-<div class="admin-edit-grid" style="margin-top:9px">
-<div class="form-row"><label>Tên game</label><input id="siteBrandName" maxlength="40"></div>
-<div class="form-row"><label>Dòng đầu trang</label><input id="siteEyebrow" maxlength="100"></div>
-<div class="form-row"><label>Tiêu đề 1</label><input id="siteTitle1" maxlength="40"></div>
-<div class="form-row"><label>Tiêu đề 2</label><input id="siteTitle2" maxlength="40"></div>
-<div class="form-row"><label>Tiêu đề 3</label><input id="siteTitle3" maxlength="40"></div>
-<div class="form-row"><label>Mô tả trang chủ</label><textarea id="siteDescription" rows="3"></textarea></div>
-<div class="form-row"><label>Nút Chơi</label><input id="sitePlayText" maxlength="40"></div>
-<div class="form-row"><label>Nút Shop</label><input id="siteShopText" maxlength="40"></div>
-<div class="form-row"><label>Nút Đổi tên</label><input id="siteRenameText" maxlength="40"></div>
-<div class="form-row"><label>Nút Fullscreen</label><input id="siteFullscreenText" maxlength="40"></div>
-<div class="form-row"><label>Nhãn hero</label><input id="siteHeroDinoTitle" maxlength="50"></div>
-<div class="form-row"><label>Chú thích hero</label><input id="siteHeroDinoCaption" maxlength="100"></div>
-<div class="form-row"><label>Chân trang</label><input id="siteFooterText" maxlength="120"></div>
-<div class="form-row"><label>Các ô nổi bật — mỗi dòng 1 ô</label><textarea id="sitePills" rows="4"></textarea></div>
-</div>
-<button id="saveSiteContent" class="btn primary" style="width:100%;margin-top:9px">💾 LƯU NỘI DUNG WEBSITE</button>
-</div></div>
-
-<div class="admin-grid admin-hub-view" id="adminPlayerShopGrid">
-<div class="card" id="adminPlayerCard">
-<h3>👤 Quản lý người chơi</h3>
-<select id="adminPlayer"></select>
-<div class="form-row"><label>Buff xu</label><input id="adminCoins" type="number" value="1000"></div>
-<div class="actions"><button id="buffCoins" class="btn green">+ COIN</button><button id="setCoins" class="btn">ĐẶT COIN</button></div>
-<div class="form-row"><label>Đổi tên trực tiếp</label><input id="adminNewName" maxlength="18" placeholder="Tên mới"></div>
-<div class="actions" style="margin-top:8px"><button id="adminRename" class="btn">ĐỔI TÊN</button><button id="deletePlayer" class="btn danger">🗑️ XÓA DỮ LIỆU</button></div>
-</div>
-<div class="card" id="adminPricesCard">
-<h3>💸 Giá shop</h3>
-<div id="adminPrices"></div>
-<button id="saveAdminPrices" class="btn primary" style="width:100%;margin-top:9px">💾 LƯU GIÁ</button>
-</div>
-</div>
-<div id="adminGameConfig" class="card admin-hub-view" style="margin-top:10px">
-<h3>⚙️ Cơ chế game</h3>
-<div class="admin-grid">
-<div>
-<div class="form-row"><label>Xu / 1 mét</label><input id="cfgCoinPerMeter" type="number"></div>
-<div class="form-row"><label>Thưởng cuối lượt</label><input id="cfgRunBonus" type="number"></div>
-<div class="form-row"><label>Tốc độ cơ bản</label><input id="cfgBaseSpeed" type="number"></div>
-<div class="form-row"><label>Tốc độ tối đa</label><input id="cfgMaxSpeed" type="number"></div>
-</div>
-<div>
-<div class="form-row"><label>Mật độ chướng ngại</label><input id="cfgObstacleRate" type="number" step=".05"></div>
-<div class="form-row"><label>Tần suất xu</label><input id="cfgCoinRate" type="number" step=".05"></div>
-<div class="form-row"><label>Tần suất power-up</label><input id="cfgPowerRate" type="number" step=".1"></div>
-<div class="form-row"><label>Hệ số skin thưởng</label><input id="cfgSkinMultiplier" type="number" step=".05"></div>
-<div class="form-row"><label>Bộ đệm nhảy (ms) — càng cao càng dễ bắt lệnh</label><input id="cfgJumpBuffer" type="number" min="0" max="300" step="10"></div>
-</div>
-</div>
-<button id="saveGameConfig" class="btn primary" style="width:100%;margin-top:10px">💾 LƯU CƠ CHẾ GAME</button>
-</div>
-<div id="adminRankRewards" class="card admin-hub-view" style="margin-top:10px"><h3>🏆 Quà Top BXH</h3><p class="mini">Thiết lập số xu cho Top 1, 2, 3. Áp dụng cho BXH người chơi và hiển thị công khai.</p><div class="admin-grid"><div class="form-row"><label>🥇 Top 1 (xu)</label><input id="rankReward1" type="number" min="0"></div><div class="form-row"><label>🥈 Top 2 (xu)</label><input id="rankReward2" type="number" min="0"></div><div class="form-row"><label>🥉 Top 3 (xu)</label><input id="rankReward3" type="number" min="0"></div></div><button id="saveRankRewards" class="btn primary" style="width:100%;margin-top:9px">💾 LƯU QUÀ BXH</button></div>
-<div id="adminMusic" class="card admin-hub-view" style="margin-top:10px"><h3>🎵 Nhạc nền MP3</h3><p class="mini">Nhạc nền chạy liên tục toàn website. Khi nhạc bật, âm thanh hiệu ứng trong game tự tắt; tắt nhạc thì hiệu ứng mới nghe được. Tệp mặc định: <b>tim_em.mp3</b>. Mỗi URL một dòng; có thể dùng file local hoặc URL MP3 online.</p><div class="form-row"><label>Playlist MP3 (mỗi dòng 1 link)</label><textarea id="musicUrls" rows="3" style="width:100%;padding:12px 13px;border-radius:11px;border:1px solid #345773;background:#071624;color:#fff;outline:none;resize:vertical"></textarea></div><div class="admin-audio"><div class="form-row"><label>Link nhanh bài đang tải</label><input id="musicUrl" type="url" placeholder="https://.../nhac.mp3"></div><div class="form-row"><label>Âm lượng</label><input id="musicVolume" type="number" min="0" max="1" step="0.05"></div><button id="saveMusic" class="btn primary">💾 LƯU PLAYLIST</button></div><div class="actions" style="margin-top:8px"><button id="testMusic" class="btn">▶ NGHE THỬ</button><button id="stopMusic" class="btn">■ DỪNG</button><label class="btn">📁 TẢI MP3 <input id="musicFile" type="file" accept="audio/mpeg,audio/mp3,.mp3" style="display:none"></label></div><div id="musicStatus" class="music-status">Chưa cấu hình nhạc.</div></div>
-<div id="adminCloud" class="card admin-hub-view" style="margin-top:10px"><h3>☁️ Đồng bộ đa thiết bị</h3><p class="mini">Người chơi, Shop, VIP, cấu hình, BXH và nhạc được đồng bộ qua Supabase.</p><div class="admin-grid"><div class="form-row"><label>Supabase URL</label><input id="cloudUrl" type="url"></div><div class="form-row"><label>Supabase Anon Key</label><input id="cloudKey" type="password"></div></div><div class="actions"><button id="saveCloudConfig" class="btn primary">☁️ LƯU KẾT NỐI</button><button id="testCloud" class="btn">🔎 KIỂM TRA</button><button id="syncCloudNow" class="btn green">↻ ĐỒNG BỘ NGAY</button></div><div id="cloudStatus" class="music-status">Chưa kết nối.</div></div>
-<div id="adminSecurity" class="card admin-hub-view" style="margin-top:10px"><h3>🔐 Bảo mật Panel</h3><div class="admin-grid"><div class="form-row"><label>Mật khẩu mới</label><input id="newAdminPassword" type="password"></div><div class="form-row"><label>Xác nhận</label><input id="newAdminPassword2" type="password"></div></div><button id="saveAdminPassword" class="btn primary" style="width:100%;margin-top:9px">🔑 ĐỔI MẬT KHẨU PANEL</button></div>
-<div id="adminPanelFunctions" class="card admin-hub-view" style="margin-top:10px"><h3>🧩 Chức năng Panel</h3><div class="actions"><button id="refreshAdminAll" class="btn">↻ LÀM MỚI DỮ LIỆU</button><button id="grantVipSelected" class="btn green">👑 CẤP VIP NGƯỜI CHƠI</button></div><p class="mini">Tải lại người chơi, BXH và cấu hình ngay trong Panel.</p></div>
-<div id="adminUpdateLog" class="card admin-hub-view" style="margin-top:10px"><h3>📜 Update Log</h3><div class="mini" style="margin-bottom:7px">Hiện tại: <b id="appVersionLabel">1.4</b> • Build <b id="appBuildLabel">LIVE</b></div><div class="admin-grid"><div class="form-row"><label>Phiên bản</label><input id="appVersionInput" maxlength="24" placeholder="1.4"></div><div class="form-row"><label>Nhãn build</label><input id="appBuildInput" maxlength="32" placeholder="LIVE"></div></div><div class="form-row"><label>Nội dung log</label><textarea id="updateLogInput" rows="6" style="width:100%;padding:12px 13px;border-radius:11px;border:1px solid #345773;background:#071624;color:#fff;outline:none;resize:vertical"></textarea></div><button id="saveUpdateLog" class="btn primary" style="width:100%;margin-top:9px">💾 LƯU UPDATE LOG</button></div>
-<div id="adminPlayersCard" class="card admin-players-card admin-hub-view" style="margin-top:10px">
-<div class="admin-collapsed-head"><h3 style="margin:0">👥 Danh sách người chơi</h3><button id="adminPlayersToggle" class="btn">▼ MỞ DANH SÁCH</button></div>
-<div id="adminPlayersWrap" class="admin-players-wrap hidden"><div id="adminPlayers"></div></div>
-</div>
-<div id="adminSettingsActions" class="actions admin-hub-view"><button id="adminLogout" class="btn">ĐĂNG XUẤT</button><button id="resetAll" class="btn danger">XÓA DỮ LIỆU LOCAL</button></div>
-</div>
-</div></div>
-
-<button id="floatingAdmin" class="btn hidden" style="position:fixed;right:12px;bottom:12px;z-index:40">🛠 ADMIN</button>
-<div id="toast" class="toast hidden"></div>
-
-<script>
-(() => {
-"use strict";
-
-const KEY_PLAYERS="dino_aurora_players_v7";
-const KEY_CONFIG="dino_aurora_config_v7";
-const KEY_PRICES="dino_aurora_prices_v7";
-const KEY_CURRENT="dino_aurora_current_v7";
-const KEY_ADMIN="dino_aurora_admin_v2";
-const KEY_MUSIC="dino_aurora_music_v3";
-const KEY_SUPABASE="dino_aurora_supabase_v1";
-const KEY_CLAN="dino_aurora_clan_v1";
-const CLAN_TICKET_PRICE=100000;
-const DEFAULT_SUPABASE_URL="https://dbpvlgckhaaidrdintjc.supabase.co";
-const DEFAULT_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRicHZsZ2NraGFhaWRyZGludGpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY0MjE1NzEsImV4cCI6MjEwMTk5NzU3MX0.76A-X1PYl3dzEt5JeLm_QnmXjOqBUKnsTYdLOAFKAjg";
-
-const DEFAULT_CONFIG={
-coinPerMeter:1,runBonus:25,baseSpeed:350,maxSpeed:760,obstacleRate:1.15,coinRate:.46,powerRate:7.5,skinMultiplier:.25,jumpBufferMs:120
-};
-let rankingRewards={1:1000,2:600,3:300,...loadJSON("dino_aurora_rank_rewards_v1",{})};
-let rankingPayoutBusy=false;
-const KEY_DEVICE="dino_aurora_device_v1";
-let selectedDevice=localStorage.getItem(KEY_DEVICE)||"";
-let adminHubTarget="main";
-function applyDeviceMode(){document.body.classList.remove("device-pc","device-mobile");if(selectedDevice)document.body.classList.add(selectedDevice==="pc"?"device-pc":"device-mobile");}
-function openDevicePicker(){$("deviceModal").classList.remove("hidden");}
-function closeDevicePicker(){$("deviceModal").classList.add("hidden");}
-function chooseDevice(mode){selectedDevice=mode;localStorage.setItem(KEY_DEVICE,mode);applyDeviceMode();closeDevicePicker();if(!player)openName();toast(mode==="pc"?"🖥️ Đã chọn PC":"📱 Đã chọn Điện thoại");}
-
-const SKINS={
-blue:{name:"Azure Knight",price:800,body:"#2ad4ff",shade:"#0875bd",belly:"#e6fdff",accent:"#9ff5ff",bonus:0,kind:"ice"},
-pink:{name:"Sakura Spirit",price:1500,body:"#ff62ad",shade:"#ad1457",belly:"#ffe7f2",accent:"#ffd1e8",bonus:.05,kind:"sakura"},
-red:{name:"Inferno Rex",price:2500,body:"#ff5a48",shade:"#a80f29",belly:"#ffe0da",accent:"#ffd05a",bonus:.10,kind:"fire"},
-galaxy:{name:"Void Galaxy",price:4000,body:"#a978ff",shade:"#5740a7",belly:"#f0e8ff",accent:"#6ee7ff",bonus:.15,kind:"galaxy"},
-rainbow:{name:"Prism Dragon",price:6000,body:"#ff4b5f",shade:"#6f3cc7",belly:"#fff1ff",accent:"#fff08a",bonus:.25,rainbow:true,kind:"prism"}
-};
-const ITEMS={
-rename:{name:"Thẻ Đổi Tên",icon:"🎫",base:500},
-clanTicket:{name:"Thẻ Tạo Clan",icon:"🛡️",base:100000},
-magnet:{name:"Nam Châm",icon:"🧲",base:800},
-turbo:{name:"Turbo",icon:"⚡",base:1000}
-};
-const UPGRADES={
-jump:{name:"Siêu Nhảy",icon:"🦘",base:250,max:20,desc:"Tăng lực nhảy.",detail:""},
-magnet:{name:"Magnet",icon:"🧲",base:300,max:20,desc:"Tăng bán kính hút xu.",detail:""},
-coin:{name:"Coin Master",icon:"🪙",base:500,max:20,desc:"Tăng phần thưởng xu.",detail:""},
-speed:{name:"Turbo Engine",icon:"🚀",base:550,max:20,desc:"Tăng tốc độ cơ bản.",detail:""}
-};
-const AVATARS=[
-{id:"dino",icon:"🦖",name:"Dino",cost:0},
-{id:"fox",icon:"🦊",name:"Cáo",cost:500},
-{id:"wolf",icon:"🐺",name:"Sói",cost:900},
-{id:"tiger",icon:"🐯",name:"Hổ",cost:1300},
-{id:"panda",icon:"🐼",name:"Panda",cost:1800},
-{id:"dragon",icon:"🐉",name:"Rồng",cost:2500},
-{id:"eagle",icon:"🦅",name:"Đại bàng",cost:3200}
-];
-const FRAMES=[
-{id:"bronze",name:"Đồng",cost:0,how:"Mặc định"},
-{id:"silver",name:"Bạc",cost:1200,how:"Mua 1.200 xu"},
-{id:"gold",name:"Vàng",cost:3000,how:"Mua 3.000 xu"},
-{id:"neon",name:"Neon",cost:5500,how:"Mua 5.500 xu"},
-{id:"rainbow",name:"Cầu vồng",cost:10000,how:"Mua 10.000 xu"},
-{id:"vip1",name:"VIP Đồng",cost:0,how:"Tặng khi đạt VIP 1"},
-{id:"vip2",name:"VIP Bạc",cost:0,how:"Tặng khi đạt VIP 2"},
-{id:"vip3",name:"VIP Vàng",cost:0,how:"Tặng khi đạt VIP 3"}
-];
-const ACH=[
-{id:"run1",name:"Lần đầu chạy",desc:"Hoàn thành 1 lượt.",need:p=>p.stats.runs>=1,frame:"bronze",reward:100,icon:"🏃"},
-{id:"m500",name:"500 mét",desc:"Kỷ lục đạt 500m.",need:p=>p.best>=500,frame:"silver",reward:200,icon:"📏"},
-{id:"m2000",name:"Dũng sĩ đường dài",desc:"Kỷ lục đạt 2.000m.",need:p=>p.best>=2000,frame:"gold",reward:400,icon:"⚡"},
-{id:"coin5000",name:"Kho báu",desc:"Tích lũy 5.000 xu từ gameplay.",need:p=>p.stats.coinsEarned>=5000,frame:"gold",reward:500,icon:"🪙"},
-{id:"distance10k",name:"Chạy 10K",desc:"Tổng chạy 10.000m.",need:p=>p.totalDistance>=10000,frame:"rainbow",reward:800,icon:"🏆"},
-{id:"rainbow",name:"Rainbow Hunter",desc:"Sở hữu Skin Rainbow.",need:p=>p.ownedSkins.includes("rainbow"),frame:"rainbow",reward:1000,icon:"🌈"},
-{id:"vip1",name:"VIP I",desc:"Đạt 5.000 xu sở hữu.",need:p=>p.coins>=5000,frame:"vip1",reward:250,icon:"🥉"},
-{id:"vip2",name:"VIP II",desc:"Đạt 15.000 xu sở hữu.",need:p=>p.coins>=15000,frame:"vip2",reward:600,icon:"🥈"},
-{id:"vip3",name:"VIP III",desc:"Đạt 50.000 xu sở hữu.",need:p=>p.coins>=50000,frame:"vip3",reward:1500,icon:"🥇"}
-];
-function loadJSON(key,fallback){try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback));}catch{return JSON.parse(JSON.stringify(fallback));}}
-let players=loadJSON(KEY_PLAYERS,{});
-let config={...DEFAULT_CONFIG,...loadJSON(KEY_CONFIG,DEFAULT_CONFIG)};
-let prices={...Object.fromEntries(Object.entries(SKINS).map(([k,v])=>[k,v.price])),...loadJSON(KEY_PRICES,{})};
-let adminPassword=localStorage.getItem(KEY_ADMIN)||"1";
-let adminPasswordHash=localStorage.getItem("dino_aurora_admin_hash")||"";
-let musicConfig=loadJSON(KEY_MUSIC,{urls:["tim_em.mp3"],url:"tim_em.mp3",volume:.35,enabled:true,loopForever:true});if(!Array.isArray(musicConfig.urls)||!musicConfig.urls.length)musicConfig.urls=[musicConfig.url||"tim_em.mp3"];musicConfig.urls=[musicConfig.urls[0]||"tim_em.mp3"];musicConfig.url=musicConfig.urls[0];musicConfig.loopForever=true;
-const CURRENT_APP_VERSION="1.9";
-let appInfo=loadJSON("dino_aurora_app_info_v1",{version:CURRENT_APP_VERSION,build:"music-admin-live",log:"• Nhạc Tìm Em chạy lặp vĩnh viễn toàn website\n• Tắt nhạc để bật âm thanh hiệu ứng game\n• Panel thu gọn + chỉnh nội dung web\n• Reset quà Top theo từng hạng mà không xóa dữ liệu người chơi\n• Quản lý xóa dữ liệu và buff xu\n• Sửa fullscreen Live Run"});
-let siteInfo=loadJSON("dino_aurora_site_info_v1",{brandName:"DINO AURORA",heroEyebrow:"🦖 DINO AURORA • ENDLESS RUN",title1:"CHẠY.",title2:"THU THẬP.",title3:"TIẾN HÓA.",description:"Lướt qua các biome, săn xu, mở skin hiếm, leo BXH và xây dựng tên tuổi của bạn trong thế giới DINO AURORA.",pills:["🌈 Skin hiếm","🏆 BXH mỗi 24h","🛡️ Clan & Chat","⚡ Map sống động"],playText:"▶ CHƠI NGAY",shopText:"🛒 SHOP",renameText:"✏️ ĐỔI TÊN",fullscreenText:"⛶ TOÀN MÀN HÌNH",heroDinoTitle:"PRISM RUNNER",heroDinoCaption:"🌈 Rainbow • ⚡ Turbo • 🏆 Daily Top",footerText:"DINO AURORA • GAME SAVE CLOUD"});
-if(appInfo.version!==CURRENT_APP_VERSION){appInfo={...appInfo,version:CURRENT_APP_VERSION,build:"music-admin-live",log:"• Nhạc Tìm Em chạy lặp vĩnh viễn toàn website\n• Tắt nhạc để bật âm thanh hiệu ứng game\n• Panel thu gọn + chỉnh nội dung web\n• Reset quà Top theo từng hạng mà không xóa dữ liệu người chơi\n• Quản lý xóa dữ liệu và buff xu\n• Sửa fullscreen Live Run"};localStorage.setItem("dino_aurora_app_info_v1",JSON.stringify(appInfo));}
-let cloudConfig=loadJSON(KEY_SUPABASE,{url:DEFAULT_SUPABASE_URL,key:DEFAULT_SUPABASE_ANON_KEY,enabled:true});cloudConfig.url=cloudConfig.url||DEFAULT_SUPABASE_URL;cloudConfig.key=cloudConfig.key||DEFAULT_SUPABASE_ANON_KEY;if(cloudConfig.key===DEFAULT_SUPABASE_ANON_KEY)cloudConfig.enabled=true;
-let currentName=localStorage.getItem(KEY_CURRENT)||"";
-let player=players[currentName]||null;
-
-function normPlayer(p,name){
-if(!p)p=freshPlayer(name);
-p.name=p.name||name;p.coins=Number(p.coins)||0;p.best=Number(p.best)||0;p.totalDistance=Number(p.totalDistance)||0;
-p.selectedSkin=p.selectedSkin||"blue";p.ownedSkins=Array.isArray(p.ownedSkins)?p.ownedSkins:["blue"];if(!p.ownedSkins.includes("blue"))p.ownedSkins.push("blue");
-p.upgrades={jump:0,magnet:0,coin:0,speed:0,...(p.upgrades||{})};if("shield" in p.upgrades)delete p.upgrades.shield;
-p.inventory={renameTickets:0,clanTickets:0,magnet:0,turbo:0,...(p.inventory||{})};if("shield" in p.inventory)delete p.inventory.shield;
-p.renameCount=Number(p.renameCount)||0;p.avatar=p.avatar||"dino";p.avatarOwned=Array.isArray(p.avatarOwned)?p.avatarOwned:["dino"];
-p.achievements=Array.isArray(p.achievements)?p.achievements:[];p.vip=Math.max(0,Math.min(3,Number(p.vip)||0));p.frame=p.frame||"bronze";p.ownedFrames=Array.isArray(p.ownedFrames)?p.ownedFrames:["bronze"];if(!p.ownedFrames.includes("bronze"))p.ownedFrames.push("bronze");
-p.stats={runs:0,coinsEarned:0,jumps:0,playTime:0,...(p.stats||{})};p.rankStats={coins:Number(p.rankStats?.coins ?? p.coins)||0,best:Number(p.rankStats?.best ?? p.best)||0,distance:Number(p.rankStats?.distance ?? p.totalDistance)||0};p.sound=p.sound!==false;return p;
-}
-function freshPlayer(name){return normPlayer({name,coins:0,best:0,totalDistance:0,selectedSkin:"blue",ownedSkins:["blue"],upgrades:{},inventory:{},stats:{},rankStats:{coins:0,best:0,distance:0},avatar:"dino",avatarOwned:["dino"],achievements:[],vip:0,renameCount:0,frame:"bronze",ownedFrames:["bronze"]},name);}
-Object.keys(players).forEach(n=>players[n]=normPlayer(players[n],n));
-if(player)player=normPlayer(player,currentName);
-const $=id=>document.getElementById(id),fmt=n=>Math.floor(Number(n)||0).toLocaleString("vi-VN");
-
-function cloudReady(){return !!(cloudConfig.enabled&&cloudConfig.url&&cloudConfig.key);}
-function setCloudStatus(t){const e=$("cloudStatus");if(e)e.textContent=t;}
-async function cloudFetch(path,options={}){if(!cloudReady())throw new Error("Chưa cấu hình Supabase");const res=await fetch(cloudConfig.url.replace(/\/$/,"")+path,{...options,headers:{apikey:cloudConfig.key,Authorization:`Bearer ${cloudConfig.key}`,...(options.headers||{})}});if(!res.ok)throw new Error(await res.text().catch(()=>"HTTP "+res.status));return res;}
-function save(){if(!player)return;players[player.name]=player;localStorage.setItem(KEY_PLAYERS,JSON.stringify(players));localStorage.setItem(KEY_CURRENT,player.name);clearTimeout(window.__cp);window.__cp=setTimeout(()=>cloudUpsertPlayer(player),350);}
-function saveData(){localStorage.setItem(KEY_PLAYERS,JSON.stringify(players));localStorage.setItem(KEY_CONFIG,JSON.stringify(config));localStorage.setItem(KEY_PRICES,JSON.stringify(prices));clearTimeout(window.__cs);window.__cs=setTimeout(()=>cloudUpsertState(),500);}
-async function cloudUpsertPlayer(p){if(!cloudReady()||!p)return;try{await cloudFetch('/rest/v1/dino_players?on_conflict=name',{method:'POST',headers:{'Content-Type':'application/json',Prefer:'resolution=merge-duplicates,return=minimal'},body:JSON.stringify({name:p.name,data:p,updated_at:new Date().toISOString()})});}catch(e){setCloudStatus('⚠️ '+e.message);}}
-async function cloudUpsertState(){if(!cloudReady())return;try{await cloudFetch('/rest/v1/dino_app_state?on_conflict=id',{method:'POST',headers:{'Content-Type':'application/json',Prefer:'resolution=merge-duplicates,return=minimal'},body:JSON.stringify({id:'main',data:{config,prices,musicConfig,appInfo,siteInfo,adminPasswordHash,rankingRewards},updated_at:new Date().toISOString()})});}catch(e){setCloudStatus('⚠️ '+e.message);}}
-async function cloudLoadAll(){if(!cloudReady())return;try{const a=await (await cloudFetch('/rest/v1/dino_players?select=name,data')).json();const remote={};for(const row of a){if(row&&row.name)remote[row.name]=normPlayer(row.data,row.name);}if(Object.keys(remote).length){players={...players,...remote};if(!active&&player&&players[player.name])player=players[player.name];localStorage.setItem(KEY_PLAYERS,JSON.stringify(players));}const b=await (await cloudFetch('/rest/v1/dino_app_state?select=data&limit=1')).json();const st=b&&b[0]&&b[0].data;if(st){if(st.config)config={...DEFAULT_CONFIG,...st.config,jumpBufferMs:Math.min(300,Math.max(0,Number(st.config.jumpBufferMs??120)||0))};if(st.prices)prices={...prices,...st.prices};if(st.musicConfig)musicConfig={...musicConfig,...st.musicConfig};if(!Array.isArray(musicConfig.urls)||!musicConfig.urls.length)musicConfig.urls=[musicConfig.url||"tim_em.mp3"];musicConfig.urls=[musicConfig.urls[0]||"tim_em.mp3"];musicConfig.url=musicConfig.urls[0];musicConfig.loopForever=true;if(st.appInfo)appInfo={...appInfo,...st.appInfo};if(st.siteInfo)siteInfo={...siteInfo,...st.siteInfo};if(st.rankingRewards)rankingRewards={...rankingRewards,...st.rankingRewards};if(st.adminPasswordHash){adminPasswordHash=st.adminPasswordHash;localStorage.setItem("dino_aurora_admin_hash",adminPasswordHash);}}localStorage.setItem(KEY_CONFIG,JSON.stringify(config));localStorage.setItem(KEY_PRICES,JSON.stringify(prices));localStorage.setItem(KEY_MUSIC,JSON.stringify(musicConfig));localStorage.setItem("dino_aurora_rank_rewards_v1",JSON.stringify(rankingRewards));localStorage.setItem("dino_aurora_app_info_v1",JSON.stringify(appInfo));localStorage.setItem("dino_aurora_site_info_v1",JSON.stringify(siteInfo));setupMusic();refreshUI();renderRanking();setCloudStatus('✅ Đã tải dữ liệu cloud');}catch(e){setCloudStatus('⚠️ Không tải được cloud: '+e.message);}}
-async function cloudSyncNow(){if(!cloudReady()){setCloudStatus('⚠️ Hãy nhập URL và Anon Key');return;}if(player)await cloudUpsertPlayer(player);await cloudUpsertState();await cloudLoadAll();toast('☁️ Đồng bộ xong');}
-async function awardDailyRankRewards(){
- if(rankingPayoutBusy||!cloudReady())return;rankingPayoutBusy=true;
- try{
-  const cycle=Math.floor(Date.now()/86400000);const rows=await (await cloudFetch('/rest/v1/dino_players?select=name,data')).json();
-  const cloudPlayers={};for(const row of rows){if(row?.name)cloudPlayers[row.name]=normPlayer(row.data,row.name);}if(Object.keys(cloudPlayers).length)players={...players,...cloudPlayers};
-  for(const board of ['coins','best','distance']){
-   const arr=Object.values(players).map(p=>normPlayer(p,p.name)).sort((a,b)=>board==='coins'?(b.rankStats?.coins||0)-(a.rankStats?.coins||0):board==='best'?(b.rankStats?.best||0)-(a.rankStats?.best||0):(b.rankStats?.distance||0)-(a.rankStats?.distance||0)).slice(0,3);
-   for(let i=0;i<arr.length;i++){const p=arr[i],rank=i+1,amount=Number(rankingRewards[rank])||0;if(!amount)continue;try{
-    const res=await fetch(cloudConfig.url.replace(/\/$/,"")+'/rest/v1/dino_rank_payouts',{method:'POST',headers:{apikey:cloudConfig.key,Authorization:`Bearer ${cloudConfig.key}`,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({cycle_id:cycle,board,rank,player_name:p.name,amount})});
-    if(!res.ok)continue;p.coins+=amount;players[p.name]=p;await cloudUpsertPlayer(p);await reserveName(p.name,`top_${board}_${rank}`);if(player?.name===p.name)player=p;
-   }catch{}}
-  }
-  localStorage.setItem(KEY_PLAYERS,JSON.stringify(players));refreshUI();
- }finally{rankingPayoutBusy=false;}
-}
-function toast(t){const e=$("toast");e.textContent=t;e.classList.remove("hidden");clearTimeout(window.__toast);window.__toast=setTimeout(()=>e.classList.add("hidden"),1900);}
-function showView(id){document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===id));document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===id));if(id==="ranking")renderRanking();if(id==="achievements")renderAchievements();if(id==="game")draw();if(id==="social"){loadSocial();}}
-
-document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>showView(b.dataset.view));
-$("brandBtn").onclick=()=>showView("home");$("walletBtn").onclick=()=>showView("shop");$("homePlay").onclick=()=>startGame();$("homeShop").onclick=()=>showView("shop");$("renameHome").onclick=()=>openRename();$("fullscreenHome").onclick=fullscreenGame;
-function openUpdateLog(){$("updateLogModal").classList.remove("hidden");$("updateLogModalText").textContent=appInfo.log;$("logModalVersion").textContent=appInfo.version;$("logModalBuild").textContent=appInfo.build;}
-$("logTopBtn").onclick=openUpdateLog;$("updateLogClose").onclick=()=>$("updateLogModal").classList.add("hidden");$("logPlayHint").onclick=()=>{$("updateLogModal").classList.add("hidden");startGame();};
-
-function openProfileSettings(){if(!player){openName();return;}$("profileSettingsModal").classList.remove("hidden");renderProfileChoices();}
-function closeProfileSettings(){$("profileSettingsModal").classList.add("hidden");}
-function formatTime(sec){sec=Math.max(0,Math.floor(Number(sec)||0));const h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60;return `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;}
-function updateHubStatus(){if(!player)return;const ps=SKINS[player.selectedSkin]||SKINS.blue;$("hubSpeed").textContent=Math.round(active?speed:(config.baseSpeed+(player.upgrades.speed||0)*6));$("hubPlayTime").textContent=formatTime(player.stats.playTime);$("hubBiome").textContent=biome().name;$("hubSkin").textContent=ps.name;$("hubVip").textContent=player.vip?"VIP "+player.vip:"VIP 0";$("hubClan").textContent=currentClan?.tag?`${currentClan.name} [${currentClan.tag}]`:"Chưa có";$("hubJumps").textContent=fmt(player.stats.jumps);$("hubState").textContent=active?(paused?"⏸ Tạm dừng":"🏃 Đang chạy"):"Sẵn sàng";}
-function openHubStatus(){if(!player){openName();return;}$("hubStatusModal").classList.remove("hidden");updateHubStatus();}
-document.querySelectorAll("[data-device-choice]").forEach(b=>b.onclick=()=>chooseDevice(b.dataset.deviceChoice));
-$("changeDeviceBtn").onclick=()=>{closeProfileSettings();openDevicePicker();};
-$("clearLocalBtn").onclick=()=>{if(confirm("Xóa toàn bộ dữ liệu LOCAL trên thiết bị này? Dữ liệu Supabase của bạn không bị xóa.")){localStorage.clear();location.reload();}};
-$("headerProfileBtn").onclick=openProfileSettings;$("profileSettingsClose").onclick=closeProfileSettings;$("profileRenameBtn").onclick=()=>{closeProfileSettings();openRename();};$("hubFromProfileBtn").onclick=()=>{closeProfileSettings();openHubStatus();};$("hubStatusBtn").onclick=openHubStatus;$("hubStatusClose").onclick=()=>$("hubStatusModal").classList.add("hidden");
-
-document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));t.classList.add("active");document.querySelectorAll(".shop-panel").forEach(x=>x.classList.add("hidden"));$(t.dataset.tab+"Panel").classList.remove("hidden");});
-
-function applySiteInfo(){if($("brandBtn"))$("brandBtn").querySelector(".brand-title").textContent=siteInfo.brandName;if($("heroEyebrow"))$("heroEyebrow").textContent=siteInfo.heroEyebrow;if($("heroTitle1"))$("heroTitle1").textContent=siteInfo.title1;if($("heroTitle2"))$("heroTitle2").textContent=siteInfo.title2;if($("heroTitle3"))$("heroTitle3").textContent=siteInfo.title3;if($("heroDescription"))$("heroDescription").textContent=siteInfo.description;if($("heroPills"))$("heroPills").innerHTML=(siteInfo.pills||[]).map(x=>`<span>${escapeHTML(x)}</span>`).join("");if($("homePlay"))$("homePlay").textContent=siteInfo.playText;if($("homeShop"))$("homeShop").textContent=siteInfo.shopText;if($("renameHome"))$("renameHome").textContent=siteInfo.renameText;if($("fullscreenHome"))$("fullscreenHome").textContent=siteInfo.fullscreenText;if($("hero-dino-title"))$("hero-dino-title").textContent=siteInfo.heroDinoTitle;if($("hero-dino-caption"))$("hero-dino-caption").textContent=siteInfo.heroDinoCaption;if($("footerText"))$("footerText").textContent=siteInfo.footerText+" • VERSION "+appInfo.version;}
-function refreshUI(){
-if(!player)return;
-awardVIP();
-$("homeName").textContent=player.name;$("coinsTop").textContent=fmt(player.coins);$("homeCoins").textContent=fmt(player.coins);$("homeBest").textContent=fmt(player.best)+" m";$("shopCoins").textContent=fmt(player.coins);
-const a=AVATARS.find(x=>x.id===player.avatar)||AVATARS[0];const frame=getFrame();const title=player.vip?("VIP "+player.vip+" • "+a.name):a.name;const vipText=player.vip?"VIP "+player.vip:"VIP 0";
-$("headerProfileAvatar").textContent=a.icon;$("headerProfileAvatar").className="header-trigger-avatar frame-"+frame;$("profileAvatarLarge").textContent=a.icon;$("profileAvatarLarge").className="avatar-box frame-"+frame;$("profileNameLarge").textContent=player.name;$("profileTitleLarge").textContent=title;$("vipProfileLarge").textContent=vipText;$("vipProfileLarge").className="vip-badge "+(player.vip===1?"vip1":player.vip===2?"vip2":"vip3");$("profileRuns").textContent=fmt(player.stats.runs);$("profileBest").textContent=fmt(player.best)+" m";$("profileDistance").textContent=fmt(player.totalDistance)+" m";$("profileEarned").textContent=fmt(player.stats.coinsEarned);renderProfileChoices();
-renderShop();renderAchievements();renderRanking();if($("reward1Coins"))$("reward1Coins").textContent=fmt(rankingRewards[1]);if($("reward2Coins"))$("reward2Coins").textContent=fmt(rankingRewards[2]);if($("reward3Coins"))$("reward3Coins").textContent=fmt(rankingRewards[3]);if($("reward1Best"))$("reward1Best").textContent=fmt(rankingRewards[1]);if($("reward2Best"))$("reward2Best").textContent=fmt(rankingRewards[2]);if($("reward3Best"))$("reward3Best").textContent=fmt(rankingRewards[3]);if($("reward1Distance"))$("reward1Distance").textContent=fmt(rankingRewards[1]);if($("reward2Distance"))$("reward2Distance").textContent=fmt(rankingRewards[2]);if($("reward3Distance"))$("reward3Distance").textContent=fmt(rankingRewards[3]);updateHubStatus();
-if($("appVersionLabel"))$("appVersionLabel").textContent=appInfo.version;if($("appBuildLabel"))$("appBuildLabel").textContent=appInfo.build;if($("updateLogDisplay"))$("updateLogDisplay").textContent=appInfo.log;$("footerVersion").textContent=appInfo.version;if($("topVersionLabel"))$("topVersionLabel").textContent=appInfo.version;if($("logModalVersion"))$("logModalVersion").textContent=appInfo.version;if($("logModalBuild"))$("logModalBuild").textContent=appInfo.build;if($("updateLogModalText"))$("updateLogModalText").textContent=appInfo.log;applySiteInfo();updateMusicButtons();
-}
-function getFrame(){return player?.frame||"bronze";}
-function toggleProfile(){openProfileSettings();}
-
-function nameKey(n){return String(n||"").trim().replace(/\s+/g," ").toLocaleLowerCase("vi-VN");}
-async function nameAlreadyTaken(n,ignoreName=""){
- const key=nameKey(n),ignoreKey=nameKey(ignoreName);
- if(Object.keys(players).some(k=>nameKey(k)===key&&nameKey(k)!==ignoreKey))return true;
- if(!cloudReady())return false;
- try{
-  const rows=await (await cloudFetch('/rest/v1/dino_players?select=name')).json();
-  if(rows.some(r=>nameKey(r.name)===key&&nameKey(r.name)!==ignoreKey))return true;
-  const reserved=await (await cloudFetch(`/rest/v1/dino_reserved_names?select=name_key&name_key=eq.${encodeURIComponent(key)}&limit=1`)).json();
-  return reserved.length>0&&key!==ignoreKey;
- }catch{return false;}
-}
-async function reserveName(n,reason="registration"){
- if(!cloudReady())return true;
- try{const res=await cloudFetch('/rest/v1/dino_reserved_names',{method:'POST',headers:{'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({name:String(n).trim(),name_key:nameKey(n),reason})});return res.ok||res.status===409;}catch{return false;}
-}
-function openName(){
-$("nameModal").classList.remove("hidden");$("nameInput").value=player?.name||"";$("nameError").textContent="";setTimeout(()=>$("nameInput").focus(),20);
-}
-$("registerBtn").onclick=async()=>{
-const n=$("nameInput").value.trim();if(n.length<2){$("nameError").textContent="Tên tối thiểu 2 ký tự.";return}
-if(!/^[\p{L}\p{N}_ -]+$/u.test(n)){$("nameError").textContent="Tên có ký tự không hợp lệ.";return}
-if(!player||n!==player.name){if(await nameAlreadyTaken(n,player?.name||"")){$("nameError").textContent="Tên này đã được sử dụng hoặc từng đạt Top BXH. Hãy chọn tên khác.";return}if(!(await reserveName(n,"registration"))){$("nameError").textContent="Không thể giữ tên lúc này. Hãy thử lại.";return}}
-if(!player)player=freshPlayer(n);else player.name=n;currentName=n;save();$("nameModal").classList.add("hidden");refreshUI();toast("👤 Xin chào "+n+"!");
-};
-$("nameInput").addEventListener("keydown",e=>{if(e.key==="Enter")$("registerBtn").click();});
-
-function renameCost(){return 1+player.renameCount;}
-function openRename(){
-cloudLoadAll().catch(()=>{});
-if(!player){openName();return}
-$("renameInfo").innerHTML=`Lần đổi tên này cần <b>${renameCost()} Thẻ Đổi Tên</b>. Bạn có <b>${player.inventory.renameTickets}</b> thẻ.`;
-$("newNameInput").value="";$("renameError").textContent="";$("renameModal").classList.remove("hidden");setTimeout(()=>$("newNameInput").focus(),20);
-}
-$("renameCancel").onclick=()=>$("renameModal").classList.add("hidden");
-$("renameBtn").onclick=async()=>{
-const n=$("newNameInput").value.trim();if(n.length<2){$("renameError").textContent="Tên tối thiểu 2 ký tự.";return}
-if(!/^[\p{L}\p{N}_ -]+$/u.test(n)){$("renameError").textContent="Tên có ký tự không hợp lệ.";return}
-if(await nameAlreadyTaken(n,player.name)){$("renameError").textContent="Tên này đã được sử dụng hoặc từng đạt Top BXH.";return}
-const need=renameCost();if(player.inventory.renameTickets<need){$("renameError").textContent="Không đủ Thẻ Đổi Tên.";return}
-if(!(await reserveName(n,"rename"))){$("renameError").textContent="Không thể giữ tên lúc này. Hãy thử lại.";return}
-const old=player.name;player.inventory.renameTickets-=need;player.renameCount++;delete players[old];player.name=n;players[n]=player;currentName=n;save();$("renameModal").classList.add("hidden");refreshUI();toast("✏️ Đổi tên thành công.");
-};
-
-function itemPrice(type){
-  if(type==="clanTicket") return CLAN_TICKET_PRICE;
-  const base=Number(prices[type] ?? ITEMS[type].base);
-  if(type==="rename") return Math.round(base*Math.pow(1.7,player.renameCount));
-  return Math.round(base);
-}
-function upgradePrice(type){const u=UPGRADES[type],lv=Number(player.upgrades[type])||0;return Math.round(u.base*Math.pow(1.55,lv));}
-
-function renderShop(){
-if(!player)return;
-$("itemsPanel").innerHTML=`<div class="shop-grid">
-${itemCard("rename",itemPrice("rename"),`🎫 Mỗi lần đổi tên tiếp theo cần ${renameCost()} thẻ.`,`Số thẻ: ${fmt(player.inventory.renameTickets)}`)}
-${itemCard("clanTicket",itemPrice("clanTicket"),"Thẻ Tạo Clan. Cần 2 thẻ để tạo Clan.","Số thẻ: "+fmt(player.inventory.clanTickets))}
-${itemCard("magnet",itemPrice("magnet"),"Tăng Nam Châm dùng trong một lượt.","Số lượng: "+fmt(player.inventory.magnet))}
-${itemCard("turbo",itemPrice("turbo"),"Tăng tốc đặc biệt trong lượt.","Số lượng: "+fmt(player.inventory.turbo))}
-</div>`;
-$("skinsPanel").innerHTML=`<div class="shop-grid">${Object.entries(SKINS).map(([id,s])=>skinCard(id,s)).join("")}</div>`;
-$("upgradesPanel").innerHTML=`<div class="shop-grid">${Object.entries(UPGRADES).map(([id,u])=>upgradeCard(id,u)).join("")}</div>`;
-}
-function itemCard(id,price,desc,count){const i=ITEMS[id];return `<div class="card"><div class="item-icon">${i.icon}</div><div style="display:flex;justify-content:space-between;margin-top:10px"><h3 style="margin:0">${i.name}</h3><span class="price">🪙 ${fmt(price)}</span></div><p class="mini">${desc}</p><span class="badge">${count}</span><button class="btn primary" style="width:100%;margin-top:9px" onclick="buyItem('${id}')">MUA</button></div>`}
-function skinCard(id,s){const own=player.ownedSkins.includes(id),eq=player.selectedSkin===id;const desc=s.kind==="fire"?"Khủng long lửa, gai nhiệt + trail đỏ.":s.kind==="galaxy"?"Khủng long thiên hà, thân sao + trail tím.":s.kind==="sakura"?"Khủng long hoa anh đào + trail hồng.":s.rainbow?"Khủng long cầu vồng nhiều lớp + trail vải liền.":"Khủng long băng giáp xanh + trail lạnh.";return `<div class="card"><div class="skin-preview ${s.rainbow?"rainbow-preview":""}"><div class="dino-mini">${s.rainbow?"🦖":s.kind==="fire"?"🐲":s.kind==="galaxy"?"👾":s.kind==="sakura"?"🦖":"🦕"}</div></div><div style="display:flex;justify-content:space-between;gap:8px;margin-top:10px"><h3 style="margin:0">${s.name}</h3><span class="price">🪙 ${fmt(prices[id])}</span></div><p class="mini">${desc} • Bonus xu +${Math.round(s.bonus*100)}%.</p><button class="btn ${eq?"green":"primary"}" style="width:100%;margin-top:8px" onclick="buySkin('${id}')">${eq?"✓ ĐANG DÙNG":own?"TRANG BỊ":"MUA"}</button></div>`}
-function upgradeDetail(id,lv){const n=Math.max(0,Number(lv)||0),shown=n||1;if(id==="jump")return `Lv.${shown}: +${700+(shown-1)*16} lực nhảy`;if(id==="magnet")return `Lv.${shown}: +${shown*18} bán kính hút`;if(id==="coin")return `Lv.${shown}: +${shown*3}% giá trị xu`;if(id==="speed")return `Lv.${shown}: +${shown*6} tốc độ nền`;return "";}
-function upgradeCard(id,u){const lv=Number(player.upgrades[id])||0,max=lv>=u.max,p=upgradePrice(id);return `<div class="card"><div style="font-size:42px">${u.icon}</div><h3>${u.name}</h3><p class="mini">${u.desc}</p><div class="upgrade-detail">${upgradeDetail(id,lv)}</div><div class="progress"><span style="width:${lv/u.max*100}%"></span></div><div class="mini" style="margin-top:7px">Lv.${lv}/${u.max}</div><button class="btn ${max?"":"primary"}" ${max?"disabled":""} style="width:100%;margin-top:8px" onclick="buyUpgrade('${id}')">${max?"ĐÃ TỐI ĐA":"NÂNG CẤP • 🪙 "+fmt(p)}</button></div>`}
-
-window.buyItem=id=>{
-if(!player)return;const p=itemPrice(id);if(player.coins<p){toast("❌ Không đủ xu");return}player.coins-=p;
-if(id==="rename")player.inventory.renameTickets++;
-else if(id==="clanTicket")player.inventory.clanTickets++;
-else player.inventory[id]++;
-save();refreshUI();toast("✅ Đã mua "+ITEMS[id].name);
-};
-window.buySkin=id=>{
-const s=SKINS[id];if(player.ownedSkins.includes(id)){player.selectedSkin=id;save();refreshUI();toast("🦖 Đã trang bị "+s.name);rainbowFXSound(id,"equip");return}
-if(player.coins<prices[id]){toast("❌ Không đủ xu");return}
-player.coins-=prices[id];player.ownedSkins.push(id);player.selectedSkin=id;save();refreshUI();rainbowFXSound(id,"buy");toast("🎉 Mở khóa "+s.name);
-};
-window.buyUpgrade=id=>{
-const u=UPGRADES[id],p=upgradePrice(id),lv=Number(player.upgrades[id])||0;if(lv>=u.max){toast("Đã tối đa.");return}
-if(player.coins<p){toast("❌ Không đủ xu");return}player.coins-=p;player.upgrades[id]=lv+1;save();refreshUI();toast("⚡ "+u.name+" lên Lv."+player.upgrades[id]);
-};
-
-window.claimAchievement=id=>{
-const a=ACH.find(x=>x.id===id);if(!a||player.achievements.includes(id)||!a.need(player))return;player.achievements.push(id);player.coins+=a.reward;save();refreshUI();toast("🏆 Thành tựu +"+a.reward+" xu");
-};
-
-function renderRanking(){
-const arr=Object.values(players).map(p=>normPlayer(p,p.name));
-renderRank("rankCoins",[...arr].sort((a,b)=>(b.rankStats?.coins||0)-(a.rankStats?.coins||0)),"coins");
-renderRank("rankBest",[...arr].sort((a,b)=>(b.rankStats?.best||0)-(a.rankStats?.best||0)),"best");
-renderRank("rankDistance",[...arr].sort((a,b)=>(b.rankStats?.distance||0)-(a.rankStats?.distance||0)),"distance");
-}
-function renderRank(id,arr,key){
-$(id).innerHTML=arr.slice(0,10).map((p,i)=>{
-const av=AVATARS.find(a=>a.id===p.avatar)||AVATARS[0];const rv=p.rankStats||{coins:p.coins,best:p.best,distance:p.totalDistance};let v=key==="coins"?fmt(rv.coins)+" xu":key==="best"?fmt(rv.best)+" m":fmt(rv.distance)+" m";
-return `<div class="leader-row"><div class="rank">#${i+1}</div><div style="display:flex;align-items:center;gap:7px"><span class="player-avatar">${av.icon}</span><span class="rank-name">${p.name}${p.vip?` <span class="badge">VIP ${p.vip}</span>`:""}</span></div><div class="rank-value">${v}</div></div>`;
-}).join("")||`<div class="mini">Chưa có dữ liệu.</div>`;
-}
-
-setInterval(()=>{if(cloudReady()){cloudLoadAll();syncClanStats();awardDailyRankRewards();}else{players=loadJSON(KEY_PLAYERS,{});Object.keys(players).forEach(n=>players[n]=normPlayer(players[n],n));if(player&&players[player.name])player=players[player.name];renderRanking();refreshUI();}},300000);
-
-function showModalAdmin(){ $("adminModal").classList.remove("hidden");$("adminLoginBox").classList.remove("hidden");$("adminBody").classList.add("hidden");$("adminPassword").value="";$("adminError").textContent="";}
-function adminFill(){
-const s=$("adminPlayer");const keep=s.value;s.innerHTML=Object.keys(players).sort().map(n=>`<option value="${escapeHTML(n)}">${escapeHTML(n)} • ${fmt(players[n].coins)} xu</option>`).join("");if(keep&&players[keep])s.value=keep;else if(player)s.value=player.name;
-const rows=Object.values(players).sort((a,b)=>b.coins-a.coins);$("adminPlayers").innerHTML=`<table class="admin-table"><tr><th>Avatar</th><th>Tên</th><th>Xu</th><th>Best</th><th>Tổng m</th><th>VIP</th><th></th></tr>${rows.map(p=>{const av=AVATARS.find(a=>a.id===p.avatar)||AVATARS[0];return `<tr><td><span class="player-avatar">${av.icon}</span></td><td>${escapeHTML(p.name)}</td><td>${fmt(p.coins)}</td><td>${fmt(p.best)}</td><td>${fmt(p.totalDistance)}</td><td>VIP ${p.vip}</td><td><button class="btn danger" data-name="${escapeHTML(p.name)}" style="padding:5px 7px;font-size:9px" onclick="deleteAdminPlayer(this.dataset.name)">✕</button></td></tr>`}).join("")}</table>`;$("adminPrices").innerHTML=[...Object.entries(SKINS),...Object.entries(ITEMS).filter(([id])=>id!=="shield")].map(([id,v])=>`<div class="form-row"><label>${escapeHTML(v.name)}</label><input class="priceInput" data-price="${id}" type="number" min="0" value="${prices[id]??v.price??0}"></div>`).join("");
-$("cfgCoinPerMeter").value=config.coinPerMeter;$("cfgRunBonus").value=config.runBonus;$("cfgBaseSpeed").value=config.baseSpeed;$("cfgMaxSpeed").value=config.maxSpeed;$("cfgObstacleRate").value=config.obstacleRate;$("cfgCoinRate").value=config.coinRate;$("cfgPowerRate").value=config.powerRate;$("cfgSkinMultiplier").value=config.skinMultiplier;$("cfgJumpBuffer").value=config.jumpBufferMs;$("rankReward1").value=rankingRewards[1]||0;$("rankReward2").value=rankingRewards[2]||0;$("rankReward3").value=rankingRewards[3]||0;
-$("musicUrl").value=musicConfig.url||"";$("musicUrls").value=(musicConfig.urls||[musicConfig.url||""]).join("\n");$("musicVolume").value=musicConfig.volume;$("musicStatus").textContent=(musicConfig.urls&&musicConfig.urls.length)?("Playlist "+musicConfig.urls.length+" bài."):musicConfig.url?"Đã cấu hình nhạc MP3.":"Chưa cấu hình nhạc.";$("appVersionInput").value=appInfo.version;$("appBuildInput").value=appInfo.build;$("updateLogInput").value=appInfo.log;$("siteBrandName").value=siteInfo.brandName;$("siteEyebrow").value=siteInfo.heroEyebrow;$("siteTitle1").value=siteInfo.title1;$("siteTitle2").value=siteInfo.title2;$("siteTitle3").value=siteInfo.title3;$("siteDescription").value=siteInfo.description;$("sitePlayText").value=siteInfo.playText;$("siteShopText").value=siteInfo.shopText;$("siteRenameText").value=siteInfo.renameText;$("siteFullscreenText").value=siteInfo.fullscreenText;$("siteHeroDinoTitle").value=siteInfo.heroDinoTitle;$("siteHeroDinoCaption").value=siteInfo.heroDinoCaption;$("siteFooterText").value=siteInfo.footerText;$("sitePills").value=(siteInfo.pills||[]).join("\n");$("overviewPlayers").textContent=fmt(Object.keys(players).length);$("overviewCoins").textContent=fmt(Object.values(players).reduce((s,p)=>s+(Number(p.coins)||0),0));$("overviewVersion").textContent=appInfo.version;$("overviewCloud").textContent=cloudReady()?"ONLINE":"OFFLINE";
-}
-if($("cloudUrl"))$("cloudUrl").value=cloudConfig.url||DEFAULT_SUPABASE_URL;if($("cloudKey"))$("cloudKey").value=cloudConfig.key||DEFAULT_SUPABASE_ANON_KEY;if($("cloudStatus"))$("cloudStatus").textContent=cloudReady()?"✅ Đã cấu hình Supabase.":"Chưa cấu hình Supabase.";
-function initAdminSections(){document.querySelectorAll("#adminBody > .admin-section").forEach(sec=>{if(sec.dataset.bound)return;sec.dataset.bound="1";const b=sec.querySelector(".admin-section-toggle");if(b)b.onclick=()=>{sec.classList.toggle("collapsed");const c=sec.querySelector(".admin-section-chevron");if(c)c.textContent=sec.classList.contains("collapsed")?"▼":"▲";};});}
-function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
-$("adminClose").onclick=()=>$("adminModal").classList.add("hidden");
-
-function setAdminHub(target){
- adminHubTarget=target;
- document.querySelectorAll(".admin-hub-btn").forEach(b=>b.classList.toggle("active",b.dataset.adminHub===target));
- const mainHome=$("adminMainHome"),nav=$("adminHubNav"),back=$("adminHubBack");
- const all=["adminOverview","adminSiteContent","adminPlayerCard","adminPricesCard","adminGameConfig","adminRankRewards","adminMusic","adminCloud","adminSecurity","adminPanelFunctions","adminUpdateLog","adminPlayersCard","adminSettingsActions"];
- all.forEach(id=>$(id)?.classList.remove("active"));
- if(target==="main"){mainHome.style.display="flex";nav.style.display="grid";back.style.display="none";$("adminOverview")?.classList.add("active");}else{mainHome.style.display="none";nav.style.display="none";back.style.display="block";
-  const map={players:["adminPlayerCard","adminPlayersCard"],shop:["adminPricesCard"],game:["adminGameConfig"],ranking:["adminRankRewards"],music:["adminMusic"],website:["adminSiteContent"],cloud:["adminCloud"],security:["adminSecurity"],settings:["adminPanelFunctions","adminSettingsActions"]};
-  (map[target]||[]).forEach(id=>$(id)?.classList.add("active"));
-  if(target==="players"){$("adminPlayerShopGrid")?.classList.add("active");} else {$("adminPlayerShopGrid")?.classList.remove("active");}
- }
-}
-document.querySelectorAll(".admin-hub-btn").forEach(b=>b.onclick=()=>setAdminHub(b.dataset.adminHub));
-$("adminHubBackBtn").onclick=()=>setAdminHub("main");
-$("adminHubMainBtn").onclick=()=>setAdminHub("main");
-$("adminPlayersToggle").onclick=()=>{const wrap=$("adminPlayersWrap");const open=wrap.classList.toggle("hidden")===false;$("adminPlayersToggle").textContent=open?"▲ ĐÓNG DANH SÁCH":"▼ MỞ DANH SÁCH"};
-$("adminLogin").onclick=async()=>{const entered=$("adminPassword").value;const ok=cloudReady()&&adminPasswordHash?await hashText(entered)===adminPasswordHash:entered===adminPassword;if(!ok){$("adminError").textContent="Sai mật khẩu.";return}$("adminLoginBox").classList.add("hidden");$("adminBody").classList.remove("hidden");adminFill();initAdminSections();setAdminHub("main");};
-$("buffCoins").onclick=()=>{const n=$("adminPlayer").value,a=Math.max(0,Number($("adminCoins").value)||0);if(!players[n])return;players[n].coins+=a;saveData();if(player?.name===n)player=players[n];adminFill();refreshUI();toast("🪙 Buff +"+fmt(a));};
-$("saveSiteContent").onclick=async()=>{siteInfo={brandName:$("siteBrandName").value.trim()||"DINO AURORA",heroEyebrow:$("siteEyebrow").value.trim()||"🦖 DINO AURORA • ENDLESS RUN",title1:$("siteTitle1").value.trim()||"CHẠY.",title2:$("siteTitle2").value.trim()||"THU THẬP.",title3:$("siteTitle3").value.trim()||"TIẾN HÓA.",description:$("siteDescription").value.trim()||"",playText:$("sitePlayText").value.trim()||"▶ CHƠI NGAY",shopText:$("siteShopText").value.trim()||"🛒 SHOP",renameText:$("siteRenameText").value.trim()||"✏️ ĐỔI TÊN",fullscreenText:$("siteFullscreenText").value.trim()||"⛶ TOÀN MÀN HÌNH",heroDinoTitle:$("siteHeroDinoTitle").value.trim()||"PRISM RUNNER",heroDinoCaption:$("siteHeroDinoCaption").value.trim()||"🌈 Rainbow • ⚡ Turbo • 🏆 Daily Top",footerText:$("siteFooterText").value.trim()||"DINO AURORA • GAME SAVE CLOUD",pills:$("sitePills").value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean)};localStorage.setItem("dino_aurora_site_info_v1",JSON.stringify(siteInfo));refreshUI();await cloudUpsertState();toast("🌐 Đã lưu nội dung website");};
-window.deleteAdminPlayer=async function(name){const sel=$("adminPlayer");if(sel)sel.value=name;await $("deletePlayer").onclick();};
-$("deletePlayer").onclick=async()=>{const n=$("adminPlayer").value;if(!players[n])return; if(!confirm(`Xóa toàn bộ dữ liệu của ${n}? Tên vẫn được giữ chỗ và không thể đăng ký lại.`))return; try{if(cloudReady()){await cloudFetch(`/rest/v1/dino_clan_members?player_name=eq.${encodeURIComponent(n)}`,{method:"DELETE",headers:socialHeaders()}).catch(()=>{});await cloudFetch(`/rest/v1/dino_players?name=eq.${encodeURIComponent(n)}`,{method:"DELETE",headers:socialHeaders()});}delete players[n];localStorage.setItem(KEY_PLAYERS,JSON.stringify(players));if(player?.name===n){player=null;currentName="";localStorage.removeItem(KEY_CURRENT);$("nameModal").classList.remove("hidden");}adminFill();refreshUI();toast("🗑️ Đã xóa dữ liệu người chơi");}catch(e){toast("❌ Không xóa được: "+e.message);}};
-async function resetRankPrize(rank){if(!confirm(`Reset trạng thái nhận quà Top ${rank}? Dữ liệu người chơi sẽ giữ nguyên.`))return;const cycle=Math.floor(Date.now()/86400000);if(cloudReady()){try{await cloudFetch(`/rest/v1/dino_rank_payouts?cycle_id=eq.${cycle}&rank=eq.${rank}`,{method:"DELETE",headers:socialHeaders()});}catch(e){toast("❌ Reset Top lỗi: "+e.message);return;}}toast(`↻ Đã reset quà Top ${rank}; dữ liệu người chơi vẫn giữ nguyên.`);}
-async function resetRankingBoard(board){if(!confirm("Reset BXH "+(board==="coins"?"Xu":board==="best"?"Kỷ lục":"Tổng mét")+"? Dữ liệu hồ sơ người chơi vẫn giữ nguyên."))return;for(const p of Object.values(players)){p.rankStats=p.rankStats||{coins:0,best:0,distance:0};p.rankStats[board]=0;await cloudUpsertPlayer(p);}localStorage.setItem(KEY_PLAYERS,JSON.stringify(players));renderRanking();toast("↻ Đã reset BXH "+(board==="coins"?"Xu":board==="best"?"Kỷ lục":"Tổng mét"));}
-$("resetBoardCoins").onclick=()=>resetRankingBoard("coins");$("resetBoardBest").onclick=()=>resetRankingBoard("best");$("resetBoardDistance").onclick=()=>resetRankingBoard("distance");
-
-$("setCoins").onclick=()=>{const n=$("adminPlayer").value,a=Math.max(0,Number($("adminCoins").value)||0);if(!players[n])return;players[n].coins=a;saveData();if(player?.name===n)player=players[n];adminFill();refreshUI();toast("🪙 Đã đặt coin");};
-$("adminRename").onclick=async()=>{const old=$("adminPlayer").value,n=$("adminNewName").value.trim();if(!players[old]||!n){toast("Tên mới không hợp lệ.");return}if(await nameAlreadyTaken(n,players[old].name)){toast("Tên mới đã được sử dụng hoặc từng đạt Top BXH.");return}if(!(await reserveName(n,"admin_rename"))){toast("Không thể giữ tên mới lúc này.");return}const p=players[old];delete players[old];p.name=n;players[n]=p;if(player?.name===old){player=p;currentName=n;localStorage.setItem(KEY_CURRENT,n)}saveData();adminFill();refreshUI();toast("✏️ Admin đã đổi tên");};
-$("saveAdminPrices").onclick=()=>{document.querySelectorAll(".priceInput").forEach(i=>prices[i.dataset.price]=Math.max(0,Number(i.value)||0));localStorage.setItem(KEY_PRICES,JSON.stringify(prices));renderShop();toast("💸 Đã lưu giá shop");};
-$("saveGameConfig").onclick=()=>{config={coinPerMeter:Math.max(0,Number($("cfgCoinPerMeter").value)||0),runBonus:Math.max(0,Number($("cfgRunBonus").value)||0),baseSpeed:Math.max(100,Number($("cfgBaseSpeed").value)||350),maxSpeed:Math.max(200,Number($("cfgMaxSpeed").value)||760),obstacleRate:Math.max(.3,Number($("cfgObstacleRate").value)||1),coinRate:Math.max(.15,Number($("cfgCoinRate").value)||.5),powerRate:Math.max(1,Number($("cfgPowerRate").value)||7),skinMultiplier:Math.max(0,Number($("cfgSkinMultiplier").value)||.25),jumpBufferMs:Math.min(300,Math.max(0,Number($("cfgJumpBuffer").value)||0))};localStorage.setItem(KEY_CONFIG,JSON.stringify(config));cloudUpsertState();toast("⚙️ Đã lưu cơ chế game");};
-$("saveRankRewards").onclick=async()=>{rankingRewards={1:Math.max(0,Number($("rankReward1").value)||0),2:Math.max(0,Number($("rankReward2").value)||0),3:Math.max(0,Number($("rankReward3").value)||0)};localStorage.setItem("dino_aurora_rank_rewards_v1",JSON.stringify(rankingRewards));refreshUI();await cloudUpsertState();toast("🏆 Đã lưu quà Top BXH • trao mỗi 24h");};
-$("saveMusic").onclick=async()=>{const raw=$("musicUrls").value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);if($("musicUrl").value.trim()&&!raw.includes($("musicUrl").value.trim()))raw.unshift($("musicUrl").value.trim());musicConfig={urls:[raw[0]||"tim_em.mp3"],url:raw[0]||"tim_em.mp3",volume:Math.min(1,Math.max(0,Number($("musicVolume").value)||0)),enabled:true,loopForever:true};localStorage.setItem(KEY_MUSIC,JSON.stringify(musicConfig));musicIndex=0;setupMusic();$("musicStatus").textContent="Đã lưu playlist "+musicConfig.urls.length+" bài.";await cloudUpsertState();toast("🎵 Đã lưu playlist");};
-$("testMusic").onclick=()=>{musicConfig.enabled=true;setMusicEnabled(true);};
-$("saveUpdateLog").onclick=async()=>{appInfo={version:$("appVersionInput").value.trim()||CURRENT_APP_VERSION,build:$("appBuildInput").value.trim()||"LIVE",log:$("updateLogInput").value.trim()||"• Chưa có nội dung cập nhật"};localStorage.setItem("dino_aurora_app_info_v1",JSON.stringify(appInfo));refreshUI();await cloudUpsertState();toast("📜 Đã lưu Update Log");};
-$("stopMusic").onclick=()=>setMusicEnabled(false);
-$("saveAdminPassword").onclick=async()=>{const a=$("newAdminPassword").value,b=$("newAdminPassword2").value;if(!a||a!==b){toast("❌ Mật khẩu xác nhận không khớp");return}adminPassword=a;adminPasswordHash=await hashText(a);localStorage.setItem(KEY_ADMIN,adminPassword);localStorage.setItem("dino_aurora_admin_hash",adminPasswordHash);$("newAdminPassword").value="";$("newAdminPassword2").value="";await cloudUpsertState();toast("🔐 Đã đổi mật khẩu Panel");};
-$("refreshAdminAll").onclick=()=>{players=loadJSON(KEY_PLAYERS,{});Object.keys(players).forEach(n=>players[n]=normPlayer(players[n],n));if(player&&players[player.name])player=players[player.name];config={...DEFAULT_CONFIG,...loadJSON(KEY_CONFIG,DEFAULT_CONFIG)};prices={...Object.fromEntries(Object.entries(SKINS).map(([k,v])=>[k,v.price])),...loadJSON(KEY_PRICES,{})};musicConfig=loadJSON(KEY_MUSIC,{urls:["tim_em.mp3"],url:"tim_em.mp3",volume:.35,enabled:true,loopForever:true});appInfo=loadJSON("dino_aurora_app_info_v1",appInfo);adminFill();refreshUI();toast("↻ Panel đã tải lại dữ liệu");};
-$("grantVipSelected").onclick=()=>{const n=$("adminPlayer").value;if(!players[n])return;players[n].vip=3;players[n].ownedFrames=Array.isArray(players[n].ownedFrames)?players[n].ownedFrames:[];["vip1","vip2","vip3"].forEach(f=>{if(!players[n].ownedFrames.includes(f))players[n].ownedFrames.push(f)});saveData();if(player?.name===n)player=players[n];adminFill();refreshUI();toast("👑 Đã cấp VIP III");};
-$("adminLogout").onclick=()=>{$("adminBody").classList.add("hidden");$("adminLoginBox").classList.remove("hidden");};
-$("saveCloudConfig").onclick=()=>{cloudConfig={url:$("cloudUrl").value.trim(),key:$("cloudKey").value.trim(),enabled:true};localStorage.setItem(KEY_SUPABASE,JSON.stringify(cloudConfig));setCloudStatus(cloudReady()?"✅ Đã lưu Supabase":"⚠️ Thiếu URL hoặc Key");};
-$("testCloud").onclick=async()=>{try{await cloudFetch('/rest/v1/dino_app_state?select=id&limit=1');setCloudStatus("✅ Kết nối Supabase thành công");}catch(e){const m=String(e.message||e);if(m.includes("PGRST205")||m.includes("dino_app_state")){setCloudStatus("❌ Thiếu bảng dino_app_state. Hãy chạy file Dino_Aurora_supabase_cloud_fix.sql trong Supabase SQL Editor rồi bấm KIỂM TRA lại.");}else{setCloudStatus("❌ "+m);}}};
-$("syncCloudNow").onclick=()=>cloudSyncNow();
-$("musicFile").addEventListener("change",async e=>{const f=e.target.files&&e.target.files[0];if(!f)return;if(f.size>25*1024*1024){toast("❌ MP3 tối đa 25MB");return;}if(!cloudReady()){toast("⚠️ Kết nối Supabase trước");return;}try{setCloudStatus("⬆️ Đang tải MP3...");const path="music/"+Date.now()+"_"+f.name.replace(/[^a-zA-Z0-9._-]+/g,"_");await cloudFetch('/storage/v1/object/dino-assets/'+path,{method:'POST',headers:{'Content-Type':f.type||'audio/mpeg','x-upsert':'true'},body:f});const url=cloudConfig.url.replace(/\/$/,"")+"/storage/v1/object/public/dino-assets/"+path.split('/').map(encodeURIComponent).join('/');$("musicUrl").value=url;const list=(musicConfig.urls||[]).filter(Boolean);if(!list.includes(url))list.push(url);$("musicUrls").value=list.join("\n");musicConfig={urls:list,url:list[0]||url,volume:Number($("musicVolume").value)||.35,enabled:true,loopPlaylist:true};localStorage.setItem(KEY_MUSIC,JSON.stringify(musicConfig));await cloudUpsertState();musicIndex=0;setupMusic();$("musicStatus").textContent="✅ MP3 đã lưu trên cloud và thêm vào playlist";setCloudStatus("✅ Upload MP3 thành công");}catch(e){setCloudStatus("❌ Upload lỗi: "+e.message);}});
-$("resetAll").onclick=()=>{if(confirm("Xóa toàn bộ dữ liệu game trên trình duyệt này?")){localStorage.removeItem(KEY_PLAYERS);localStorage.removeItem(KEY_CURRENT);localStorage.removeItem(KEY_CONFIG);localStorage.removeItem(KEY_PRICES);localStorage.removeItem(KEY_ADMIN);localStorage.removeItem(KEY_MUSIC);location.reload();}};
-
-let audio=null;
-let adminAudioStarted=false;
-let musicIndex=0;
-function musicList(){const arr=(musicConfig.urls||[]).filter(Boolean);return arr.length?arr:(musicConfig.url?[musicConfig.url]:["tim_em.mp3"]);}
-function setupMusic(){const m=$("bgMusic");if(!m)return;const list=musicList();if(musicIndex>=list.length)musicIndex=0;m.src=list[musicIndex];m.volume=Math.min(1,Math.max(0,Number(musicConfig.volume)||0));m.loop=true;m.onended=()=>{if(musicConfig.loopForever!==false)playMusic();};}
-function playMusic(){const m=$("bgMusic");if(!m)return;const list=musicList();if(!list.length)return;m.volume=Math.min(1,Math.max(0,Number(musicConfig.volume)||0));m.play().then(()=>{adminAudioStarted=true}).catch(()=>{});}
-function stopMusic(){const m=$("bgMusic");if(m){m.pause();m.currentTime=0;}}
-function setMusicEnabled(enabled){musicConfig.enabled=!!enabled;localStorage.setItem(KEY_MUSIC,JSON.stringify(musicConfig));const m=$("bgMusic");if(musicConfig.enabled){setupMusic();playMusic();}else{stopMusic();}updateMusicButtons();cloudUpsertState();}
-function updateMusicButtons(){const txt=musicConfig.enabled===false?"🔇 NHẠC: TẮT":"🎵 NHẠC: BẬT";["musicTopBtn","soundBtn"].forEach(id=>{const e=$(id);if(e)e.textContent=txt;});}
-
-setupMusic();
-updateMusicButtons();
-let musicInteractionBound=false;
-function bindMusicInteraction(){if(musicInteractionBound)return;musicInteractionBound=true;const wake=()=>{if(musicConfig.enabled!==false)playMusic();};["pointerdown","touchstart","keydown"].forEach(ev=>window.addEventListener(ev,wake,{once:false,passive:true}));}
-bindMusicInteraction();
-
-function audioInit(){if(!player?.sound)return null;try{audio ||= new (window.AudioContext||window.webkitAudioContext)();if(audio.state==="suspended")audio.resume();return audio}catch{return null}}
-function tone(a1,a2,d=.09,type="triangle",v=.035){if(musicConfig.enabled!==false)return;const ac=audioInit();if(!ac)return;const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.setValueAtTime(a1,ac.currentTime);o.frequency.exponentialRampToValueAtTime(Math.max(40,a2),ac.currentTime+d);g.gain.setValueAtTime(v,ac.currentTime);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+d);o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+d)}
-function rainbowFXSound(id,kind){if(id!=="rainbow")return;[660,880,1175].forEach((n,i)=>setTimeout(()=>tone(n,n*1.08,.08,"sine",.025),i*55));}
-function soundJump(){tone(250,760,.13,"triangle",.05);if(player.selectedSkin==="rainbow")rainbowFXSound("rainbow","jump");}
-function soundCoin(){tone(670,1000,.06,"sine",.03);if(player.selectedSkin==="rainbow")rainbowFXSound("rainbow","coin");}
-function soundHit(){tone(160,55,.32,"sawtooth",.07)}
-
-const canvas=$("gameCanvas"),ctx=canvas.getContext("2d");
-let active=false,paused=false,raf=0,last=0,dist=0,runCoins=0,combo=1,comboTimer=0,obTimer=0,cTimer=0,pTimer=0,elapsed=0,speed=350,power=null,powerUntil=0,jumpBufferUntil=0;
-let obstacles=[],coins=[],powers=[],particles=[],trail=[];
-const dino={x:135,y:0,w:67,h:72,vy:0,grounded:true};
-const BIOMES=[{from:0,name:"🌿 ĐỒNG CỎ",a:"#163a52",b:"#091f2d",g:"#153626"},{from:1400,name:"🏜️ SA MẠC",a:"#5a3e2c",b:"#22151c",g:"#4b3121"},{from:3200,name:"🌋 NÚI LỬA",a:"#5b202a",b:"#1d0d15",g:"#35171b"},{from:5600,name:"❄️ BĂNG GIÁ",a:"#2c5670",b:"#102033",g:"#183247"},{from:9000,name:"🌌 AURORA",a:"#20275d",b:"#091025",g:"#11203b"}];
-function biome(){let b=BIOMES[0];for(const x of BIOMES)if(dist>=x.from)b=x;return b}
-function ground(){return canvas.height-86}
-function resetDino(){dino.y=ground()-dino.h;dino.vy=0;dino.grounded=true}
-function startGame(){
-if(!player){openName();return}audioInit();playMusic();showView("game");active=true;paused=false;cancelAnimationFrame(raf);dist=0;runCoins=0;combo=1;comboTimer=0;obTimer=.7;cTimer=.5;pTimer=5;elapsed=0;power=null;powerUntil=0;if(player.inventory.turbo>0){player.inventory.turbo--;power="boost";powerUntil=performance.now()+4500}if(player.inventory.magnet>0){player.inventory.magnet--;power="magnet";powerUntil=performance.now()+4500}trail=[];obstacles=[];coins=[];powers=[];particles=[];resetDino();last=performance.now();$("gameState").textContent="ĐANG CHẠY!";$("pauseBtn").textContent="Ⅱ TẠM DỪNG";raf=requestAnimationFrame(loop);save();}
-function doJump(){dino.vy=-(840+(player.upgrades.jump||0)*16);dino.grounded=false;player.stats.jumps++;soundJump();jumpBufferUntil=0;}
-function jump(){if(paused)return;if(!active){startGame();return}if(dino.grounded){doJump();}else{jumpBufferUntil=performance.now()+Math.min(300,Math.max(0,Number(config.jumpBufferMs)||120));}}
-function pause(){if(!active)return;paused=!paused;$("pauseBtn").textContent=paused?"▶ TIẾP TỤC":"Ⅱ TẠM DỪNG";$("gameState").textContent=paused?"TẠM DỪNG":"ĐANG CHẠY!";if(!paused){last=performance.now();raf=requestAnimationFrame(loop)}}
-function makeObstacle(){const tall=Math.random()>.5;obstacles.push({x:canvas.width+30,w:tall?39:31,h:tall?98:60})}
-function makeCoin(){coins.push({x:canvas.width+20,y:175+Math.random()*165,r:Math.random()<.08?12:9,spin:Math.random()*6.2})}
-function makePower(){powers.push({x:canvas.width+20,y:165+Math.random()*130,type:["magnet","boost"][Math.floor(Math.random()*2)]})}
-function collide(a,b){return a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y}
-function emit(x,y,c){particles.push({x,y,vx:(Math.random()-.5)*190,vy:(Math.random()-.5)*170,life:.5+Math.random()*.3,max:.8,c,s:2+Math.random()*4})}
-function rcolor(i){return["#ff4c5e","#ff9f3d","#ffe45b","#60ef79","#42ddff","#7d70ff","#db67ff"][i%7]}
-function update(dt){
-dino.vy+=1900*dt;dino.y+=dino.vy*dt;if(dino.y>=ground()-dino.h){dino.y=ground()-dino.h;dino.vy=0;const wasAir=!dino.grounded;dino.grounded=true;if(wasAir&&jumpBufferUntil&&performance.now()<=jumpBufferUntil)doJump();}
-elapsed+=dt;player.stats.playTime=(Number(player.stats.playTime)||0)+dt;dist+=dt*(10+(player.upgrades.speed||0)*.35);speed=Math.min(config.maxSpeed,config.baseSpeed+dist*.07+(player.upgrades.speed||0)*6);
-obTimer+=dt;cTimer+=dt;pTimer-=dt;if(obTimer>=Math.max(.45,config.obstacleRate-dist/8000)){obTimer=0;makeObstacle()}if(cTimer>=config.coinRate){cTimer=0;makeCoin()}if(pTimer<=0){pTimer=config.powerRate+Math.random()*4;makePower()}
-if(comboTimer>0){comboTimer-=dt;if(comboTimer<=0)combo=1}if(power&&performance.now()>powerUntil)power=null;
-obstacles.forEach(o=>o.x-=speed*dt);coins.forEach(c=>{c.x-=speed*dt;c.spin+=dt*8});powers.forEach(p=>p.x-=speed*dt);
-obstacles=obstacles.filter(o=>o.x>-70);coins=coins.filter(c=>c.x>-70);powers=powers.filter(p=>p.x>-60);
-const radius=90+(player.upgrades.magnet||0)*18;
-for(let i=coins.length-1;i>=0;i--){const c=coins[i],dx=dino.x+32-c.x,dy=dino.y+34-c.y,dd=Math.hypot(dx,dy);if((player.upgrades.magnet||0)>0&&dd<radius){c.x+=dx*dt*6;c.y+=dy*dt*6}if(dd<35){const base=c.r===12?5:1;const skin=SKINS[player.selectedSkin]?.bonus||0;const val=Math.floor(base*combo*(1+skin+config.skinMultiplier*(player.selectedSkin==="rainbow"?1:0))*(1+(player.upgrades.coin||0)*.03));runCoins+=val;player.stats.coinsEarned+=val;combo=Math.min(5,combo+.3);comboTimer=2.5;emit(c.x,c.y,player.selectedSkin==="rainbow"?rcolor(i):"#ffd34d");soundCoin();coins.splice(i,1)}}
-for(let i=powers.length-1;i>=0;i--){const p=powers[i],b={x:p.x-14,y:p.y-14,w:28,h:28},d={x:dino.x+9,y:dino.y+7,w:dino.w-16,h:dino.h-10};if(collide(d,b)){power=p.type;powerUntil=performance.now()+6000;emit(p.x,p.y,"#42ddff");tone(520,1200,.18,"triangle",.045);powers.splice(i,1)}}
-const d={x:dino.x+10,y:dino.y+8,w:dino.w-18,h:dino.h-10};
-for(let i=obstacles.length-1;i>=0;i--){const o=obstacles[i],b={x:o.x+4,y:ground()-o.h,w:o.w-8,h:o.h};if(collide(d,b)){endGame();return}}
-if(power==="magnet"){for(const c of coins){const dx=dino.x+32-c.x,dy=dino.y+34-c.y,dd=Math.max(1,Math.hypot(dx,dy));if(dd<330){c.x+=dx*dt*7;c.y+=dy*dt*7}}}
-if(power==="boost")speed*=1.22;
-player.totalDistance+=dt*(10+(player.upgrades.speed||0)*.35);player.quest=player.quest||{};trail.push({x:dino.x+8,y:dino.y+35,life:1});if(trail.length>38)trail.shift();
-renderHUD();updateHubStatus();
-}
-function renderHUD(){$("hudDistance").textContent=fmt(dist)+" m";$("hudCoins").textContent=fmt(runCoins);$("hudCombo").textContent="x"+combo.toFixed(1);$("hudPower").textContent=power==="magnet"?"🧲":power==="boost"?"⚡":"—";$("hudTime").textContent=`${String(Math.floor(elapsed/60)).padStart(2,"0")}:${String(Math.floor(elapsed%60)).padStart(2,"0")}`;$("biomeBadge").textContent=biome().name;const s=Math.floor((elapsed%48)/12);$("phaseBadge").textContent=["🌅 BÌNH MINH","☀️ BAN NGÀY","🌇 HOÀNG HÔN","🌙 BAN ĐÊM"][s]}
-function drawMountains(off,col,base,h,w){ctx.fillStyle=col;for(let x=-w-(off%w);x<canvas.width+w;x+=w){ctx.beginPath();ctx.moveTo(x,base);ctx.lineTo(x+w*.48,base-h);ctx.lineTo(x+w,base);ctx.closePath();ctx.fill()}}
-function vipByStats(){if(player.coins>=50000)return 3;if(player.coins>=15000)return 2;if(player.coins>=5000)return 1;return 0;}
-function awardVIP(){const v=vipByStats(),old=player.vip;player.vip=Math.max(player.vip,v);for(let i=1;i<=3;i++)if(player.vip>=i&&!player.ownedFrames.includes("vip"+i))player.ownedFrames.push("vip"+i);if(v>old)toast("👑 Bạn đạt VIP "+v+"!");}
-function updateAchievementProgress(){awardVIP();for(const a of ACH){if(!player.achievements.includes(a.id)&&a.need(player)){player.achievements.push(a.id);player.coins+=a.reward;toast("🏆 Tự động mở thành tựu: "+a.name+" +"+a.reward)}}awardVIP();save();}
-
-function renderHUD(){$("hudDistance").textContent=fmt(dist)+" m";$("hudCoins").textContent=fmt(runCoins);$("hudCombo").textContent="x"+combo.toFixed(1);$("hudPower").textContent=power==="magnet"?"🧲":power==="boost"?"⚡":"—";$("hudTime").textContent=`${String(Math.floor(elapsed/60)).padStart(2,"0")}:${String(Math.floor(elapsed%60)).padStart(2,"0")}`;$("biomeBadge").textContent=biome().name;const s=Math.floor((elapsed%48)/12);$("phaseBadge").textContent=["🌅 BÌNH MINH","☀️ BAN NGÀY","🌇 HOÀNG HÔN","🌙 BAN ĐÊM"][s]}
-function drawMountains(off,col,base,h,w){ctx.fillStyle=col;for(let x=-w-(off%w);x<canvas.width+w;x+=w){ctx.beginPath();ctx.moveTo(x,base);ctx.lineTo(x+w*.48,base-h);ctx.lineTo(x+w,base);ctx.closePath();ctx.fill()}}
-function drawDino(){const s=SKINS[player?.selectedSkin||"blue"],x=dino.x,y=dino.y,b=dino.grounded&&active?Math.sin(performance.now()/75)*3:0,t=performance.now();ctx.save();let body=s.body,shade=s.shade,belly=s.belly;let rainbowGradient=null;if(s.kind==="prism"){rainbowGradient=ctx.createLinearGradient(x-18,y,x+72,y+72);["#ff3b5f","#ff9a2e","#ffe34a","#49e36f","#2fd7ff","#6876ff","#d95cff"].forEach((c,i)=>rainbowGradient.addColorStop(i/6,c));ctx.fillStyle=rainbowGradient;}else ctx.fillStyle=body;ctx.roundRect(x+12,y+20+b,43,42,17);ctx.fill();ctx.fillStyle=s.kind==="prism"?rainbowGradient:body;ctx.roundRect(x+39,y+3+b,31,35,13);ctx.fill();ctx.fillStyle=belly;ctx.beginPath();ctx.ellipse(x+40,y+39+b,17,19,-.35,0,Math.PI*2);ctx.fill();ctx.fillStyle=s.kind==="prism"?rainbowGradient:shade;ctx.beginPath();ctx.moveTo(x+18,y+40+b);ctx.lineTo(x-13,y+27+b);ctx.lineTo(x-17,y+42+b);ctx.lineTo(x+18,y+55+b);ctx.closePath();ctx.fill();ctx.fillStyle=s.kind==="prism"?rainbowGradient:body;ctx.fillRect(x+22,y+58+b,12,15);ctx.fillRect(x+47,y+58-b,12,15);if(s.kind==="prism"){ctx.fillStyle=rainbowGradient;for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(x+22+i*11,y+21+b);ctx.lineTo(x+27+i*11,y+6+b);ctx.lineTo(x+32+i*11,y+21+b);ctx.fill()}}else if(s.kind==="fire"){ctx.fillStyle="#ffcc43";for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(x+20+i*11,y+21+b);ctx.lineTo(x+26+i*11,y+5+b);ctx.lineTo(x+31+i*11,y+21+b);ctx.fill()}}else if(s.kind==="galaxy"){ctx.fillStyle="#6ee7ff";for(let i=0;i<4;i++){ctx.beginPath();ctx.arc(x+25+i*11,y+17+b,4,0,Math.PI*2);ctx.fill()}}else if(s.kind==="sakura"){ctx.fillStyle="#ffd2e8";for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(x+20+i*11,y+21+b);ctx.quadraticCurveTo(x+26+i*11,y+6+b,x+32+i*11,y+21+b);ctx.fill()}}else{ctx.fillStyle=s.accent;for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(x+22+i*11,y+20+b);ctx.lineTo(x+27+i*11,y+8+b);ctx.lineTo(x+32+i*11,y+20+b);ctx.fill()}}ctx.fillStyle="#fff";ctx.beginPath();ctx.ellipse(x+59,y+14+b,9,11,0,0,Math.PI*2);ctx.fill();ctx.fillStyle=s.kind==="fire"?"#ff2d1f":s.kind==="galaxy"?"#64e8ff":s.kind==="prism"?"#5b1b7d":"#101521";ctx.beginPath();ctx.arc(x+62,y+17+b,4,0,Math.PI*2);ctx.fill();if(s.kind==="prism"){for(let i=0;i<7;i++){ctx.fillStyle=i%2?"#fff":"#fff3b0";ctx.fillRect(x+9+i*8,y+6+Math.sin(t/180+i)*2,5,3)}}if(s.kind==="sakura"){for(let i=0;i<7;i++){const px=x+7+((i*17+t/35)%64),py=y+8+((i*13+t/55)%50);ctx.fillStyle="#ffd1e8cc";ctx.beginPath();ctx.arc(px,py,2.5,0,Math.PI*2);ctx.fill()}}if(s.kind==="galaxy"){for(let i=0;i<8;i++){const a=t/800+i*.8,rx=38+Math.sin(i)*10;ctx.fillStyle=i%2?"#6ee7ff":"#fff";ctx.beginPath();ctx.arc(x+34+Math.cos(a)*rx,y+35+Math.sin(a)*rx*.6,1.6,0,Math.PI*2);ctx.fill()}}ctx.restore()}
-
-function draw(){
-const b=biome(),W=canvas.width,H=canvas.height,h=ground(),day=(Math.sin((elapsed%48)/48*Math.PI*2-Math.PI/2)+1)/2;ctx.clearRect(0,0,W,H);const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,b.a);g.addColorStop(.75,b.b);g.addColorStop(1,b.g);ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
-if(day<.4||b.name.includes("AURORA"))for(let i=0;i<36;i++){ctx.fillStyle="#ffffff44";ctx.fillRect((i*97)%W,22+((i*43)%135),2,2)}
-if(b.name.includes("AURORA")){const aur=ctx.createLinearGradient(0,0,W,0);aur.addColorStop(0,"#7c58ff22");aur.addColorStop(.5,"#42ddff33");aur.addColorStop(1,"#ff62d322");ctx.fillStyle=aur;ctx.fillRect(0,0,W,150)}
-ctx.fillStyle=day>.45?"#ffd75ccc":"#d8ebff99";ctx.beginPath();ctx.arc(W-120,70+Math.cos(elapsed/48*Math.PI*2)*22,day>.45?30:22,0,Math.PI*2);ctx.fill();
-drawMountains(dist*.05,"#06132177",h-5,125,265);drawMountains(dist*.12,"#123b4fbb",h+5,90,190);
-ctx.save();
-const t0=performance.now(), drift=(t0/90)% (W+260);
-for(let i=0;i<5;i++){const cx=(i*240-drift*(i%2?0.35:0.18)+W+260)%(W+260)-130, cy=65+(i%3)*28;ctx.fillStyle="#ffffff22";ctx.beginPath();ctx.arc(cx,cy,22,0,Math.PI*2);ctx.arc(cx+23,cy-6,28,0,Math.PI*2);ctx.arc(cx+52,cy,22,0,Math.PI*2);ctx.fill();}
-for(let i=0;i<8;i++){const gx=(i*165-(dist*0.8)%165);ctx.fillStyle=b.name.includes("SA MẠC")?"#9b6a3a66":"#2d6a4caa";ctx.beginPath();ctx.moveTo(gx,h);ctx.lineTo(gx+10,h-26-(i%3)*7);ctx.lineTo(gx+18,h);ctx.fill();}
-if(b.name.includes("NÚI LỬA")){for(let i=0;i<4;i++){const vx=(i*310-(dist*.18)%310);ctx.fillStyle="#ff774444";ctx.beginPath();ctx.arc(vx+40,h-110,6,0,Math.PI*2);ctx.arc(vx+67,h-145,4,0,Math.PI*2);ctx.fill();}}
-if(b.name.includes("BĂNG GIÁ")){ctx.fillStyle="#bfefff33";for(let i=0;i<7;i++){const sx=(i*150-(dist*.4)%150);ctx.beginPath();ctx.moveTo(sx,h);ctx.lineTo(sx+22,h-46-(i%2)*16);ctx.lineTo(sx+48,h);ctx.fill();}}
-ctx.restore();
-ctx.fillStyle="#ffffff14";ctx.fillRect(0,h-30,W,42);ctx.fillStyle=b.g;ctx.fillRect(0,h,W,H-h);ctx.strokeStyle="#ffd34d";ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(0,h+1);ctx.lineTo(W,h+1);ctx.stroke();
-ctx.strokeStyle="#ffffff2e";ctx.lineWidth=2;const lo=(dist*9)%48;for(let x=-lo;x<W;x+=48){ctx.beginPath();ctx.moveTo(x,h+20);ctx.lineTo(x+24,h+20);ctx.stroke()}
-if(trail.length>2){const kind=SKINS[player?.selectedSkin||"blue"]?.kind||"ice";ctx.save();ctx.lineCap="round";ctx.lineJoin="round";const pts=trail;for(let i=0;i<pts.length-2;i++){const p0=pts[i],p1=pts[i+1],p2=pts[i+2],q=i/(pts.length-2);ctx.globalAlpha=.18+.72*q;ctx.lineWidth=4+12*q;if(kind==="prism"){const g2=ctx.createLinearGradient(p0.x,p0.y,p2.x,p2.y);g2.addColorStop(0,rcolor(i));g2.addColorStop(.25,rcolor(i+1));g2.addColorStop(.5,rcolor(i+2));g2.addColorStop(.75,rcolor(i+3));g2.addColorStop(1,rcolor(i+4));ctx.strokeStyle=g2}else if(kind==="fire")ctx.strokeStyle=`hsl(${20-5*q},100%,${58+18*q}%)`;else if(kind==="galaxy")ctx.strokeStyle=`hsl(${250+45*q},100%,${65+14*q}%)`;else if(kind==="sakura")ctx.strokeStyle=`hsl(${330+10*q},100%,${68+16*q}%)`;else ctx.strokeStyle=`hsl(${190-25*q},100%,${62+16*q}%)`;ctx.beginPath();ctx.moveTo(p0.x,p0.y);ctx.quadraticCurveTo(p1.x,p1.y,p2.x,p2.y);ctx.stroke()}ctx.globalAlpha=1;ctx.restore()}obstacles.forEach(o=>{const y=h-o.h;ctx.fillStyle="#6e2c22";ctx.fillRect(o.x+9,y,o.w-17,o.h);ctx.fillStyle="#bd4631";ctx.fillRect(o.x,y+o.h*.3,o.w,10);ctx.fillStyle="#ff8a60";ctx.fillRect(o.x+11,y+7,4,o.h-17)});
-coins.forEach(c=>{const sc=.7+Math.abs(Math.sin(c.spin))*.3;ctx.save();ctx.translate(c.x,c.y);ctx.scale(sc,1);ctx.fillStyle=c.r===12?"#fff0a5":"#ffd34d";ctx.beginPath();ctx.arc(0,0,c.r,0,Math.PI*2);ctx.fill();ctx.restore()});
-powers.forEach(p=>{ctx.fillStyle=p.type==="magnet"?"#ff62c9":"#ffd34d";ctx.beginPath();ctx.arc(p.x,p.y,15,0,Math.PI*2);ctx.fill();ctx.fillStyle="#07111c";ctx.font="900 14px Arial";ctx.textAlign="center";ctx.fillText(p.type==="magnet"?"M":"⚡",p.x,p.y+5)});
-drawDino();particles.forEach(p=>{ctx.globalAlpha=Math.max(0,p.life/p.max);ctx.fillStyle=p.c;ctx.fillRect(p.x,p.y,p.s,p.s)});ctx.globalAlpha=1;
-if(!active){ctx.fillStyle="#fff";ctx.font="900 19px Arial";ctx.textAlign="center";ctx.fillText("SPACE / CHẠM ĐỂ CHẠY",W/2,185);ctx.font="600 13px Arial";ctx.fillStyle="#9db3c8";ctx.fillText(player?("Người chơi: "+player.name):"Đăng ký tên để bắt đầu",W/2,211)}
-}
-function loop(t){if(!active||paused)return;const dt=Math.min(.032,(t-last)/1000);last=t;update(dt);draw();raf=requestAnimationFrame(loop)}
-function endGame(){
-active=false;cancelAnimationFrame(raf);soundHit();const final=Math.floor(dist);const skin=SKINS[player.selectedSkin]||SKINS.blue;const mult=1+skin.bonus+player.upgrades.coin*.03;const reward=Math.floor(runCoins*mult+final*config.coinPerMeter+config.runBonus);
-player.coins+=reward;player.best=Math.max(player.best,final);player.stats.runs++;player.rankStats=player.rankStats||{coins:0,best:0,distance:0};player.rankStats.coins+=reward;player.rankStats.best=Math.max(player.rankStats.best,final);player.rankStats.distance+=final;
-if(player.selectedSkin==="rainbow")rainbowFXSound("rainbow","end");for(let i=0;i<25;i++)emit(dino.x+30,dino.y+30,player.selectedSkin==="rainbow"?rcolor(i):"#ff6575");
-updateAchievementProgress();save();refreshUI();$("gameState").textContent=`GAME OVER • ${fmt(final)} m • +${fmt(reward)} xu`;draw();
-}
-
-$("jumpBtn").onclick=null;$("jumpBtn").onpointerdown=e=>{e.preventDefault();jump()};$("pauseBtn").onclick=pause;$("restartBtn").onclick=startGame;$("soundBtn").onclick=()=>setMusicEnabled(musicConfig.enabled===false);$("musicTopBtn").onclick=()=>setMusicEnabled(musicConfig.enabled!==false);
-canvas.addEventListener("pointerdown",e=>{e.preventDefault();jump()});addEventListener("keydown",e=>{if(["Space","ArrowUp","KeyW"].includes(e.code)){e.preventDefault();jump()}if(e.code==="KeyP"){e.preventDefault();pause()}if(e.code==="KeyR"){e.preventDefault();startGame()}});document.addEventListener("visibilitychange",()=>{if(document.hidden&&active&&!paused)pause()});
-
-async function fullscreenGame(){const target=$("gameFrame")||$("game");if(document.fullscreenElement){try{await document.exitFullscreen();}catch{};target.classList.remove("landscape-lock","fullscreen-game");return;}try{await target.requestFullscreen({navigationUI:"hide"});target.classList.add("landscape-lock","fullscreen-game");if(screen.orientation?.lock){try{await screen.orientation.lock("landscape");}catch{}}}catch(e){toast("⚠️ Thiết bị/trình duyệt không hỗ trợ Fullscreen");}}
-document.addEventListener("fullscreenchange",()=>{if(!document.fullscreenElement){$("gameFrame")?.classList.remove("landscape-lock","fullscreen-game");}});
-
-function openAdmin(){
-  $("adminModal").classList.remove("hidden");
-  $("adminLoginBox").classList.remove("hidden");
-  $("adminBody").classList.add("hidden");
-  $("adminPassword").value="";
-  $("adminError").textContent="";
-  initAdminSections();
-}
-document.addEventListener("keydown",e=>{if(e.key==="F2")openAdmin();if(e.key==="Escape"){["adminModal","renameModal","updateLogModal","deviceModal","profileSettingsModal","hubStatusModal"].forEach(x=>$(x)?.classList.add("hidden"))}});
-const adminOpen=$("floatingAdmin");adminOpen.classList.remove("hidden");adminOpen.onclick=openAdmin;
-
-function renderProfileChoices(){
-  if(!player)return;
-  $("avatarChoices").innerHTML=AVATARS.map(a=>{const own=player.avatarOwned.includes(a.id),eq=player.avatar===a.id;return `<button class="choice-btn avatar-choice ${eq?"active":""}" onclick="selectAvatar('${a.id}')"><span>${a.icon}</span><span>${a.name}<small style="display:block;font-size:8px;opacity:.75">${own?(eq?"Đang dùng":"Đã sở hữu"):(a.cost?"🪙 "+fmt(a.cost):"Mặc định")}</small></span></button>`}).join("");
-  $("frameChoices").innerHTML=FRAMES.map(f=>{const own=player.ownedFrames.includes(f.id),eq=player.frame===f.id;return `<button class="choice-btn ${eq?"active":""}" onclick="selectFrame('${f.id}')"><span class="frame-${f.id}" style="display:inline-block;width:16px;height:16px;border-radius:5px;border:2px solid currentColor;vertical-align:-3px;margin-right:3px"></span>${f.name}<br><span style="font-size:8px;opacity:.75">${own?(eq?"Đang dùng":f.how):f.cost>0?"Chưa sở hữu":"Mặc định"}</span></button>`}).join("");
-}
-window.selectAvatar=id=>{if(!player)return;const a=AVATARS.find(x=>x.id===id);if(!a)return;if(!player.avatarOwned.includes(id)){if(player.coins<a.cost){toast("❌ Không đủ xu để mua avatar");return}player.coins-=a.cost;player.avatarOwned.push(id);toast("🐾 Đã mở avatar "+a.name)}player.avatar=id;save();refreshUI();toast("🐾 Đã chọn avatar "+a.name)};
-window.selectFrame=id=>{if(!player)return;const f=FRAMES.find(x=>x.id===id);if(!f)return;if(!player.ownedFrames.includes(id)){if(player.coins<f.cost){toast("❌ Không đủ xu để mua khung");return}player.coins-=f.cost;player.ownedFrames.push(id);toast("🖼️ Đã mở khung "+f.name)}player.frame=id;save();refreshUI();toast("🖼️ Đã chọn khung "+f.name)};
-function renderAchievements(){
-  if(!player)return;
-  const box=$("achievementsGrid");
-  box.innerHTML=ACH.map(a=>{const done=player.achievements.includes(a.id);const frame=done?a.frame:"bronze";const buttonText=done?"✓ ĐÃ MỞ":"MỞ • +"+a.reward+" 🪙";return `<div class="card achievement"><div class="avatar-box ach-icon frame-${frame}"><span>${a.icon||"🏆"}</span></div><h3>${a.name}</h3><p class="mini">${a.desc}</p><button class="btn ${done?"green":"primary"}" ${done?"disabled":""} style="width:100%" onclick="claimAchievement('${a.id}')">${buttonText}</button></div>`}).join("");
-}
-
-
-// ---------------- SOCIAL / CLAN ----------------
-let currentClan=null;
-let socialTimer=null;
-function socialReady(){return cloudReady();}
-function socialHeaders(extra={}){return {'Content-Type':'application/json',...extra};}
-function esc(s){return escapeHTML(String(s??""));}
-function clanId(){return currentClan?.id||player?.clanId||null;}
-function renderWorldChat(rows){
-  const box=$("worldChatList");if(!box)return;
-  box.innerHTML=(rows||[]).slice(-80).map(r=>`<div class="chat-line"><span class="chat-name">${esc(r.sender_name)}</span><span class="chat-time">${new Date(r.created_at).toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"})}</span><div>${esc(r.message)}</div></div>`).join("")||'<div class="mini">Chưa có tin nhắn.</div>';
-  box.scrollTop=box.scrollHeight;
-}
-function renderClanChat(rows){
-  const box=$("clanChatList");if(!box)return;
-  box.innerHTML=(rows||[]).slice(-80).map(r=>`<div class="chat-line"><span class="chat-name">${esc(r.sender_name)}</span><span class="chat-time">${new Date(r.created_at).toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"})}</span><div>${esc(r.message)}</div></div>`).join("")||'<div class="mini">Chưa có tin nhắn Clan.</div>';
-  box.scrollTop=box.scrollHeight;
-}
-async function loadWorldChat(){
- if(!socialReady()){renderWorldChat([]);$("socialStatus").textContent="Cần kết nối Supabase";return;}
- try{const rows=await (await cloudFetch('/rest/v1/dino_chat_messages?select=id,sender_name,message,created_at&scope=eq.world&order=created_at.desc&limit=80')).json();renderWorldChat(rows.reverse());$("socialStatus").textContent="🌍 Chat đang đồng bộ";}catch(e){$("socialStatus").textContent="⚠️ "+e.message;}
-}
-async function sendWorldChat(){
- if(!player||!socialReady())return toast("⚠️ Cần kết nối Supabase và đăng nhập");
- const input=$("worldChatInput"),msg=input.value.trim();if(!msg)return;
- if(msg.length>180)return toast("Tin nhắn quá dài");
- try{await cloudFetch('/rest/v1/dino_chat_messages',{method:'POST',headers:socialHeaders(),body:JSON.stringify({scope:"world",sender_name:player.name,message:msg})});input.value="";await loadWorldChat();}catch(e){toast("❌ Không gửi được chat • Hãy chạy SQL Social Clan + Cloud v1.7");}
-}
-async function loadMyClan(){
- if(!player||!socialReady()){currentClan=null;$("myClanName").textContent="Chưa có Clan";$("myClanTag").textContent="—";$("clanChatInput").disabled=true;$("clanChatSend").disabled=true;return;}
- try{
-   const q=await (await cloudFetch(`/rest/v1/dino_clan_members?select=clan_id,role,player_name&player_name=eq.${encodeURIComponent(player.name)}&limit=1`)).json();
-   if(!q.length){currentClan=null;$("myClanName").textContent="Chưa có Clan";$("myClanTag").textContent="—";$("myClanInfo").textContent=`2 Thẻ Tạo Clan = ${fmt(CLAN_TICKET_PRICE*2)} xu để tạo.`;$("clanChatInput").disabled=true;$("clanChatSend").disabled=true;return;}
-   const c=await (await cloudFetch(`/rest/v1/dino_clans?select=*&id=eq.${q[0].clan_id}&limit=1`)).json();currentClan=c[0]||null;
-   if(currentClan){player.clanId=currentClan.id;player.clanRole=q[0].role;save();$("myClanName").textContent=currentClan.name;$("myClanTag").textContent=currentClan.tag;$("myClanInfo").textContent=`Chủ Clan: ${currentClan.owner_name} • Thành viên: ${currentClan.member_count||0}`;$("clanChatInput").disabled=false;$("clanChatSend").disabled=false;await loadClanChat();}
- }catch(e){$("socialStatus").textContent="⚠️ "+e.message;}
-}
-async function loadClanList(){
- if(!socialReady()){ $("clanList").innerHTML='<div class="mini">Kết nối Supabase để xem Clan.</div>';return;}
- try{const rows=await (await cloudFetch('/rest/v1/dino_clans?select=id,name,tag,owner_name,member_count&order=member_count.desc&limit=30')).json();
- $("clanList").innerHTML=rows.map(c=>`<div class="clan-row"><div><b>${esc(c.name)}</b> <span class="badge">[${esc(c.tag)}]</span><div class="mini">${esc(c.owner_name)} • ${fmt(c.member_count||0)} thành viên</div></div><button class="btn" onclick="joinClan('${c.id}')">${currentClan?.id===c.id?"ĐANG Ở":"THAM GIA"}</button></div>`).join("")||'<div class="mini">Chưa có Clan.</div>';
- }catch(e){$("clanList").innerHTML='<div class="mini">Không tải được Clan.</div>';}
-}
-window.joinClan=async id=>{
- if(!player||!socialReady())return toast("⚠️ Cần kết nối Supabase");
- if(currentClan)return toast("Bạn đang ở một Clan. Rời Clan trước.");
- try{await cloudFetch('/rest/v1/dino_clan_members',{method:'POST',headers:socialHeaders(),body:JSON.stringify({clan_id:id,player_name:player.name,role:"member"})});await loadMyClan();await loadClanList();toast("🛡️ Đã gia nhập Clan");}catch(e){toast("❌ Không thể gia nhập Clan");}
-};
-async function createClan(){
- if(!player||!socialReady())return toast("⚠️ Kết nối Supabase trước");
- if(currentClan)return toast("Bạn đã có Clan");
- if(player.inventory.clanTickets<2)return toast("❌ Cần 2 Thẻ Tạo Clan");
- const name=$("clanNameInput").value.trim(),tag=$("clanTagInput").value.trim().toUpperCase();
- if(name.length<3||name.length>24)return $("clanCreateError").textContent="Tên Clan 3–24 ký tự.";
- if(!/^[A-Z0-9]{2,6}$/.test(tag))return $("clanCreateError").textContent="TAG phải 2–6 ký tự A-Z/0-9.";
- try{
-   const id=crypto.randomUUID();
-   await cloudFetch('/rest/v1/dino_clans',{method:'POST',headers:{...socialHeaders(),Prefer:'return=minimal'},body:JSON.stringify({id,name,tag,owner_name:player.name,member_count:1,total_coins:player.coins,total_best:player.best,total_distance:player.totalDistance})});
-   await cloudFetch('/rest/v1/dino_clan_members',{method:'POST',headers:{...socialHeaders(),Prefer:'return=minimal'},body:JSON.stringify({clan_id:id,player_name:player.name,role:"owner"})});
-   player.inventory.clanTickets-=2;player.clanId=id;player.clanRole="owner";save();
-   $("clanCreateModal").classList.add("hidden");$("clanCreateError").textContent="";await loadMyClan();await loadClanList();await loadClanRanks();toast("🎉 Tạo Clan thành công");
- }catch(e){$("clanCreateError").textContent="Không tạo được: "+e.message;}
-}
-async function loadClanChat(){
- if(!currentClan||!socialReady())return renderClanChat([]);
- try{const rows=await (await cloudFetch(`/rest/v1/dino_clan_messages?select=id,sender_name,message,created_at&clan_id=eq.${currentClan.id}&order=created_at.desc&limit=80`)).json();renderClanChat(rows.reverse());}catch(e){}
-}
-async function sendClanChat(){
- if(!currentClan||!player||!socialReady())return toast("⚠️ Bạn chưa vào Clan");
- const input=$("clanChatInput"),msg=input.value.trim();if(!msg)return;
- try{await cloudFetch('/rest/v1/dino_clan_messages',{method:'POST',headers:socialHeaders(),body:JSON.stringify({clan_id:currentClan.id,sender_name:player.name,message:msg})});input.value="";await loadClanChat();}catch(e){toast("❌ Không gửi được chat Clan • Thiếu bảng Clan hoặc quyền Supabase");}
-}
-async function loadClanRanks(){
- if(!socialReady())return;
- try{
-  const clans=await (await cloudFetch('/rest/v1/dino_clans?select=id,name,tag,total_coins,total_best,total_distance,member_count')).json();
-  const sorted=(k)=>[...clans].sort((a,b)=>(Number(b[k])||0)-(Number(a[k])||0)).slice(0,10);
-  const html=(arr,key,label)=>arr.map((c,i)=>`<div class="leader-row"><div class="rank">#${i+1}</div><div><b>${esc(c.name)}</b> <span class="badge">${esc(c.tag)}</span><div class="mini">${fmt(c.member_count||0)} thành viên</div></div><div class="rank-value">${fmt(c[key])} ${label}</div></div>`).join("")||'<div class="mini">Chưa có dữ liệu.</div>';
-  $("clanRankCoins").innerHTML=`<div class="card"><h3>💰 Clan nhiều xu</h3>${html(sorted("total_coins"),"total_coins","xu")}</div>`;
-  $("clanRankBest").innerHTML=`<div class="card"><h3>🏃 Clan kỷ lục</h3>${html(sorted("total_best"),"total_best","m")}</div>`;
-  $("clanRankDistance").innerHTML=`<div class="card"><h3>📏 Clan tổng mét</h3>${html(sorted("total_distance"),"total_distance","m")}</div>`;
- }catch(e){}
-}
-async function loadSocial(){await loadWorldChat();await loadMyClan();await loadClanList();await loadClanRanks();clearInterval(socialTimer);socialTimer=setInterval(()=>{loadWorldChat();if(currentClan)loadClanChat();loadClanRanks();},5000);}
-async function syncClanStats(){
- if(!socialReady())return;
- try{
- const clans=await (await cloudFetch('/rest/v1/dino_clans?select=id,name')).json();
- for(const c of clans){
-   const mem=await (await cloudFetch(`/rest/v1/dino_clan_members?select=player_name&clan_id=eq.${c.id}`)).json();
-   let total_coins=0,total_best=0,total_distance=0;
-   for(const m of mem){const rows=await (await cloudFetch(`/rest/v1/dino_players?select=data&name=eq.${encodeURIComponent(m.player_name)}&limit=1`)).json();const p=rows[0]?.data;if(p){total_coins+=Number(p.coins)||0;total_best=Math.max(total_best,Number(p.best)||0);total_distance+=Number(p.totalDistance)||0;}}
-   await cloudFetch(`/rest/v1/dino_clans?id=eq.${c.id}`,{method:'PATCH',headers:socialHeaders(),body:JSON.stringify({member_count:mem.length,total_coins,total_best,total_distance,updated_at:new Date().toISOString()})});
- }
- }catch(e){}
-}
-$("worldChatSend").onclick=sendWorldChat;$("worldChatInput").addEventListener("keydown",e=>{if(e.key==="Enter")sendWorldChat()});
-$("clanChatSend").onclick=sendClanChat;$("clanChatInput").addEventListener("keydown",e=>{if(e.key==="Enter")sendClanChat()});
-$("refreshClans").onclick=()=>{loadClansNow();}; async function loadClansNow(){await loadMyClan();await loadClanList();await loadClanRanks();toast("↻ Đã tải Clan");}
-$("openClanCreate").onclick=()=>{$("clanCreateError").textContent="";$("clanNameInput").value="";$("clanTagInput").value="";$("clanCreateModal").classList.remove("hidden");};
-$("clanCreateCancel").onclick=()=>$("clanCreateModal").classList.add("hidden");$("clanCreateBtn").onclick=createClan;
-document.querySelectorAll(".social-tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".social-tab").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".social-panel").forEach(x=>x.classList.add("hidden"));const m=b.dataset.social;$("social"+(m==="clan"?"Clan":m==="clanrank"?"ClanRank":"World")+"Panel").classList.remove("hidden");if(m==="clanrank")loadClanRanks();if(m==="clan")loadClansNow();});
-document.querySelectorAll(".rank-tabs .tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".rank-tabs .tab").forEach(x=>x.classList.remove("active"));b.classList.add("active");["Coins","Best","Distance"].forEach(k=>$("rank"+k+"Panel")?.classList.add("hidden"));$("rank"+b.dataset.rank.charAt(0).toUpperCase()+b.dataset.rank.slice(1)+"Panel")?.classList.remove("hidden");});
-document.querySelectorAll(".clan-rank-tabs .tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".clan-rank-tabs .tab").forEach(x=>x.classList.remove("active"));b.classList.add("active");["Coins","Best","Distance"].forEach(k=>$("clanRank"+k)?.classList.add("hidden"));$("clanRank"+b.dataset.clanRank.charAt(0).toUpperCase()+b.dataset.clanRank.slice(1))?.classList.remove("hidden");});
-
-applyDeviceMode();if(!selectedDevice){openDevicePicker();$("nameModal").classList.add("hidden");}else if(!player){$("nameModal").classList.remove("hidden");$("gameState").textContent="Đăng ký tên để bắt đầu.";}else{refreshUI();$("nameModal").classList.add("hidden");}
-resetDino();draw();applySiteInfo();updateMusicButtons();bindMusicInteraction();if(cloudReady()){setCloudStatus("☁️ Đang kết nối Supabase...");cloudLoadAll().then(()=>awardDailyRankRewards()).catch(()=>{});}
-})();
+<script>const $=id=>document.getElementById(id);const fmt=n=>Math.floor(Number(n)||0).toLocaleString('vi-VN');
+let device=localStorage.getItem('rift-device')||'',player=null,admin=false,shopTab='ship',rankTab='wave';
+const ships=[{id:'nova',name:'Nova',rarity:'Common',price:0,icon:'🚀',desc:'Phi thuyền cân bằng.',speed:1},{id:'specter',name:'Specter',rarity:'Rare',price:1800,icon:'🛸',desc:'Nhanh hơn và Dash tốt hơn.',speed:1.15},{id:'solar',name:'Solar Wing',rarity:'Epic',price:3500,icon:'☀️',desc:'Bền bỉ và mạnh.',speed:1.05},{id:'aurora',name:'Aurora Core',rarity:'Legendary',price:7000,icon:'🌌',desc:'Phi thuyền tối thượng.',speed:1.25}];
+const pets=[{id:'wisp',name:'Rift Wisp',rarity:'Common',price:600,icon:'🦋',bonus:.02,desc:'Tăng 2% thưởng cuối trận.'},{id:'dragon',name:'Star Dragon',rarity:'Epic',price:3000,icon:'🐉',bonus:.08,desc:'Tăng 8% thưởng cuối trận.'},{id:'phoenix',name:'Nova Phoenix',rarity:'Legendary',price:6000,icon:'🔥',bonus:.14,desc:'Tăng 14% thưởng cuối trận.'}];
+const modules=[{id:'dash',name:'Dash Core',rarity:'Rare',price:1200,icon:'⚡',desc:'Dash hồi nhanh hơn.'},{id:'pulse',name:'Pulse Core',rarity:'Epic',price:1800,icon:'💥',desc:'Pulse rộng hơn.'},{id:'regen',name:'Regen Core',rarity:'Legendary',price:2400,icon:'💚',desc:'Hồi HP khi không bị đánh.'}];
+const frames=[{id:'none',name:'Standard Frame',price:0,icon:'◌',desc:'Khung mặc định.'},{id:'gold',name:'Gold Rift',price:2000,icon:'🟡',desc:'Khung vàng.'},{id:'aurora',name:'Aurora Frame',price:5000,icon:'🌈',desc:'Khung Aurora.'},{id:'void',name:'Void Frame',price:8000,icon:'🟣',desc:'Khung hư không.'}];
+const achievements=[{id:'first',name:'First Rift',goal:1,icon:'1️⃣',desc:'Hoàn thành trận đầu tiên',reward:150},{id:'wave5',name:'Wave Hunter',goal:5,icon:'🔥',desc:'Đạt Wave 5',reward:300},{id:'wave10',name:'Rift Master',goal:10,icon:'👑',desc:'Đạt Wave 10',reward:800},{id:'runs20',name:'Arena Veteran',goal:20,icon:'🎮',desc:'Hoàn thành 20 trận',reward:500}];
+const missions=[{id:'m1',name:'Survive 3 waves',key:'wave',goal:3,reward:180},{id:'m2',name:'Complete 2 runs',key:'runs',goal:2,reward:160},{id:'m3',name:'Use Dash 10 times',key:'dash',goal:10,reward:200}];
+const key='rift-player';
+function freshPlayer(name){return{name,coins:1200,ship:'nova',pet:null,frame:'none',ownedShips:['nova'],ownedPets:[],ownedModules:[],ownedFrames:['none'],vip:0,stats:{runs:0,bestWave:0,score:0,playTime:0,dashes:0,pulses:0},missions:{wave:0,runs:0,dash:0},achievements:[],notifications:[{text:'Chào mừng đến Aurora Rift!',ts:Date.now()}]};}
+function save(){if(player)localStorage.setItem(key,JSON.stringify(player));}
+function load(){try{player=JSON.parse(localStorage.getItem(key)||'null')}catch{player=null}}
+function selectDevice(d){device=d;localStorage.setItem('rift-device',d);$('deviceModal').classList.add('hidden');if(!player)$('nameModal').classList.remove('hidden');}
+function registerPlayer(){const n=$('nameInput').value.trim();if(n.length<2||n.length>18){$('nameErr').textContent='Tên phải từ 2 đến 18 ký tự.';return}if(!/^[\p{L}\p{N}_\- ]+$/u.test(n)){$('nameErr').textContent='Tên không hợp lệ.';return}player=freshPlayer(n);save();enter();}
+function enter(){$('nameModal').classList.add('hidden');$('top').classList.remove('hidden');$('content').classList.remove('hidden');$('bottom').classList.remove('hidden');refresh();renderShop();renderInventory();renderRank();}
+function refresh(){if(!player)return;$('coin').textContent=fmt(player.coins);$('homeName').textContent=player.name;$('kWave').textContent=player.stats.bestWave;$('kRuns').textContent=player.stats.runs;$('kTime').textContent=Math.floor(player.stats.playTime/60)+'m';$('kVip').textContent=player.vip;$('homeShip').textContent=(ships.find(s=>s.id===player.ship)||ships[0]).name;$('homePet').textContent=player.pet?(pets.find(p=>p.id===player.pet)||{}).name||'—':'—';}
+function nav(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));$(id).classList.add('active');document.querySelectorAll('.bottom button').forEach(b=>b.classList.toggle('active',b.dataset.n===id));if(id==='shop')renderShop();if(id==='inventory')renderInventory();if(id==='rank')renderRank();}
+function closeModal(id){$(id).classList.add('hidden')}
+function openDetail(title,content){$('dmEyebrow').textContent='DETAIL';$('dmTitle').textContent=title;$('dmBody').innerHTML=content;$('detailModal').classList.remove('hidden')}
+function openModal(k){if(k==='admin')$('adminModal').classList.remove('hidden');if(k==='profile')openDetail('PROFILE',profileHTML());if(k==='notif'){$('notifBody').innerHTML=(player.notifications||[]).map(n=>`<div class="row"><div><strong>${n.text}</strong><small>${new Date(n.ts).toLocaleString('vi-VN')}</small></div></div>`).join('')||'<div class="notice">Không có thông báo.</div>';$('notifModal').classList.remove('hidden');}}
+function profileHTML(){const s=ships.find(x=>x.id===player.ship),p=pets.find(x=>x.id===player.pet);return `<div class="detail"><div class="preview"><div class="bigIcon">${s.icon}</div></div><div><div class="grid2"><div class="card"><span class="muted small">PLAYER</span><b>${player.name}</b></div><div class="card"><span class="muted small">VIP</span><b>${player.vip}</b></div><div class="card"><span class="muted small">SHIP</span><b>${s.name}</b></div><div class="card"><span class="muted small">PET</span><b>${p?p.name:'None'}</b></div></div><div class="card" style="margin-top:8px"><div class="eyebrow">STATS</div><div class="grid2" style="margin-top:8px"><div class="kpi"><span class="muted small">BEST WAVE</span><b>${player.stats.bestWave}</b></div><div class="kpi"><span class="muted small">RUNS</span><b>${player.stats.runs}</b></div><div class="kpi"><span class="muted small">SCORE</span><b>${fmt(player.stats.score)}</b></div><div class="kpi"><span class="muted small">DASH</span><b>${player.stats.dashes}</b></div></div></div></div></div>`}
+function setShopTab(tab){shopTab=tab;document.querySelectorAll('#shopTabs button').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));renderShop()}
+function renderShop(){const g=$('shopGrid');const defs=shopTab==='ship'?ships:shopTab==='pet'?pets:shopTab==='module'?modules:frames;g.innerHTML='';defs.forEach(d=>{const arr=shopTab==='ship'?player.ownedShips:shopTab==='pet'?player.ownedPets:shopTab==='module'?player.ownedModules:player.ownedFrames;const owned=arr.includes(d.id);const eq=shopTab==='ship'?player.ship===d.id:shopTab==='pet'?player.pet===d.id:shopTab==='frame'?player.frame===d.id:false;g.insertAdjacentHTML('beforeend',`<div class="card"><div style="font-size:42px">${d.icon}</div><b>${d.name}</b><div class="rarity">${d.rarity||'—'}</div><p class="muted small" style="margin:5px 0">${d.desc}</p><div style="display:flex;justify-content:space-between;align-items:center;gap:6px"><span class="pill">🪙 ${fmt(d.price)}</span><button class="btn ${eq?'green':'gold'}" onclick="buy('${shopTab}','${d.id}')">${eq?'ĐANG DÙNG':owned?'TRANG BỊ':'MUA'}</button></div></div>`)});}
+function buy(tab,id){const defs=tab==='ship'?ships:tab==='pet'?pets:tab==='module'?modules:frames;const d=defs.find(x=>x.id===id);if(!d)return;const arr=tab==='ship'?player.ownedShips:tab==='pet'?player.ownedPets:tab==='module'?player.ownedModules:player.ownedFrames;if(!arr.includes(id)){if(player.coins<d.price)return alert('Không đủ Coin');player.coins-=d.price;arr.push(id)}if(tab==='ship')player.ship=id;if(tab==='pet')player.pet=id;if(tab==='frame')player.frame=id;save();refresh();renderShop();renderInventory()}
+function renderInventory(){const g=$('invGrid');const all=[];player.ownedShips.forEach(id=>all.push(['ship',ships.find(x=>x.id===id)]));player.ownedPets.forEach(id=>all.push(['pet',pets.find(x=>x.id===id)]));player.ownedFrames.forEach(id=>all.push(['frame',frames.find(x=>x.id===id)]));g.innerHTML=all.filter(x=>x[1]).map(x=>{const [t,d]=x;const eq=(t==='ship'&&d.id===player.ship)||(t==='pet'&&d.id===player.pet)||(t==='frame'&&d.id===player.frame);return `<div class="card"><div style="font-size:40px">${d.icon}</div><b>${d.name}</b><div class="rarity">${d.rarity||'FRAME'}</div><p class="muted small">${d.desc}</p><button class="btn ${eq?'green':'gold'} wide" onclick="buy('${t}','${d.id}')">${eq?'✓ ĐANG DÙNG':'TRANG BỊ'}</button></div>`}).join('')||'<div class="notice">Kho đang trống.</div>'}
+function renderRank(){const list=JSON.parse(localStorage.getItem('rift-rank')||'[]');if(!list.length)list.push({name:player.name,bestWave:player.stats.bestWave,score:player.stats.score,runs:player.stats.runs});list.sort((a,b)=>rankTab==='wave'?b.bestWave-a.bestWave:rankTab==='score'?b.score-a.score:b.runs-a.runs);$('rankBox').innerHTML=list.slice(0,10).map((r,i)=>`<div class="row"><div><strong>${['🥇','🥈','🥉'][i]||'#'+(i+1)} ${r.name}</strong><small>Wave ${r.bestWave}</small></div><b>${rankTab==='wave'?r.bestWave:rankTab==='score'?fmt(r.score):r.runs}</b></div>`).join('')}
+function rankSet(t){rankTab=t;document.querySelectorAll('#rankTabs button').forEach(b=>b.classList.toggle('active',b.dataset.rank===t));renderRank()}
+// Arena
+const cv=$('cv'),ctx=cv.getContext('2d');let running=false,paused=false,raf=0,last=0,wave=1,waveTimer=0,score=0,hp=100,time=0,shotClock=0,dashCd=0,pulseCd=0,enemies=[],shots=[],parts=[],pointer=null;const ship={x:500,y:280,r:18};const keys={w:false,a:false,s:false,d:false};
+function startArena(){if(running)return;running=true;paused=false;wave=1;waveTimer=0;score=0;hp=100;time=0;shotClock=0;dashCd=0;pulseCd=0;enemies=[];shots=[];parts=[];ship.x=500;ship.y=280;spawnWave();last=performance.now();cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)}
+function spawnWave(){const count=3+wave*2;for(let i=0;i<count;i++){const a=Math.random()*Math.PI*2,r=380+Math.random()*100;enemies.push({x:500+Math.cos(a)*r,y:280+Math.sin(a)*r,r:12+Math.random()*7,hp:24+wave*7,spd:36+wave*4,c:i%2?'#ff648f':'#a77bff'})}waveTimer=3}
+function loop(t){if(!running||paused)return;const dt=Math.min(.033,(t-last)/1000);last=t;update(dt);draw();raf=requestAnimationFrame(loop)}
+function update(dt){time+=dt;dashCd=Math.max(0,dashCd-dt);pulseCd=Math.max(0,pulseCd-dt);const s=(ships.find(x=>x.id===player.ship)||ships[0]).speed*150;let ax=(keys.d?1:0)-(keys.a?1:0),ay=(keys.s?1:0)-(keys.w?1:0);if(pointer){ax=pointer.dx;ay=pointer.dy}const l=Math.hypot(ax,ay)||1;ship.x=Math.max(24,Math.min(cv.width-24,ship.x+ax/l*s*dt));ship.y=Math.max(24,Math.min(cv.height-24,ship.y+ay/l*s*dt));if(player.ownedModules.includes('regen')&&ax===0&&ay===0)hp=Math.min(100,hp+2*dt);shotClock+=dt;if(shotClock>.28&&enemies.length){shotClock=0;let target=enemies[0],best=Infinity;for(const e of enemies){const d=Math.hypot(e.x-ship.x,e.y-ship.y);if(d<best){best=d;target=e}}const dx=target.x-ship.x,dy=target.y-ship.y,ll=Math.hypot(dx,dy)||1;shots.push({x:ship.x,y:ship.y,vx:dx/ll*520,vy:dy/ll*520,life:1.2})}for(const e of enemies){const dx=ship.x-e.x,dy=ship.y-e.y,ll=Math.hypot(dx,dy)||1;e.x+=dx/ll*e.spd*dt;e.y+=dy/ll*e.spd*dt;if(ll<e.r+ship.r)hp-=20*dt}for(const s0 of shots){s0.x+=s0.vx*dt;s0.y+=s0.vy*dt;s0.life-=dt}shots=shots.filter(s0=>s0.life>0);for(let i=enemies.length-1;i>=0;i--){const e=enemies[i];for(let j=shots.length-1;j>=0;j--){const s0=shots[j];if(Math.hypot(e.x-s0.x,e.y-s0.y)<e.r+5){e.hp-=22;shots.splice(j,1);if(e.hp<=0){score+=100+wave*10;burst(e.x,e.y,e.c);enemies.splice(i,1);break}}}}if(enemies.length===0){wave++;waveTimer=3;player.stats.bestWave=Math.max(player.stats.bestWave,wave);player.missions.wave=Math.max(player.missions.wave,wave);spawnWave()}for(const p of parts){p.x+=p.vx*dt;p.y+=p.vy*dt;p.life-=dt}parts=parts.filter(p=>p.life>0);$('aWave').textContent=wave;$('aEnemies').textContent=enemies.length;$('aHp').textContent=Math.max(0,Math.floor(hp));$('aTime').textContent=Math.floor(time)+'s';if(hp<=0)endArena()}
+function burst(x,y,c){for(let i=0;i<10;i++)parts.push({x,y,vx:(Math.random()-.5)*100,vy:(Math.random()-.5)*100,life:.45,c})}
+function draw(){const g=ctx.createRadialGradient(ship.x,ship.y,20,ship.x,ship.y,500);g.addColorStop(0,'#202f5f');g.addColorStop(1,'#030612');ctx.fillStyle=g;ctx.fillRect(0,0,cv.width,cv.height);ctx.strokeStyle='#4fe7ff16';for(let r=80;r<500;r+=80){ctx.beginPath();ctx.arc(500,280,r+Math.sin(time+r)*5,0,Math.PI*2);ctx.stroke()}for(let i=0;i<70;i++){ctx.fillStyle='#ffffff18';ctx.fillRect((i*113)%cv.width,(i*71)%cv.height,2,2)}for(const e of enemies){ctx.shadowColor=e.c;ctx.shadowBlur=12;ctx.fillStyle=e.c;ctx.beginPath();ctx.arc(e.x,e.y,e.r,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#fff';ctx.fillRect(e.x-3,e.y-3,3,3)}for(const s0 of shots){ctx.fillStyle='#4fe7ff';ctx.fillRect(s0.x-3,s0.y-3,6,6)}ctx.shadowColor='#4fe7ff';ctx.shadowBlur=24;ctx.fillStyle='#4fe7ff';ctx.beginPath();ctx.arc(ship.x,ship.y,ship.r,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(ship.x-5,ship.y-5,4,0,Math.PI*2);ctx.fill();for(const p of parts){ctx.globalAlpha=Math.max(0,p.life/.45);ctx.fillStyle=p.c;ctx.fillRect(p.x,p.y,3,3)}ctx.globalAlpha=1}
+function dash(){if(!running||dashCd>0)return;dashCd=2.8;let dx=(keys.d?1:0)-(keys.a?1:0),dy=(keys.s?1:0)-(keys.w?1:0);if(!dx&&!dy)dx=1;const l=Math.hypot(dx,dy);ship.x=Math.max(24,Math.min(cv.width-24,ship.x+dx/l*130));ship.y=Math.max(24,Math.min(cv.height-24,ship.y+dy/l*130));player.stats.dashes++;player.missions.dash++;}
+function pulse(){if(!running||pulseCd>0)return;pulseCd=5;const rad=120;for(const e of enemies)if(Math.hypot(e.x-ship.x,e.y-ship.y)<rad)e.hp-=80;player.stats.pulses++;burst(ship.x,ship.y,'#ffd75b')}
+function pauseArena(){if(!running)return;paused=!paused;if(!paused){last=performance.now();raf=requestAnimationFrame(loop)}}
+function endArena(){if(!running)return;running=false;cancelAnimationFrame(raf);player.stats.runs++;player.stats.score+=score;player.stats.playTime+=time;player.missions.runs++;player.coins+=Math.floor(score/100*(1+(player.pet?(pets.find(p=>p.id===player.pet)?.bonus||0):0)));if(wave>=10&&!player.achievements.includes('wave10')){player.achievements.push('wave10');player.coins+=800}if(!player.achievements.includes('first')){player.achievements.push('first');player.coins+=150}save();refresh();renderRank()}
+$('dashBtn').onclick=dash;$('pulseBtn').onclick=pulse;cv.addEventListener('pointerdown',e=>{if(device==='pc')return;const r=cv.getBoundingClientRect();pointer={dx:(e.clientX-r.left-r.width/2)/(r.width/2),dy:(e.clientY-r.top-r.height/2)/(r.height/2)}});cv.addEventListener('pointermove',e=>{if(device==='pc'||!pointer)return;const r=cv.getBoundingClientRect();pointer={dx:(e.clientX-r.left-r.width/2)/(r.width/2),dy:(e.clientY-r.top-r.height/2)/(r.height/2)}});window.addEventListener('pointerup',()=>pointer=null);window.addEventListener('keydown',e=>{if(e.code==='KeyW')keys.w=true;if(e.code==='KeyA')keys.a=true;if(e.code==='KeyS')keys.s=true;if(e.code==='KeyD')keys.d=true;if(e.code==='Space'){e.preventDefault();dash()}if(e.code==='KeyE')pulse()});window.addEventListener('keyup',e=>{if(e.code==='KeyW')keys.w=false;if(e.code==='KeyA')keys.a=false;if(e.code==='KeyS')keys.s=false;if(e.code==='KeyD')keys.d=false});
+// Admin
+const adminHubs=[['dashboard','📊','Dashboard'],['players','👥','Players'],['ships','🚀','Ships'],['pets','🐉','Pets'],['shop','🛒','Shop'],['achieve','🏆','Achievements'],['mission','📅','Missions'],['ranking','🏆','Ranking'],['analytics','📈','Analytics'],['moderation','🚨','Moderation'],['news','📰','News'],['event','🎟️','Event'],['gift','🎁','Gift Code'],['game','⚙️','Game'],['server','☁️','Server'],['log','📝','Log']];
+function adminLogin(){if($('adminPw').value!=='1'){$('adminErr').textContent='Sai mật khẩu.';return}$('adminLogin').classList.add('hidden');$('adminApp').classList.remove('hidden');renderAdminHubs()}
+function renderAdminHubs(){$('hubGrid').innerHTML=adminHubs.map(h=>`<button class="hub" onclick="adminHub('${h[0]}')"><span class="ico">${h[1]}</span><b>${h[2]}</b><small>Quản lý</small></button>`).join('');adminHub('dashboard')}
+function adminHub(id){const box=$('adminWindow');if(id==='dashboard'){box.innerHTML=`<div class="grid4"><div class="card"><div class="eyebrow">PLAYERS</div><b style="font-size:24px">1</b></div><div class="card"><div class="eyebrow">RUNS</div><b style="font-size:24px">${player.stats.runs}</b></div><div class="card"><div class="eyebrow">COINS</div><b style="font-size:24px">${fmt(player.coins)}</b></div><div class="card"><div class="eyebrow">BEST WAVE</div><b style="font-size:24px">${player.stats.bestWave}</b></div></div>`;return}if(id==='players'){box.innerHTML=`<div class="card"><div class="eyebrow">PLAYER DETAIL</div><h3>${player.name}</h3><div class="grid3" style="margin-top:8px"><div><span class="muted small">COINS</span><b>${fmt(player.coins)}</b></div><div><span class="muted small">VIP</span><b>${player.vip}</b></div><div><span class="muted small">BEST</span><b>${player.stats.bestWave}</b></div></div><button class="btn gold" style="margin-top:10px" onclick="player.coins+=1000;save();adminHub('players');refresh()">+1000 COIN</button><button class="btn" style="margin-top:10px" onclick="player.vip++;save();adminHub('players');refresh()">+ VIP</button></div>`;return}if(id==='ships')return adminCatalog(box,'SHIP CATALOG',ships);if(id==='pets')return adminCatalog(box,'PET CATALOG',pets);if(id==='shop')return adminCatalog(box,'SHOP CATALOG',[...ships,...pets,...frames]);if(id==='achieve'){box.innerHTML=achievements.map(a=>`<div class="row"><div><strong>${a.icon} ${a.name}</strong><small>${a.desc}</small></div><span class="tag">+${a.reward}</span></div>`).join('');return}if(id==='mission'){box.innerHTML=missions.map(m=>`<div class="row"><div><strong>${m.name}</strong><small>Goal ${m.goal} • Reward ${m.reward}</small></div><span class="tag">ACTIVE</span></div>`).join('');return}if(id==='ranking'){box.innerHTML=`<div class="notice">Reset chỉ ảnh hưởng dữ liệu xếp hạng cục bộ của bản demo.</div><button class="btn red wide" style="margin-top:8px" onclick="player.stats.bestWave=0;save();adminHub('ranking');refresh()">RESET BEST WAVE</button>`;return}if(id==='analytics'){box.innerHTML=`<div class="grid3"><div class="card"><div class="eyebrow">RUNS</div><b style="font-size:24px">${player.stats.runs}</b></div><div class="card"><div class="eyebrow">SCORE</div><b style="font-size:24px">${fmt(player.stats.score)}</b></div><div class="card"><div class="eyebrow">PLAY TIME</div><b style="font-size:24px">${Math.floor(player.stats.playTime/60)}m</b></div></div>`;return}if(id==='game'){box.innerHTML=`<div class="formGrid"><label class="card small">Enemy Speed<input id="enemyCfg" value="40"></label><label class="card small">Wave Cooldown<input id="waveCfg" value="3"></label></div><button class="btn gold wide" style="margin-top:8px" onclick="localStorage.setItem('rift-enemy',document.getElementById('enemyCfg').value);localStorage.setItem('rift-wave',document.getElementById('waveCfg').value);alert('Đã lưu cấu hình')">SAVE</button>`;return}if(id==='server'){box.innerHTML=`<div class="grid3"><div class="card"><div class="eyebrow">STORAGE</div><b>${localStorage.getItem(key)?'READY':'EMPTY'}</b></div><div class="card"><div class="eyebrow">DEVICE</div><b>${device||'—'}</b></div><div class="card"><div class="eyebrow">PLAYER</div><b>${player.name}</b></div></div>`;return}if(id==='moderation'){box.innerHTML='<div class="notice">Moderation demo quản lý cục bộ. Có thể mở rộng khi backend thật được kết nối.</div>';return}if(id==='news'||id==='event'||id==='gift'||id==='log'){box.innerHTML=`<div class="formGrid"><input placeholder="Tên / tiêu đề"><input placeholder="Reward / value"></div><textarea rows="4" style="margin-top:8px" placeholder="Nội dung"></textarea><button class="btn gold wide" style="margin-top:8px" onclick="alert('Đã lưu bản nháp')">SAVE DRAFT</button>`;}}
+function adminCatalog(box,title,defs){box.innerHTML='<div class="list">'+defs.map(d=>`<div class="row"><div><strong>${d.icon} ${d.name}</strong><small>${d.rarity||''} • ${d.price} coin</small></div><button class="btn" onclick="openDetail('${title}',${JSON.stringify('')})">VIEW</button></div>`).join('')+'</div>';}
+// start
+load();if(!device)$('deviceModal').classList.remove('hidden');else if(!player)$('nameModal').classList.remove('hidden');else enter();
+$('shopTabs').addEventListener('click',e=>{const b=e.target.closest('button');if(b)setShopTab(b.dataset.tab)});$('rankTabs').addEventListener('click',e=>{const b=e.target.closest('button');if(b)rankSet(b.dataset.rank)});document.querySelectorAll('.bottom button').forEach(b=>b.addEventListener('click',()=>nav(b.dataset.n)));
 </script>
-</body>
-</html>
+
+<div class="modal hidden" id="grindModal">
+  <div class="modalBox">
+    <div class="modalHead"><div><div class="eyebrow">RIFT PROGRESSION</div><div style="font-size:19px;font-weight:900">CÀY & TIẾN HÓA</div></div><button class="close" onclick="closeModal('grindModal')">✕</button></div>
+    <div class="modalBody">
+      <div class="card" id="grindHero"></div>
+      <div class="section"><div class="titleRow"><div><div class="eyebrow">DAILY</div><div class="h2">Nhiệm vụ ngày</div></div><span class="pill" id="dailyResetText">Tự làm mới</span></div><div class="grindGrid" id="dailyGrid"></div></div>
+      <div class="section"><div class="titleRow"><div><div class="eyebrow">WEEKLY</div><div class="h2">Thử thách tuần</div></div><span class="pill">Phần thưởng lớn</span></div><div class="grindGrid" id="weeklyGrid"></div></div>
+      <div class="section"><div class="titleRow"><div><div class="eyebrow">MASTERY</div><div class="h2">Mastery tàu & Pet</div></div></div><div class="grindGrid" id="masteryGrid"></div></div>
+      <div class="section"><div class="titleRow"><div><div class="eyebrow">MILESTONES</div><div class="h2">Mốc cày Wave</div></div></div><div class="list" id="milestoneGrid"></div></div>
+      <div class="section"><div class="titleRow"><div><div class="eyebrow">CHEST</div><div class="h2">Rương Rift</div></div><span class="pill" id="chestCountPill"></span></div><div class="grindGrid" id="chestGrid"></div></div>
+      <div class="section"><div class="titleRow"><div><div class="eyebrow">FORGE</div><div class="h2">Nâng cấp Core</div></div><span class="pill">Dùng Shard</span></div><div class="grindGrid" id="forgeGrid"></div></div>
+    </div>
+  </div>
+</div>
+<script id="grindScript">
+// === GRIND / PROGRESSION SYSTEM v1.1 ===
+const GRIND_KEY='rift-grind-v1';
+const grindDefaults={level:1,xp:0,xpTotal:0,shards:0,streak:1,lastLogin:'',daily:{date:'',claimed:[],progress:{}},weekly:{week:'',claimed:[],progress:{}},shipMastery:{},petBond:{},milestones:[],chests:{common:0,rare:0,legendary:0},forge:{core:0,armor:0,engine:0}};
+let grind=loadGrind();
+function loadGrind(){try{return Object.assign({},grindDefaults,JSON.parse(localStorage.getItem(GRIND_KEY)||'{}'))}catch{return {...grindDefaults}}}
+function saveGrind(){localStorage.setItem(GRIND_KEY,JSON.stringify(grind))}
+function dayKey(){return new Date().toISOString().slice(0,10)}
+function weekKey(){const d=new Date(), y=d.getUTCFullYear(), first=new Date(Date.UTC(y,0,1)); const w=Math.ceil((((d-first)/86400000)+first.getUTCDay()+1)/7); return y+'-W'+w}
+function xpNeed(){return 500+grind.level*250}
+function addGrindXP(amount){amount=Math.max(0,Math.floor(amount||0));if(!amount)return;grind.xp+=amount;grind.xpTotal+=amount;let levels=0;while(grind.xp>=xpNeed()){grind.xp-=xpNeed();grind.level++;levels++;player.coins+=150+grind.level*50;grind.shards+=5+grind.level;player.notifications=player.notifications||[];player.notifications.unshift({text:`⭐ Rift Level ${grind.level}! +Coin +Shard`,ts:Date.now()})}if(levels)save();saveGrind()}
+function resetGrindPeriods(){const d=dayKey(),w=weekKey();if(grind.daily.date!==d){grind.daily={date:d,claimed:[],progress:{wave:0,runs:0,dash:0,pulse:0,score:0}};}
+if(grind.weekly.week!==w){grind.weekly={week:w,claimed:[],progress:{wave:0,runs:0,score:0,dash:0,pulse:0}};}saveGrind()}
+function loginStreak(){const d=dayKey();if(grind.lastLogin===d)return;const prev=new Date(Date.now()-86400000).toISOString().slice(0,10);if(grind.lastLogin===prev)grind.streak=Math.min(30,grind.streak+1);else grind.streak=1;grind.lastLogin=d;saveGrind()}
+loginStreak();resetGrindPeriods();
+const dailyDefs=[{id:'dw',name:'Rift Runner',desc:'Đạt Wave 5 trong một trận',key:'wave',goal:5,reward:250,xp:140},{id:'dr',name:'Cày đều',desc:'Hoàn thành 2 trận',key:'runs',goal:2,reward:200,xp:120},{id:'dd',name:'Dash Master',desc:'Dùng Dash 10 lần',key:'dash',goal:10,reward:220,xp:130},{id:'dp',name:'Pulse Hunter',desc:'Dùng Pulse 8 lần',key:'pulse',goal:8,reward:220,xp:130},{id:'ds',name:'Score Grind',desc:'Đạt 5.000 Score',key:'score',goal:5000,reward:300,xp:180}];
+const weeklyDefs=[{id:'ww',name:'Rift Conqueror',desc:'Đạt Wave 20',key:'wave',goal:20,reward:1200,xp:700,chest:'rare'},{id:'wr',name:'Marathon',desc:'Hoàn thành 10 trận',key:'runs',goal:10,reward:900,xp:550,chest:'common'},{id:'ws',name:'High Score',desc:'Tích 25.000 Score',key:'score',goal:25000,reward:1500,xp:850,chest:'rare'},{id:'wd',name:'Dash Veteran',desc:'Dùng Dash 40 lần',key:'dash',goal:40,reward:800,xp:500,chest:'common'}];
+const milestoneDefs=[5,10,15,20,25,30,40,50,75,100];
+const forgeDefs=[
+{id:'core',name:'Core Damage',icon:'💠',max:10,cost:l=>10+l*6,desc:l=>`Pulse damage +${l*12}%`},
+{id:'armor',name:'Hull Armor',icon:'🛡️',max:10,cost:l=>10+l*6,desc:l=>`HP cơ bản +${l*10}`},
+{id:'engine',name:'Ion Engine',icon:'⚡',max:10,cost:l=>10+l*6,desc:l=>`Tốc độ di chuyển +${l*5}%`}
+];
+function openGrind(){resetGrindPeriods();renderGrind();$('grindModal').classList.remove('hidden')}
+function closeGrind(){closeModal('grindModal')}
+function claimQuest(type,id){const defs=type==='daily'?dailyDefs:weeklyDefs, bucket=type==='daily'?grind.daily:grind.weekly;const d=defs.find(x=>x.id===id);if(!d||bucket.claimed.includes(id))return;const val=bucket.progress[d.key]||0;if(val<d.goal)return alert('Chưa hoàn thành nhiệm vụ.');bucket.claimed.push(id);player.coins+=d.reward;addGrindXP(d.xp);if(d.chest)grind.chests[d.chest]++;save();saveGrind();refresh();renderGrind()}
+function chestOpen(type){if(!grind.chests[type])return alert('Bạn chưa có rương.');grind.chests[type]--;let coins=0,shards=0,xp=0; if(type==='common'){coins=300+Math.floor(Math.random()*401);shards=5+Math.floor(Math.random()*6);xp=100}else if(type==='rare'){coins=800+Math.floor(Math.random()*1001);shards=12+Math.floor(Math.random()*9);xp=250}else{coins=2000+Math.floor(Math.random()*3001);shards=30+Math.floor(Math.random()*21);xp=700}player.coins+=coins;grind.shards+=shards;addGrindXP(xp);save();saveGrind();refresh();renderGrind();alert(`🎁 Rương mở! +${coins} Coin • +${shards} Shard • +${xp} XP`)}
+function buyForge(id){const f=forgeDefs.find(x=>x.id===id),lv=grind.forge[id]||0,cost=f?.cost(lv);if(!f||lv>=f.max)return;if(grind.shards<cost)return alert('Không đủ Shard.');grind.shards-=cost;grind.forge[id]=lv+1;saveGrind();alert(`✅ ${f.name} lên Lv.${lv+1}`);renderGrind()}
+function masteryHTML(type,id){const defs=type==='ship'?ships:pets;const d=defs.find(x=>x.id===id);if(!d)return '';const map=type==='ship'?grind.shipMastery:grind.petBond, xp=map[id]||0, lv=Math.floor(xp/100)+1, pct=xp%100;return `<div class="mastery"><div class="mi">${d.icon}</div><div style="flex:1"><b style="font-size:11px">${d.name}</b><div class="muted small">${type==='ship'?'Mastery':'Bond'} Lv.${lv} • ${xp} XP</div><div class="xpbar" style="margin-top:5px"><i style="width:${pct}%"></i></div></div><span class="tag">${pct}/100</span></div>`}
+function renderGrind(){resetGrindPeriods();const need=xpNeed(),pct=Math.min(100,grind.xp/need*100);$('grindHero').innerHTML=`<div class="eyebrow">PLAYER PROGRESSION</div><div style="display:flex;justify-content:space-between;gap:10px;align-items:end;margin:5px 0 8px"><div><div style="font-size:28px;font-weight:900">Rift Level ${grind.level}</div><div class="muted small">Chuỗi đăng nhập: 🔥 ${grind.streak} ngày</div></div><div style="text-align:right"><div style="font-size:12px;color:var(--gold);font-weight:900">+${fmt(grind.shards)} SHARD</div><div class="muted small">XP ${grind.xp}/${need}</div></div></div><div class="xpbar"><i style="width:${pct}%"></i></div><div class="grindQuick"><div class="grindStat"><small>XP TỔNG</small><b>${fmt(grind.xpTotal)}</b></div><div class="grindStat"><small>WAVE BEST</small><b>${player.stats.bestWave}</b></div><div class="grindStat"><small>TRẬN</small><b>${player.stats.runs}</b></div></div>`;
+$('dailyGrid').innerHTML=dailyDefs.map(q=>{const v=Math.min(q.goal,grind.daily.progress[q.key]||0),claimed=grind.daily.claimed.includes(q.id),p=v/q.goal*100;return `<div class="quest"><div class="qrow"><h4>${q.name}</h4><span class="tag">+${q.reward} 🪙</span></div><p>${q.desc}</p><div class="xpbar"><i style="width:${p}%"></i></div><div class="qrow" style="margin-top:6px"><span class="muted small">${fmt(v)} / ${fmt(q.goal)}</span><button class="btn ${claimed?'green':'gold'}" ${claimed||v<q.goal?'disabled':''} onclick="claimQuest('daily','${q.id}')">${claimed?'✓ NHẬN RỒI':'NHẬN'}</button></div></div>`}).join('');
+$('weeklyGrid').innerHTML=weeklyDefs.map(q=>{const v=Math.min(q.goal,grind.weekly.progress[q.key]||0),claimed=grind.weekly.claimed.includes(q.id),p=v/q.goal*100;return `<div class="quest"><div class="qrow"><h4>${q.name}</h4><span class="tag">+${q.reward} 🪙</span></div><p>${q.desc}</p><div class="xpbar"><i style="width:${p}%"></i></div><div class="qrow" style="margin-top:6px"><span class="muted small">${fmt(v)} / ${fmt(q.goal)}${q.chest?' • 🎁 '+q.chest:''}</span><button class="btn ${claimed?'green':'gold'}" ${claimed||v<q.goal?'disabled':''} onclick="claimQuest('weekly','${q.id}')">${claimed?'✓ NHẬN RỒI':'NHẬN'}</button></div></div>`}).join('');
+const shipMastery=masteryHTML('ship',player.ship),petMastery=player.pet?masteryHTML('pet',player.pet):'<div class="notice">Trang bị Pet để bắt đầu Bond XP.</div>';$('masteryGrid').innerHTML=shipMastery+petMastery;
+$('milestoneGrid').innerHTML=milestoneDefs.map(m=>{const done=player.stats.bestWave>=m, claimed=grind.milestones.includes(m);return `<div class="milestone ${done?'':'locked'}"><div><b>Wave ${m}</b><div class="muted small">${done?'Đã đạt mốc':'Cần đạt Wave '+m}</div></div><button class="btn ${claimed?'green':'gold'}" ${!done||claimed?'disabled':''} onclick="claimMilestone(${m})">${claimed?'✓':'🎁 Nhận'}</button></div>`}).join('');
+$('chestCountPill').textContent=`C:${grind.chests.common||0} • R:${grind.chests.rare||0} • L:${grind.chests.legendary||0}`;$('chestGrid').innerHTML=[['common','🎁','Common Chest'],['rare','💎','Rare Chest'],['legendary','👑','Legendary Chest']].map(([t,i,n])=>`<div class="chest"><div class="ci">${i}</div><b>${n}</b><div class="muted small" style="margin:4px 0 7px">Sở hữu: ${grind.chests[t]||0}</div><button class="btn ${grind.chests[t]?'gold':'green'} wide" ${!grind.chests[t]?'disabled':''} onclick="chestOpen('${t}')">MỞ RƯƠNG</button></div>`).join('');
+$('forgeGrid').innerHTML=forgeDefs.map(f=>{const lv=grind.forge[f.id]||0,cost=f.cost(lv);return `<div class="quest"><div class="qrow"><h4>${f.icon} ${f.name}</h4><span class="tag">Lv.${lv}/${f.max}</span></div><p>${f.desc(lv)}</p><div class="qrow"><span class="muted small">Giá: ${cost} Shard</span><button class="btn gold" ${lv>=f.max||grind.shards<cost?'disabled':''} onclick="buyForge('${f.id}')">NÂNG CẤP</button></div></div>`}).join('');}
+function claimMilestone(m){if(player.stats.bestWave<m||grind.milestones.includes(m))return;grind.milestones.push(m);player.coins+=100+m*35;grind.shards+=Math.ceil(m/5);grind.chests[m>=20?'rare':'common']++;addGrindXP(100+m*20);save();saveGrind();refresh();renderGrind()}
+// Progress hooks
+let grindRunDashStart=0,grindRunPulseStart=0;
+const _oldStartArena=startArena; startArena=function(){grindRunDashStart=player?.stats?.dashes||0;grindRunPulseStart=player?.stats?.pulses||0;_oldStartArena();};
+const _oldEndArena=endArena; endArena=function(){_oldEndArena();const w=wave, s=score;const dashDelta=Math.max(0,(player.stats.dashes||0)-grindRunDashStart);const pulseDelta=Math.max(0,(player.stats.pulses||0)-grindRunPulseStart);addGrindXP(60+w*30+Math.floor(s/800));grind.shards+=Math.max(1,Math.floor(w/4));grind.shipMastery[player.ship]=(grind.shipMastery[player.ship]||0)+w*12;if(player.pet)grind.petBond[player.pet]=(grind.petBond[player.pet]||0)+w*8;grind.daily.progress.wave=Math.max(grind.daily.progress.wave,w);grind.daily.progress.runs++;grind.daily.progress.dash+=dashDelta;grind.daily.progress.pulse+=pulseDelta;grind.daily.progress.score+=s;grind.weekly.progress.wave=Math.max(grind.weekly.progress.wave,w);grind.weekly.progress.runs++;grind.weekly.progress.score+=s;grind.weekly.progress.dash+=dashDelta;grind.weekly.progress.pulse+=pulseDelta;saveGrind();refresh();}
+// Safer streak reward: claimable on opening progression once per day
+function claimStreak(){const key='rift-streak-claim-'+dayKey();if(localStorage.getItem(key))return alert('Hôm nay đã nhận thưởng.');const reward=100+Math.min(6,grind.streak-1)*75;player.coins+=reward;localStorage.setItem(key,'1');save();refresh();alert(`🔥 Streak ${grind.streak} ngày • +${reward} Coin`) }
+// Patch hero title area with progression entry
+const homeSection=document.getElementById('home');if(homeSection){const card=document.createElement('div');card.className='card section';card.innerHTML=`<div class="eyebrow">PROGRESSION HUB</div><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><div><div style="font-size:16px;font-weight:900">🔥 Cày & Tiến Hóa</div><div class="muted small">Level ${grind.level} • ${grind.xp}/${xpNeed()} XP • ${grind.shards} Shard</div></div><div style="display:flex;gap:6px"><button class="btn gold" onclick="openGrind()">MỞ HUB</button><button class="btn" onclick="claimStreak()">🔥 STREAK</button></div></div>`;homeSection.appendChild(card)}
+</script></body></html>
